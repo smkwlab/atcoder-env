@@ -1,0 +1,22 @@
+version: '3'
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # イメージ名を指定
+    image: ghcr.io/toshi0806/atcoder-env:latest
+
+    # localとcontainer間のファイルを同期させる
+    # ${local}:${container}
+    volumes:
+      - ../contest:/root/contest:cached
+      - ../lib:/root/lib:cached
+      - ../bin:/root/bin:cached
+      - ../atcoder-cli-nodejs:/root/.config/atcoder-cli-nodejs:cached
+      - ../.local:/root/.local:cached
+      - ../.vscode:/root/.vscode:cached
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: /bin/sh -c "while sleep 1000; do :; done"

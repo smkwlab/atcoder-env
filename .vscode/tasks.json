@@ -1,0 +1,58 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "AtCoder: OPEN Task Page",
+            "type": "shell",
+            "command": "cd ${fileDirname}; am web",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "AtCoder: TEST code",
+            "type": "shell",
+            "command": "cd ${fileDirname}; am t ${fileExtname}",
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+              },
+        },
+        {
+            "label": "AtCoder: TEST(float) code",
+            "type": "shell",
+            "command": "cd ${fileDirname}; am tf ${fileExtname}",
+            "problemMatcher": [],
+            "group": {
+                "kind": "test"
+              },
+        },
+        {
+            "label": "AtCoder: SUBMIT code",
+            "type": "shell",
+            "command": "cd ${fileDirname}; am s ${fileExtname}",
+            "presentation": {
+                "focus": true,
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "AtCoder: setup NEW contest",
+            "type": "shell",
+            "command": "cd ${env:CONTEST_DIR}; am new ${input:contest_id}",
+            "problemMatcher": []
+        },
+    ],
+    "inputs":[
+        {
+            "id": "contest_id",
+            "description": "参加するコンテスト名",
+            "type": "promptString"
+        }
+    ]
+}

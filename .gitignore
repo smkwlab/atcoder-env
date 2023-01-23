@@ -1,0 +1,6 @@
+contest/
+lib/*
+!lib/.support/
+atcoder-cli-nodejs/*/makefile
+atcoder-cli-nodejs/session.json
+.local/share/online-judge-tools/cookie.jar

@@ -1,0 +1,51 @@
+#! /bin/sh
+# AtCoder frontend utility for (formaly) Make
+
+CMD="$1"
+
+case ${CMD} in
+-h|--help)
+  cat<<'EOF'
+Usage: am <command> <params>
+
+command:
+  new <contest_id>   create task directory
+  t <extension>      test code by oj
+  test <extension>   execute code and display results
+  s <extension>      submit code by oj
+  dl                 download test cases
+  o                  open task web page by browser
+EOF
+  ;;
+new|setup)
+  CONTEST="$2"
+  (cd ${CONTEST_DIR}; acc new ${CONTEST} --no-tests)
+  ;;
+*)
+  EXT="$2"
+
+  case ${EXT} in
+  \.java)
+    PROG=java
+    ;;
+  \.py)
+    PROG=python
+    ;;
+  \.c++)
+    PROG=c++
+    ;;
+  \.rb)
+    PROG=ruby
+    ;;
+  \.ex)
+    PROG=elixir
+    ;;
+  *)
+    PROG=UNKNOWN
+    ;;
+  esac
+
+  export PROG
+  make ${CMD}
+  ;;
+esac
