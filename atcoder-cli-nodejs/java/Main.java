@@ -18,7 +18,7 @@ public class Main {
     }
 
     static String solve(int n) {
-        StringBuilder s = new StringBuilder("");
+        StringBuilder result = new StringBuilder("");
         //int result = 0;
 
         return String.valueOf(result).trim();
