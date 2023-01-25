@@ -22,13 +22,8 @@ ifeq ($(OS),Darwin)
 OPEN = open
 else
 ifeq ($(OS),Linux)
-ifeq ($(findstring microsoft,$(OS_REL)),microsoft)
-# WSL
-OPEN = powershell.exe /c start 
-else
 # Linux
 OPEN = xdg-open
-endif
 endif
 endif
 
