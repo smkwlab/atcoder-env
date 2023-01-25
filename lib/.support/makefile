@@ -52,8 +52,7 @@ OBJ = Main.class
 RUN_TEST = $(JAVA) Main
 # 4005 (Java (OpenJDK 11.0.6))
 # 4052 (Java (OpenJDK 1.8.0))
-#OJ_SFLAGS = -l 4005
-OJ_SFLAGS = -l 4052
+OJ_SFLAGS = -l 4005
 else
   ifeq ($(PROG),elixir)
 # Elixir

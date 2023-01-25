@@ -35,9 +35,8 @@ RUN npm install -g atcoder-cli@2.2.0
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
 #            gcc-9 g++-9 \
-# 本当は openjdk-11 だが、公式パッケージが配布されないようなので 8 で回避
-            openjdk-8-jdk-headless \
-#            openjdk-11-jdk-headless \
+#            openjdk-8-jdk-headless \
+            openjdk-11-jdk-headless \
 #            pypy3 \
 #            ruby \
             && \

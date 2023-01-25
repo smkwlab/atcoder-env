@@ -16,7 +16,7 @@ AtCoder 用ツールの acc, oj はインストール済み。
 
 各種環境設定としては、以下の言語に対応している(つもり)。
 
-- Java (JDK 8) : 本当は JDK 11 にしたいが apt install できない。
+- Java (JDK 11)
 - Ruby
 - Elixir
 - Python3
