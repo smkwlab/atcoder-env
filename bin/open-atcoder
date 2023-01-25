@@ -1,0 +1,14 @@
+#! /bin/sh
+
+case $(uname -s) in
+Linux)
+  OPEN=xdg-open
+  ;;
+Darwin)
+  OPEN=open
+  ;;
+*)
+  OPEN=echo
+  ;;
+esac
+${OPEN} http://atcoder.jp/
