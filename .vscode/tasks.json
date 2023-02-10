@@ -6,7 +6,10 @@
         {
             "label": "AtCoder: OPEN Task Page",
             "type": "shell",
-            "command": "cd ${fileDirname}; am web",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "command": "am web",
             "problemMatcher": [],
             "group": {
                 "kind": "build",
@@ -16,17 +19,23 @@
         {
             "label": "AtCoder: TEST code",
             "type": "shell",
-            "command": "cd ${fileDirname}; am t ${fileExtname}",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "command": "am t ${fileExtname}",
             "problemMatcher": [],
             "group": {
                 "kind": "test",
                 "isDefault": true
-              },
+            },
         },
         {
             "label": "AtCoder: TEST(float) code",
             "type": "shell",
-            "command": "cd ${fileDirname}; am tf ${fileExtname}",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "command": "am tf ${fileExtname}",
             "problemMatcher": [],
             "group": {
                 "kind": "test"
@@ -35,7 +44,10 @@
         {
             "label": "AtCoder: SUBMIT code",
             "type": "shell",
-            "command": "cd ${fileDirname}; am s ${fileExtname}",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "command": "am s ${fileExtname}",
             "presentation": {
                 "focus": true,
             },
@@ -44,7 +56,10 @@
         {
             "label": "AtCoder: setup NEW contest",
             "type": "shell",
-            "command": "cd ${env:CONTEST_DIR}; am new ${input:contest_id}",
+            "options": {
+                "cwd": "${env:CONTEST_DIR}"
+            },
+            "command": "am new ${input:contest_id}",
             "problemMatcher": []
         },
     ],
