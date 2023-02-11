@@ -31,7 +31,7 @@ new|setup)
   \.py)
     PROG=python
     ;;
-  \.c++)
+  \.cpp|\.c++)
     PROG=c++
     ;;
   \.rb)
