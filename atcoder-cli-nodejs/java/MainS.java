@@ -1,3 +1,5 @@
+// solve の返り値型が String のバージョン
+// Main.java にリネームして使ってください。
 import java.util.*;
 import java.io.*;
 
@@ -17,10 +19,10 @@ public class Main {
         System.out.println(solve(n));
     }
 
-    static int solve(int n) {
-        //StringBuilder result = new StringBuilder("");
-        int result = 0;
+    static String solve(int n) {
+        StringBuilder result = new StringBuilder("");
+        //int result = 0;
 
-        return result;
+        return String.valueOf(result).trim();
     }
 }

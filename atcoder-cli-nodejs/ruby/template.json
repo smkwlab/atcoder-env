@@ -1,0 +1,6 @@
+{
+  "task": {
+    "program": ["Main.rb", "makefile"],
+    "submit": "Main.rb"
+  }
+}
