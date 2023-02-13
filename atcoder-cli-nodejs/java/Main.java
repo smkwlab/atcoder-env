@@ -17,9 +17,10 @@ public class Main {
         System.out.println(solve(n));
     }
 
-    static int solve(int n) {
-        //StringBuilder result = new StringBuilder("");
-        int result = 0;
+    static String solve(int n) {
+        String result = "";
+        // StringBuilder result = new StringBuilder("");
+        //int result = 0;
 
         return result;
     }
