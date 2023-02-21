@@ -3,6 +3,9 @@
 このリポジトリをクローンし VSCode で開くと、devcontainer が環境を構築する。
 docker image を大きくしたくなかったので、デフォルトでインストールするプログラミング言語処理系は絞っている。
 
+なお、利用するプログラミング言語が Java, Python3, JavaScript のいずれかであれば、
+[atcoder-java](https://github.com/smkwlab/atcoder-java)を利用するほうが手軽なのでお勧め。
+
 AtCoder 用ツールの acc, oj はインストール済み。
 後述の VSCode タスクを支援するための、独自ツールもインストール済み。
 
