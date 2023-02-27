@@ -106,11 +106,8 @@ endif
 endif
 
 OJ = oj
-OJ_T_EXTRA_FILE = tflags.txt
-ifneq ("$(wildcard $(OJ_T_EXTRA_FILE))", "")
-OJ_TFLAGS_EXTRA = $$(cat $(OJ_T_EXTRA_FILE))
-endif
-OJ_TFLAGS = -c '$(RUN_TEST)' --ignore-spaces-and-newline $(OJ_TFLAGS_EXTRA)
+OJ_TFLAGS = -c '$(RUN_TEST)' --ignore-spaces-and-newline
+OJ_TFLAGS_FLOAT = -e 1e-6
 
 TASK:=$$(basename $(CURDIR))
 TASK_URL:=$$(cat ../contest.acc.json|jq -r ".tasks|map(select(.directory.path==\"$(TASK)\"))[]|.url")
@@ -150,6 +147,9 @@ dropboxapi:
 
 t: $(TARGET) test/sample-1.in
 	$(OJ) t $(OJ_TFLAGS)
+
+tf: $(TARGET) test/sample-1.in
+	$(OJ) t $(OJ_TFLAGS) $(OJ_TFLAGS_FLOAT)
 
 s: $(TARGET)
 	$(OJ) s $(TASK_URL) $(SRC) $(OJ_SFLAGS)
