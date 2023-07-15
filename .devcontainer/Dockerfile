@@ -38,7 +38,8 @@ RUN apt-get update && \
 #            openjdk-8-jdk-headless \
             openjdk-11-jdk-headless \
 #            pypy3 \
-#            ruby \
+            ruby \
+            elixir \
             && \
     apt-get clean && \
     apt-get autoremove -y && \

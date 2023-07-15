@@ -4,5 +4,5 @@
 	"default-task-dirname-format": "{tasklabel}",
 	"default-test-dirname-format": "test",
 	"default-task-choice": "all",
-	"default-template": "java"
+	"default-template": "all"
 }
