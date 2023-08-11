@@ -39,11 +39,27 @@ RUN apt-get update && \
             openjdk-11-jdk-headless \
 #            pypy3 \
 #            ruby \
-#            elixir \
+# elixir 使うなら erlang は必須            
+#            erlang \
             && \
     apt-get clean && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
+
+# elixir
+#RUN ELIXIR_VERSION="v1.10.2" && \
+#    ELIXIR_URL="https://github.com/elixir-lang/elixir/archive/${ELIXIR_VERSION}.tar.gz" && \
+#    ELIXIR_DIR="/usr/local/src/elixir" && \
+#    ELIXIR_TGZ="elixir-src.tar.gz" && \
+#    curl -fSL -o ${ELIXIR_TGZ} ${ELIXIR_URL} && \
+#    mkdir -p ${ELIXIR_DIR} && \
+#    tar -xzC ${ELIXIR_DIR} --strip-components=1 -f ${ELIXIR_TGZ} && \
+#    rm ${ELIXIR_TGZ} && \
+#    cd ${ELIXIR_DIR} && \
+#    make install clean && \
+#    find ${ELIXIR_DIR}/ -type f -not -regex "${ELIXIR_DIR}/lib/[^\/]*/lib.*" -exec rm -rf {} + && \
+#    find ${ELIXIR_DIR}/ -type d -depth -empty -delete
+#
 
 # バージョン番号非依存のコマンド名を設定
 # e.g. python3.8 main.py => python main.py
