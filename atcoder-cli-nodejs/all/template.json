@@ -1,0 +1,6 @@
+{
+  "task": {
+    "program": ["Main.java", "Main.ex", "Main.rb", "Main.py", "Main.cpp", "makefile"],
+    "submit": "Main.java"
+  }
+}
