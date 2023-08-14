@@ -18,22 +18,14 @@
 	// connected. This is typically a file mount in .devcontainer/docker-compose.yml
 	"workspaceFolder": "/root",
 
-	//"settings": {
-	//	"extensions.autoCheckUpdates": false,
-	//	"extensions.autoUpdate": false
-	//},
-
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"sanaajani.taskrunnercode", // Run tasks from Explorer pane
-		"vscjava.vscode-java-pack", // Extension Pack for Java (Microsoft)
-		"ms-python.python", // Python IntelliSense (Microsoft)
-		"ms-python.vscode-pylance", // Python language server (Microsoft)
-		"ms-vscode.cpptools", // C/C++ IntelliSense (Microsoft)
 		"visualstudioexptteam.vscodeintellicode", // AI-assisted development (Microsoft)
 		"yzhang.markdown-all-in-one", // Markdown
 		"zainchen.json", // Json
-	//	"JakeBecker.elixir-ls@0.10.0" // Elixir-LS
+		"oderwat.indent-rainbow", // Indent Rainbow
+		"shardulm94.trailing-spaces" // Trailing Spaces
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
