@@ -127,11 +127,48 @@ test: test/sample-1.in $(TARGET)
 		echo %% output: %%; \
 		cat $$i | $(RUN_TEST); \
 		echo %% expected: %%; \
-		cat $$(i//in/out); \
+		cat $$(echo $$i | sed -e s/in/out/) ; \
 		echo ''; \
 	done
 
+test1: test/sample-1.in $(TARGET)
+	@for i in test/sample-1.in; do \
+		echo  %%% TEST DATA %%%  $$i; \
+		echo %% input: %%; \
+		cat $$i; \
+		echo %% output: %%; \
+		cat $$i | $(RUN_TEST); \
+		echo %% expected: %%; \
+		cat $$(echo $$i | sed -e s/in/out/) ; \
+		echo ''; \
+	done
+test2: test/sample-2.in $(TARGET)
+	@for i in test/sample-2.in; do \
+		echo  %%% TEST DATA %%%  $$i; \
+		echo %% input: %%; \
+		cat $$i; \
+		echo %% output: %%; \
+		cat $$i | $(RUN_TEST); \
+		echo %% expected: %%; \
+		cat $$(echo $$i | sed -e s/in/out/) ; \
+		echo ''; \
+	done
+test3: test/sample-3.in $(TARGET)
+	@for i in test/sample-3.in; do \
+		echo  %%% TEST DATA %%%  $$i; \
+		echo %% input: %%; \
+		cat $$i; \
+		echo %% output: %%; \
+		cat $$i | $(RUN_TEST); \
+		echo %% expected: %%; \
+		cat $$(echo $$i | sed -e s/in/out/) ; \
+		echo ''; \
+	done
 test/sample-1.in:
+	$(OJ) dl $(TASK_URL)
+test/sample-2.in:
+	$(OJ) dl $(TASK_URL)
+test/sample-3.in:
 	$(OJ) dl $(TASK_URL)
 dl: test/sample-1.in
 
