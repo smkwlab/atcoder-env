@@ -126,7 +126,7 @@ test: test/sample-1.in $(TARGET)
 		cat $$i; \
 		echo %% output: %%; \
 		cat $$i | $(RUN_TEST); \
-s		echo %% expected: %%; \
+		echo %% expected: %%; \
 		cat $$(i//in/out); \
 		echo ''; \
 	done
