@@ -60,6 +60,27 @@ RUN . ${HOME}/.asdf/asdf.sh && \
 
 
 # AtCoder 参加用プログラミング言語
+# C++
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libgmp3-dev unzip && \
+    cd /tmp && \
+    # ac library
+    mkdir -p /opt/ac-library && \
+    curl -OL https://github.com/atcoder/ac-library/releases/download/v1.5.1/ac-library.zip && \
+    unzip /tmp/ac-library.zip -d /opt/ac-library && \
+    # boost
+    curl -OL https://boostorg.jfrog.io/artifactory/main/release/1.82.0/source/boost_1_82_0.tar.gz && \
+    tar xf boost_1_82_0.tar.gz && \
+    cd boost_1_82_0 && \
+    ./bootstrap.sh --with-toolset=gcc --without-libraries=mpi,graph_parallel && \
+    ./b2 -j3 toolset=gcc variant=release link=static runtime-link=static cxxflags="-std=c++20" stage && \
+    ./b2 -j3 toolset=gcc variant=release link=static runtime-link=static cxxflags="-std=c++20" --prefix=/opt/boost/gcc install && \
+    #Eigen
+    apt install -y libeigen3-dev=3.4.0-2ubuntu2 && \
+    apt-get clean && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
+
 # Java
 RUN . ${HOME}/.asdf/asdf.sh && \
     asdf plugin-add java https://github.com/halcyon/asdf-java.git && \
