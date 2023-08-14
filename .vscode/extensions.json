@@ -1,12 +1,5 @@
 {
 	"recommendations": [
-		"sanaajani.taskrunnercode", // Run tasks from Explorer pane
-		"visualstudioexptteam.vscodeintellicode", // AI-assisted development (Microsoft)
-		"oderwat.indent-rainbow", // Indent Rainbow
-		"shardulm94.trailing-spaces", // Trailing Spaces
-		"yzhang.markdown-all-in-one", // Markdown
-		"zainchen.json", // Json
-
 		"vscjava.vscode-java-pack", // Extension Pack for Java (Microsoft)
 
 		"ms-python.python", // Python IntelliSense (Microsoft)
@@ -17,6 +10,7 @@
 		"kaiwood.endwise",
 
 		"ms-vscode.cpptools", // C/C++ IntelliSense (Microsoft)
-		"JakeBecker.elixir-ls" // Elixir-LS
+
+		"JakeBecker.elixir-ls" // Elixir
 	]
 }
