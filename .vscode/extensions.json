@@ -1,0 +1,16 @@
+{
+	"recommendations": [
+		"vscjava.vscode-java-pack", // Extension Pack for Java (Microsoft)
+
+		"ms-python.python", // Python IntelliSense (Microsoft)
+		"ms-python.vscode-pylance", // Python language server (Microsoft)
+
+		"rebornix.Ruby", // Ruby
+		"castwide.solargraph",
+		"kaiwood.endwise",
+
+		"ms-vscode.cpptools", // C/C++ IntelliSense (Microsoft)
+
+		"JakeBecker.elixir-ls" // Elixir
+	]
+}

@@ -54,9 +54,8 @@ ifeq ($(PROG),java)
 SRC = Main.java
 TARGET = $(JAVATARGET)
 RUN_TEST = $(JAVA) Main
-# 4005 (Java (OpenJDK 11.0.6))
-# 4052 (Java (OpenJDK 1.8.0))
-OJ_SFLAGS = -l 4005
+# 5005 (Java (OpenJDK 17))
+OJ_SFLAGS = -l 5005
 else
 ifeq ($(PROG),elixir)
 # Elixir
@@ -65,26 +64,25 @@ TARGET = $(ELIXIRTARGET)
 RUN_TEST = $(ELIXIR) $(ELIXIRFLAGS) Main.main
 $(TARGET) : $(SRC)
 	$(ELIXIRC) $(SRC) $(ELIXIRCFLAGS)
-# 4021 (Elixir (1.10.2))
-OJ_SFLAGS = -l 4021
+# 5085 (Elixir (1.15.2))
+OJ_SFLAGS = -l 5085
 else
 ifeq ($(PROG),ruby)
 # Ruby
 SRC = Main.rb
 TARGET =
 RUN_TEST = $(RUBY) $(SRC)
-# 4049 (Ruby (2.7.1))
-OJ_SFLAGS = -l 4049
+# 5018 (Ruby (3.2.2))
+OJ_SFLAGS = -l 5018
 else
 ifeq ($(PROG),python)
 # Python
 SRC = Main.py
 TARGET =
 RUN_TEST = $(PYTHON) $(SRC)
-# 4006 (Python (3.8.2))
-# 4046 (PyPy2 (7.3.0))
-# 4047 (PyPy3 (7.3.0))
-OJ_SFLAGS = -l 4006
+# 5055 (CPython (3.11.4))
+# 5078 (PyPy3 (3.10-v7.3.12))
+OJ_SFLAGS = -l 5055
 else
 ifeq ($(PROG), c++)
 # C++
@@ -93,8 +91,8 @@ TARGET = $(CPPTARGET)
 RUN_TEST = ./$(CPPTARGET)
 $(TARGET): $(SRC)
 	$(CC) $(CFLAGS) $^ -o $@
-# 4003 (GCC 9.2.1)
-OJ_SFLAGS = -l 4003
+# 5001 (C++ 20 (gcc 12.2))
+OJ_SFLAGS = -l 5001
 else
 # NOT SUPPORTED
 error:
@@ -128,12 +126,49 @@ test: test/sample-1.in $(TARGET)
 		cat $$i; \
 		echo %% output: %%; \
 		cat $$i | $(RUN_TEST); \
-s		echo %% expected: %%; \
-		cat $$(i//in/out); \
+		echo %% expected: %%; \
+		cat $$(echo $$i | sed -e s/in/out/) ; \
 		echo ''; \
 	done
 
+test1: test/sample-1.in $(TARGET)
+	@for i in test/sample-1.in; do \
+		echo  %%% TEST DATA %%%  $$i; \
+		echo %% input: %%; \
+		cat $$i; \
+		echo %% output: %%; \
+		cat $$i | $(RUN_TEST); \
+		echo %% expected: %%; \
+		cat $$(echo $$i | sed -e s/in/out/) ; \
+		echo ''; \
+	done
+test2: test/sample-2.in $(TARGET)
+	@for i in test/sample-2.in; do \
+		echo  %%% TEST DATA %%%  $$i; \
+		echo %% input: %%; \
+		cat $$i; \
+		echo %% output: %%; \
+		cat $$i | $(RUN_TEST); \
+		echo %% expected: %%; \
+		cat $$(echo $$i | sed -e s/in/out/) ; \
+		echo ''; \
+	done
+test3: test/sample-3.in $(TARGET)
+	@for i in test/sample-3.in; do \
+		echo  %%% TEST DATA %%%  $$i; \
+		echo %% input: %%; \
+		cat $$i; \
+		echo %% output: %%; \
+		cat $$i | $(RUN_TEST); \
+		echo %% expected: %%; \
+		cat $$(echo $$i | sed -e s/in/out/) ; \
+		echo ''; \
+	done
 test/sample-1.in:
+	$(OJ) dl $(TASK_URL)
+test/sample-2.in:
+	$(OJ) dl $(TASK_URL)
+test/sample-3.in:
 	$(OJ) dl $(TASK_URL)
 dl: test/sample-1.in
 
