@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
 
     # イメージ名を指定
-    image: ghcr.io/toshi0806/atcoder-env:latest
+    image: ghcr.io/smkwlab/atcoder-env:latest
 
     # localとcontainer間のファイルを同期させる
     # ${local}:${container}
