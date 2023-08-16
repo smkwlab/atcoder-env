@@ -6,18 +6,18 @@ defmodule Main do
   end
 
   def solve n do
-    
+
   end
-  
+
   # 文字列読み込み
-  # in: 
+  # in:
   # rikka
   # out:
   # "rikka"
   def read_string do
     IO.read(:line)
     |> String.trim
-  end    
+  end
 
   # 整数読み込み
   # in:
@@ -27,6 +27,46 @@ defmodule Main do
   def read_integer do
     read_string()
     |> String.to_integer
+  end
+
+  # 文字列配列読み込み
+  # in:
+  # rikka akane namiko
+  # out:
+  # ["rikka", "akane", "namiko"]
+  def read_string_array do
+    read_string()
+    |> String.split(" ", trim: true)
+  end
+
+  # 整数配列読み込み
+  # in:
+  # 155 149 150
+  # out:
+  # [155, 149, 150]
+  def read_integer_array do
+    read_string_array()
+    |> Enum.map(&String.to_integer/1)
+  end
+
+  # 文字列タプル読み込み
+  # in:
+  # rikka akane namiko
+  # out:
+  # {"rikka", "akane", "namiko"}
+  def read_string_tuple do
+    read_string_array()
+    |> List.to_tuple()
+  end
+
+  # 整数タプル読み込み
+  # in:
+  # 155 149 150
+  # out:
+  # {155, 149, 150}
+  def read_integer_tuple do
+    read_integer_array()
+    |> List.to_tuple()
   end
 
   # 文字列複数行読み込み
@@ -51,46 +91,6 @@ defmodule Main do
   def read_integer_lines do
     read_string_lines()
     |> Enum.map(&String.to_integer/1)
-  end
-
-  # 文字列配列読み込み
-  # in:
-  # rikka akane namiko
-  # out:
-  # ["rikka", "akane", "namiko"]
-  def read_string_array do
-    read_string()
-    |> String.split(" ", trim: true)
-  end
-
-  # 整数配列読み込み
-  # in:
-  # 155 149 150
-  # out:
-  # [155, 149, 150]
-  def read_integer_array do
-    read_string_array()
-    |> Enum.map(&String.to_integer/1)
-  end
-    
-  # 文字列タプル読み込み
-  # in:
-  # rikka akane namiko
-  # out:
-  # {"rikka", "akane", "namiko"}
-  def read_string_tuple do
-    read_string_array()
-    |> List.to_tuple()
-  end
-
-  # 整数タプル読み込み
-  # in:
-  # 155 149 150
-  # out:
-  # {155, 149, 150}
-  def read_integer_tuple do
-    read_integer_array()
-    |> List.to_tuple()
   end
 
   # 2次元文字列配列読み込み
@@ -190,7 +190,7 @@ defmodule Main do
     read_multi_string_array(n)
     |> two_d_array_to_tuple
   end
-  
+
   # 個数指定2次元整数タプル読み込み
   # in:
   # 155 149 150
