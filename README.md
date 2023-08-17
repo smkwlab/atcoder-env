@@ -22,10 +22,12 @@ AtCoder 用ツールの acc, oj はインストール済み。
 
 各種環境設定としては、以下の言語に対応している(つもり)。
 
-- Java (JDK 11)
-- Ruby
-- Elixir
-- Python3
+- Java (JDK 17)
+- Ruby (3.2.2)
+- Elixir (1.15.2)
+- Python3 (3.11.4)
+- JavaScript (node.js 18.16.1)
+- Erlang (26.0.2)
 
 ## 使い方
 
@@ -106,7 +108,7 @@ VSCode 上のターミナルで、
 タスク間の差異を吸収するために [am](bin/am) コマンドを用意している。
 
 ## GitHub repository
-https://github.com/toshi0806/docker-atcoder
+https://github.com/smkwlab/docker-atcoder
 
 この環境は、学生が AtCoder に参加する環境を構築するのを支援するために開発した。
 元は https://github.com/hinamimi/docker-atcoder から fork して開発を開始した。
