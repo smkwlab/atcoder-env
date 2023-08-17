@@ -22,10 +22,12 @@ AtCoder 用ツールの acc, oj はインストール済み。
 
 各種環境設定としては、以下の言語に対応している(つもり)。
 
-- Java (JDK 11)
-- Ruby
-- Elixir
-- Python3
+- Java (JDK 17)
+- Ruby (3.2.2)
+- Elixir (1.15.2)
+- Python3 (3.11.4)
+- JavaScript (node.js 18.16.1)
+- Erlang (26.0.2)
 
 ## 使い方
 
@@ -100,8 +102,41 @@ VSCode 上のターミナルで、
 タスク間の差異を吸収するために [am](bin/am) コマンドを用意している。
 
 ## GitHub repository
-https://github.com/toshi0806/docker-atcoder
+https://github.com/smkwlab/docker-atcoder
 
 この環境は、学生が AtCoder に参加する環境を構築するのを支援するために開発した。
 元は https://github.com/hinamimi/docker-atcoder から fork して開発を開始した。
 現在は差分が大きくなったので、独立したリポジトリとしている。
+
+## カスタマイズ
+
+### 新規コンテストセットアップ時
+
+新規コンテストセットアップは acc の機能を利用している。
+devcontainer 内ならば .config/atcoder-cli-nodejs/ 、
+devcontainer 外ならば atcoder-cli-nodejs/
+に設定ファイルが存在する。
+このフォルダの config.json を編集することで挙動を変更できる。
+
+例えば、デフォルトでコピーされるテンプレートファイルは java のものである。
+これは config.json 中の default-template の値で変更できる。
+
+また、各言語用のテンプレートファイルは、
+このディレクトリ下の言語名のディレクトリ下にあるので、
+これを好みに編集するのがお勧め。
+
+### コード提出時言語選択
+
+まず、プログラミング言語は、ファイルの拡張子で決定している。
+`bin/am` スクリプト内で、判定している。
+shell script で書かれているが、それほど複雑ではないので変更・追加は容易だと思う。
+このスクリプト内で設定した変数 PROG は、次に説明する makefile 中で利用される。
+
+各プログラミング言語のバージョンは各タスク用ディレクトリ内の makefile で決定される。
+makefile は文法が若干特殊なので分かりにくいが、
+基本的には `OJ_SFLAGS` という変数に適切な値を設定することで
+`oj` コマンドでのコード提出時の言語指定を実現している。
+
+なお、この makefile は UNIX のシンボリックリンクを用いて、
+実態は一つになっている。
+どこかのディレクトリ中の makefile を変更すると、すべての makefile が書き換わる。
