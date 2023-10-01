@@ -1,4 +1,5 @@
-#! /bin/sh
+#! /bin/bash
+. ${HOME}/.asdf/asdf.sh 
 
 echo 'create symlinks for makefile'
 cd ${HOME}/.config/atcoder-cli-nodejs
