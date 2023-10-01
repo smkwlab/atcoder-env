@@ -1,5 +1,6 @@
-#! /bin/sh
+#! /bin/bash
 # AtCoder frontend utility for (formaly) Make
+. ${HOME}/.asdf/asdf.sh 
 
 CMD="$1"
 
