@@ -169,6 +169,5 @@ RUN . ${HOME}/.asdf/asdf.sh && \
 #RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 #ENV PATH $PATH:/home/root/.cargo/bin
 
+RUN echo ". ${HOME}/lib/.support/bash_functions.sh" >> ${HOME}/.bashrc
 ENV CONTEST_DIR $HOME/contest
-WORKDIR $CONTEST_DIR
-WORKDIR $HOME/lib
