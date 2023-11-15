@@ -18,6 +18,9 @@ docker image は、[atcoder-container](https://github.com/smkwlab/atcoder-contai
 イメージを作り直したい場合、そちらのリポジトリを参照。
 そのうえで、[Dockerfile](.devcontainer/Dockerfile) の 1行目で、
 自分で build したコンテナを利用するように変更する。
+なお、container image build 時の都合で、amd64 アーキテクチャ用のコンテナのみ提供している。
+M1系の mac では Rosetta 経由で動作することになる。
+これを避けたいのであれば、上述のリポジトリを使って、独自で container image を build すること。
 
 デフォルトで利用する docker image では、以下の言語に対応している。
 
