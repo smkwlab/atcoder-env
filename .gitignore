@@ -4,3 +4,4 @@ lib/*
 atcoder-cli-nodejs/*/makefile
 atcoder-cli-nodejs/session.json
 .local/share/online-judge-tools/cookie.jar
+.local/share/gem/*
