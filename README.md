@@ -1,7 +1,6 @@
 # AtCoder 参加用環境
 
 このリポジトリをクローンし VSCode で開くと、devcontainer が環境を構築する。
-docker image を大きくしたくなかったので、デフォルトでインストールするプログラミング言語処理系は絞っている。
 
 なお、利用するプログラミング言語が Java, Python3, JavaScript のいずれかであれば、
 [atcoder-java](https://github.com/smkwlab/atcoder-java)を利用するほうが手軽なのでお勧め。
@@ -12,14 +11,18 @@ AtCoder 用ツールの acc, oj はインストール済み。
 ## 1. 対応プログラミング言語
 
 デフォルトのプログラミング言語は Java。
-ただし、デフォルトで利用される docker image には Python3, JavaScript(nodejs)の処理系はインストール済み(acc, oj が必要とするから)。
 
-docker image は、[atcoder-container](https://github.com/smkwlab/atcoder-container)で build したものを利用する。
+docker イメージは、
+[atcoder-container](https://github.com/smkwlab/atcoder-container)で build したものを利用する。
 イメージを作り直したい場合、そちらのリポジトリを参照。
-そのうえで、[Dockerfile](.devcontainer/Dockerfile) の 1行目で、
-自分で build したコンテナを利用するように変更する。
+そのうえで [Dockerfile](.devcontainer/Dockerfile) の 1行目で、
+自分で build したイメージを利用するように変更する。
+なお、container イメージ build 時の都合で、上記リポジトリでは amd64
+アーキテクチャ用のイメージのみ提供している。
+M1系の mac では Rosetta 経由で動作することになる。
+これを避けたいのであれば、上述のリポジトリを使って、独自で container イメージを build すること。
 
-デフォルトで利用する docker image では、以下の言語に対応している。
+デフォルトで利用する docker イメージでは、以下の言語に対応している。
 
 - Java (JDK 17)
 - Ruby (3.2.2)
