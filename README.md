@@ -2,34 +2,24 @@
 
 このリポジトリをクローンし VSCode で開くと、devcontainer が環境を構築する。
 
-なお、利用するプログラミング言語が Java, Python3, JavaScript のいずれかであれば、
-[atcoder-java](https://github.com/smkwlab/atcoder-java)を利用するほうが手軽なのでお勧め。
-
 AtCoder 用ツールの acc, oj はインストール済み。
 後述の VSCode タスクを支援するための、独自ツールもインストール済み。
 
 ## 1. 対応プログラミング言語
 
-デフォルトのプログラミング言語は Java。
-
-docker イメージは、
-[atcoder-container](https://github.com/smkwlab/atcoder-container)で build したものを利用する。
-イメージを作り直したい場合、そちらのリポジトリを参照。
-そのうえで [Dockerfile](.devcontainer/Dockerfile) の 1行目で、
-自分で build したイメージを利用するように変更する。
-なお、container イメージ build 時の都合で、上記リポジトリでは amd64
-アーキテクチャ用のイメージのみ提供している。
-M1系の mac では Rosetta 経由で動作することになる。
-これを避けたいのであれば、上述のリポジトリを使って、独自で container イメージを build すること。
-
-デフォルトで利用する docker イメージでは、以下の言語に対応している。
+以下の言語に対応している。
 
 - Java (JDK 17)
-- Ruby (3.2.2)
-- Elixir (1.15.2)
 - Python3 (3.11.4)
 - JavaScript (node.js 18.16.1)
+- C++ (g++ 11.4.0)
+- Ruby (3.2.2)
 - Erlang (26.0.2)
+- Elixir (1.15.2)
+
+ただし、ac-library のような補助ライブラリはインストールしていない。
+Python, Ruby, C++ などはインストール用の設定は Dockerfile 中に記述があるので、
+それをコメントアウトして、コンテナイメージをリビルドすると利用可能になる。
 
 ## 2. 使い方
 
@@ -149,9 +139,8 @@ VS Code のエクスプローラを使わずに、CLI で操作できる。
 拡張子の先頭の `.` を付け忘れないこと。
 
 
-
 ## 4. GitHub repository
-https://github.com/smkwlab/docker-atcoder
+https://github.com/smkwlab/atcoder-env 
 
 この環境は、学生が AtCoder に参加する環境を構築するのを支援するために開発した。
 元は https://github.com/hinamimi/docker-atcoder から fork して開発を開始した。
@@ -167,7 +156,7 @@ devcontainer 外ならば atcoder-cli-nodejs/
 に設定ファイルが存在する。
 このフォルダの config.json を編集することで挙動を変更できる。
 
-例えば、デフォルトでコピーされるテンプレートファイルは java のものである。
+例えば、デフォルトでコピーされるテンプレートファイルは java, python, cpp, ruby, elixir のものである。
 これは config.json 中の default-template の値で変更できる。
 
 また、各言語用のテンプレートファイルは、
