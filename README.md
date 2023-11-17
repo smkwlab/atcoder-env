@@ -18,7 +18,7 @@ AtCoder 用ツールの acc, oj はインストール済み。
 - Elixir (1.15.2)
 
 ただし、ac-library のような補助ライブラリはインストールしていない。
-Python, Ruby, C++ などはインストール用の設定は Dockerfile 中に記述があるので、
+Python, Ruby, C++ などはインストール用の設定は [Dockerfile](.devcontainer/Dockerfile) 中に記述があるので、
 それをコメントアウトして、コンテナイメージをリビルドすると利用可能になる。
 
 ## 2. 使い方
