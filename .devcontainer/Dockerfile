@@ -1,5 +1,7 @@
 FROM ubuntu:22.04
 
+# test
+
 # コンテナ構築用にホームディレクトリ代入
 ARG HOME=/root
 ARG asdf_init=${HOME}/.asdf/asdf.sh
