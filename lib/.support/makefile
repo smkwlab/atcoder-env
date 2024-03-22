@@ -164,11 +164,24 @@ test3: test/sample-3.in $(TARGET)
 		cat $$(echo $$i | sed -e s/in/out/) ; \
 		echo ''; \
 	done
+test4: test/sample-4.in $(TARGET)
+	@for i in test/sample-4.in; do \
+		echo  %%% TEST DATA %%%  $$i; \
+		echo %% input: %%; \
+		cat $$i; \
+		echo %% output: %%; \
+		cat $$i | $(RUN_TEST); \
+		echo %% expected: %%; \
+		cat $$(echo $$i | sed -e s/in/out/) ; \
+		echo ''; \
+	done
 test/sample-1.in:
 	$(OJ) dl $(TASK_URL)
 test/sample-2.in:
 	$(OJ) dl $(TASK_URL)
 test/sample-3.in:
+	$(OJ) dl $(TASK_URL)
+test/sample-4.in:
 	$(OJ) dl $(TASK_URL)
 dl: test/sample-1.in
 
