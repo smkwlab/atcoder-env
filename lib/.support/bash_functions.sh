@@ -27,9 +27,15 @@ function abc() {
         echo ${target} not exists
     fi
 
-    if [ $# -eq 3 ] && [ -f $3 ]; then
-       code -r $3
-    fi
+    if [ $# -eq 3 ]; then
+        if [ -f $3 ]; then
+            code -r $3
+        elif [ -f Main.$3 ]; then
+            code -r Main.$3
+        elif [ -f Main$3 ]; then
+            code -r Main$3
+        fi
+    fi 
 }
 
 function arc() {
@@ -61,9 +67,15 @@ function arc() {
         echo ${target} not exists
     fi
 
-    if [ $# -eq 3 ] && [ -f $3 ]; then
-       code -r $3
-    fi
+    if [ $# -eq 3 ]; then
+        if [ -f $3 ]; then
+            code -r $3
+        elif [ -f Main.$3 ]; then
+            code -r Main.$3
+        elif [ -f Main$3 ]; then
+            code -r Main$3
+        fi
+    fi 
 }
 
 function ahc() {
@@ -95,7 +107,13 @@ function ahc() {
         echo ${target} not exists
     fi
 
-    if [ $# -eq 3 ] && [ -f $3 ]; then
-       code -r $3
-    fi
+    if [ $# -eq 3 ]; then
+        if [ -f $3 ]; then
+            code -r $3
+        elif [ -f Main.$3 ]; then
+            code -r Main.$3
+        elif [ -f Main$3 ]; then
+            code -r Main$3
+        fi
+    fi 
 }
