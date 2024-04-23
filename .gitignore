@@ -4,3 +4,4 @@ lib/*
 atcoder-cli-nodejs/*/makefile
 atcoder-cli-nodejs/session.json
 .local/share/
+erl_crash.dump
