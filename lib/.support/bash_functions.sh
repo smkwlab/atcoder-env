@@ -1,4 +1,10 @@
 function abc() {
+    open=false
+    if [ ${1} == "setup" ]; then
+        am setup "${FUNCNAME[0]}${2}"
+        shift
+        open=true
+    fi    
     case $# in
         0)
             echo "Change contest/question directory and open file"
@@ -36,9 +42,19 @@ function abc() {
             code -r Main$3
         fi
     fi 
+
+    if [ ${open} == true ]; then
+        am open
+    fi
 }
 
 function arc() {
+    open=false
+    if [ ${1} == "setup" ]; then
+        am setup "${FUNCNAME[0]}${2}"
+        shift
+        open=true
+    fi    
     case $# in
         0)
             echo "Change contest/question directory and open file"
@@ -76,9 +92,19 @@ function arc() {
             code -r Main$3
         fi
     fi 
+
+    if [ ${open} == true ]; then
+        am open
+    fi
 }
 
 function ahc() {
+    open=false
+    if [ ${1} == "setup" ]; then
+        am setup "${FUNCNAME[0]}${2}"
+        shift
+        open=true
+    fi    
     case $# in
         0)
             echo "Change contest/question directory and open file"
@@ -116,4 +142,8 @@ function ahc() {
             code -r Main$3
         fi
     fi 
+
+    if [ ${open} == true ]; then
+        am open
+    fi
 }
