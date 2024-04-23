@@ -1,12 +1,20 @@
 # AtCoder 参加用環境
 
-このリポジトリをクローンし VSCode で開くと、devcontainer が環境を構築する。
+このリポジトリをクローンし VS Code で開くと、Dev Container が環境を構築する。
 
 なお、利用するプログラミング言語が Java, Python3, JavaScript のいずれかであれば、
 [atcoder-java](https://github.com/smkwlab/atcoder-java)を利用するほうが手軽なのでお勧め。
 
 AtCoder 用ツールの acc, oj はインストール済み。
-後述の VSCode タスクを支援するための、独自ツールもインストール済み。
+後述の VS Code タスクを支援するための、独自ツールもインストール済み。
+
+## 0. Dev Container 環境構築
+
+以下のツールをインストールする。
+
+- [Visual Studio Code (VS Code)](https://azure.microsoft.com/ja-jp/products/visual-studio-code)
+- [Docker Desktop](https://www.docker.com/ja-jp/products/docker-desktop/)
+- [WSL2](https://learn.microsoft.com/ja-jp/windows/wsl/install) (Windowsの場合のみ)
 
 ## 1. 対応プログラミング言語
 
@@ -35,7 +43,7 @@ M1系の mac では Rosetta 経由で動作することになる。
 
 VSCode 上のターミナルで acc や oj を使って、そのまま利用することも可能。コンテスト用のディレクトリは ~/contest/ である。
 
-お勧めの使い方は VSCode のタスク機能の利用。
+お勧めの使い方は VS Code のタスク機能の利用。
 以下のタスクが設定済み。
 
 - 新規コンテスト参加 (acc new 相当)
@@ -88,7 +96,7 @@ makefile はシンボリックリンクになっているので、一度変更�
 開いているソースコードの対象の問題のページをローカルのブラウザで開く。
 このタスクのみ、コンテナ作成後一度だけ、以下の操作が必要。
 
-1. VSCode で `ターミナル`→`新しいターミナル` を開く
+1. VS Code で `ターミナル`→`新しいターミナル` を開く
 2. そのプロンプト上で `open-atcoder` を実行
 3. `Codeで外部の Web サイトを開きますか?` というダイアログが表示される
 4. そのダイアログで `信頼されているドメインの構成` をクリック
@@ -107,7 +115,7 @@ AtCoder では、ビルド処理を実行することは少ないと考えて、
 これらのコマンドについては理解・使用する必要はない。
 
 これらのタスクを実行するために、make を利用している。
-VSCode 上のターミナルで、
+VS Code 上のターミナルで、
 該当する問題のディレクトリに移動後 make コマンドを実行することも可能。
 
 新規コンテストセットアップタスクは acc を利用している。
@@ -162,8 +170,8 @@ https://github.com/smkwlab/docker-atcoder
 ### 5.1 新規コンテストセットアップ時
 
 新規コンテストセットアップは acc の機能を利用している。
-devcontainer 内ならば .config/atcoder-cli-nodejs/ 、
-devcontainer 外ならば atcoder-cli-nodejs/
+Dev Container 内ならば .config/atcoder-cli-nodejs/ 、
+Dev Container 外ならば atcoder-cli-nodejs/
 に設定ファイルが存在する。
 このフォルダの config.json を編集することで挙動を変更できる。
 
