@@ -1,11 +1,11 @@
 defmodule Main do
   def main do
     read_integer_array()
-    |> solve
+    |> solve()
     |> IO.puts
   end
 
-  def solve n do
+  def solve(n) do
 
   end
 
@@ -93,6 +93,17 @@ defmodule Main do
     |> Enum.map(&String.to_integer/1)
   end
 
+  # 行数指定文字列複数行読み込み
+  def read_string_lines(n), do: read_string_lines_sub(n, [])
+  defp read_string_lines_sub(0, acc), do: Enum.reverse(acc)
+  defp read_string_lines_sub(n, acc), do: read_string_lines_sub(n-1, [read_string() | acc])
+
+  # 行数指定整数複数行読み込み
+  def read_integer_lines n do
+    read_string_lines(n)
+    |> Enum.map(&String.to_integer/1)
+  end
+
   # 2次元文字列配列読み込み
   # in:
   # rikka akane namiko
@@ -127,12 +138,9 @@ defmodule Main do
   # yume chise mujina
   # out: (n=1)
   # [["rikka", "akane", "namiko"]]
-  def read_multi_string_array n do
-    for _ <- 1..n ,reduce: [] do
-      acc -> [read_string_array() | acc]
-    end
-    |> Enum.reverse()
-  end
+  def read_multi_string_array(n), do: read_multi_string_array_sub(n, [])
+  defp read_multi_string_array_sub(0, acc), do: Enum.reverse(acc)
+  defp read_multi_string_array_sub(n, acc), do: read_multi_string_array_sub(n-1, [read_string_array() | acc])
 
   # 個数指定2次元整数配列読み込み
   # in:
@@ -140,7 +148,7 @@ defmodule Main do
   # 160 144 175
   # out: (n=1)
   # [[155, 149, 150]]
-  def read_multi_integer_array n do
+  def read_multi_integer_array(n) do
     read_multi_string_array(n)
     |> Enum.map(fn line ->
       line
@@ -149,7 +157,7 @@ defmodule Main do
   end
 
   # 2次元配列を2次元タプルに変換
-  defp two_d_array_to_tuple n do
+  defp two_d_array_to_tuple(n) do
     n
     |> Enum.map(fn line ->
       line
@@ -186,7 +194,7 @@ defmodule Main do
   # yume chise mujina
   # out: (n=1)
   # {{"rikka", "akane", "namiko"}}
-  def read_multi_string_tuple n do
+  def read_multi_string_tuple(n) do
     read_multi_string_array(n)
     |> two_d_array_to_tuple
   end
@@ -197,7 +205,7 @@ defmodule Main do
   # 160 144 175
   # out: (n=1)
   # {{155, 149, 150}}
-  def read_multi_integer_tuple n do
+  def read_multi_integer_tuple(n) do
     read_multi_integer_array(n)
     |> two_d_array_to_tuple
   end
