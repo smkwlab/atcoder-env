@@ -1,4 +1,10 @@
 function abc() {
+    open=false
+    if [ ${1} == "setup" ]; then
+        am setup "${FUNCNAME[0]}${2}"
+        shift
+        open=true
+    fi    
     case $# in
         0)
             echo "Change contest/question directory and open file"
@@ -27,12 +33,28 @@ function abc() {
         echo ${target} not exists
     fi
 
-    if [ $# -eq 3 ] && [ -f $3 ]; then
-       code -r $3
+    if [ $# -eq 3 ]; then
+        if [ -f $3 ]; then
+            code -r $3
+        elif [ -f Main.$3 ]; then
+            code -r Main.$3
+        elif [ -f Main$3 ]; then
+            code -r Main$3
+        fi
+    fi 
+
+    if [ ${open} == true ]; then
+        am open
     fi
 }
 
 function arc() {
+    open=false
+    if [ ${1} == "setup" ]; then
+        am setup "${FUNCNAME[0]}${2}"
+        shift
+        open=true
+    fi    
     case $# in
         0)
             echo "Change contest/question directory and open file"
@@ -61,12 +83,28 @@ function arc() {
         echo ${target} not exists
     fi
 
-    if [ $# -eq 3 ] && [ -f $3 ]; then
-       code -r $3
+    if [ $# -eq 3 ]; then
+        if [ -f $3 ]; then
+            code -r $3
+        elif [ -f Main.$3 ]; then
+            code -r Main.$3
+        elif [ -f Main$3 ]; then
+            code -r Main$3
+        fi
+    fi 
+
+    if [ ${open} == true ]; then
+        am open
     fi
 }
 
 function ahc() {
+    open=false
+    if [ ${1} == "setup" ]; then
+        am setup "${FUNCNAME[0]}${2}"
+        shift
+        open=true
+    fi    
     case $# in
         0)
             echo "Change contest/question directory and open file"
@@ -95,7 +133,17 @@ function ahc() {
         echo ${target} not exists
     fi
 
-    if [ $# -eq 3 ] && [ -f $3 ]; then
-       code -r $3
+    if [ $# -eq 3 ]; then
+        if [ -f $3 ]; then
+            code -r $3
+        elif [ -f Main.$3 ]; then
+            code -r Main.$3
+        elif [ -f Main$3 ]; then
+            code -r Main$3
+        fi
+    fi 
+
+    if [ ${open} == true ]; then
+        am open
     fi
 }
