@@ -1,6 +1,6 @@
 function abc() {
     open=false
-    if [ ${1} == "setup" ]; then
+    if [ ${1} == "setup" -o ${1} == "new" ]; then
         am setup "${FUNCNAME[0]}${2}"
         shift
         open=true
@@ -50,7 +50,7 @@ function abc() {
 
 function arc() {
     open=false
-    if [ ${1} == "setup" ]; then
+    if [ ${1} == "setup" -o ${1} == "new" ]; then
         am setup "${FUNCNAME[0]}${2}"
         shift
         open=true
@@ -100,7 +100,7 @@ function arc() {
 
 function ahc() {
     open=false
-    if [ ${1} == "setup" ]; then
+    if [ ${1} == "setup" -o ${1} == "new" ]; then
         am setup "${FUNCNAME[0]}${2}"
         shift
         open=true
