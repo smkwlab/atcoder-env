@@ -2,9 +2,6 @@
 
 このリポジトリをクローンし VS Code で開くと、Dev Container が環境を構築する。
 
-なお、利用するプログラミング言語が Java, Python3, JavaScript のいずれかであれば、
-[atcoder-java](https://github.com/smkwlab/atcoder-java)を利用するほうが手軽なのでお勧め。
-
 AtCoder 用ツールの acc, oj はインストール済み。
 後述の VS Code タスクを支援するための、独自ツールもインストール済み。
 
@@ -35,11 +32,15 @@ docker イメージは、
 - JavaScript (node.js 18.16.1)
 - C++ (g++ 12.3.0)
 - Rust (1.17.0)
+=======
+- C++ (g++ 11.4.0)
+>>>>>>> main
 - Erlang (26.0.2)
 
 ## 2. 使い方
 
-VSCode 上のターミナルで acc や oj を使って、そのまま利用することも可能。コンテスト用のディレクトリは ~/contest/ である。
+VSCode 上のターミナルで acc や oj を使って、そのまま利用することも可能。
+コンテスト用のディレクトリは ~/contest/ である。
 
 お勧めの使い方は VS Code のタスク機能の利用。
 以下のタスクが設定済み。
@@ -133,9 +134,9 @@ VS Code 上のターミナルで、
 例えば `abc 039` で abc039 用のディレクトリに移動。
 `abc 039 a` で abc039 の a問題のディレクトリに移動。
 
-問題のディレクトリに移動したあとで、`code Main.java` のように 
-code コマンドを使うことでファイルを編集できる。
-VS Code のエクスプローラを使わずに、CLI で操作できる。
+`abc 039 a Main.java` のように、ファイル名まで指定すると、
+指定の問題のディレクトリに移動したあとで、指定のファイルを
+VS Code で開く。
 
 ### 3.3 問題ページ閲覧用コマンド
 
@@ -155,9 +156,8 @@ VS Code のエクスプローラを使わずに、CLI で操作できる。
 拡張子の先頭の `.` を付け忘れないこと。
 
 
-
 ## 4. GitHub repository
-https://github.com/smkwlab/docker-atcoder
+https://github.com/smkwlab/atcoder-env 
 
 この環境は、学生が AtCoder に参加する環境を構築するのを支援するために開発した。
 元は https://github.com/hinamimi/docker-atcoder から fork して開発を開始した。
@@ -173,7 +173,7 @@ Dev Container 外ならば atcoder-cli-nodejs/
 に設定ファイルが存在する。
 このフォルダの config.json を編集することで挙動を変更できる。
 
-例えば、デフォルトでコピーされるテンプレートファイルは java のものである。
+例えば、デフォルトでコピーされるテンプレートファイルは java, python, cpp, ruby, elixir のものである。
 これは config.json 中の default-template の値で変更できる。
 
 また、各言語用のテンプレートファイルは、

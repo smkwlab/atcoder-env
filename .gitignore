@@ -3,5 +3,5 @@ lib/*
 !lib/.support/
 atcoder-cli-nodejs/*/makefile
 atcoder-cli-nodejs/session.json
-.local/share/online-judge-tools/cookie.jar
-.local/share/gem/*
+.local/share/
+erl_crash.dump
