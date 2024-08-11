@@ -13,7 +13,7 @@ defmodule Main do
     {sa, input} = read_string_array(input)
 
 #    read_all()
-#    |> read_integer_array()
+#    |> read_line_drop()
     input
 #    |> read_multi_integer_array()
     |> read_multi_string_array()
@@ -33,6 +33,10 @@ defmodule Main do
     |> File.read!()
     |> String.split("\n", trim: true)
   end
+
+  # 一行読み捨て
+  @spec read_line_drop([String.t]) :: [String.t]
+  def read_line_drop([_ | input]), do: input
 
   # 文字列読み込み
   # in:
