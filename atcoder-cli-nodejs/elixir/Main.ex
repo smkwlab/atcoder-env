@@ -19,7 +19,6 @@ defmodule Main do
     |> read_multi_string_array()
     |> solve()
     |> IO.puts
-    |> dbg
   end
 
   def solve(n) do
