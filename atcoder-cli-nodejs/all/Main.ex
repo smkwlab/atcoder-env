@@ -63,12 +63,7 @@ defmodule Main do
   # ["rikka", "akane", "namiko"]
   @spec read_string_array([String.t]) :: [String.t] | {[String.t], [String.t]}
   def read_string_array([result | []]), do: read_string_array_once(result)
-  def read_string_array([result | input]) do
-    {
-      read_string_array_once(result),
-      input
-    }
-  end
+  def read_string_array([result | input]), do: {read_string_array_once(result), input}
   defp read_string_array_once(result), do: String.split(result, " ", trim: true)
 
   # 整数配列読み込み
@@ -78,12 +73,7 @@ defmodule Main do
   # [155, 149, 150]
   @spec read_integer_array([String.t]) :: [integer] | {[integer], [String.t]}
   def read_integer_array([result | []]), do: read_integer_array_once(result)
-  def read_integer_array([result | input]) do
-    {
-      read_integer_array_once(result),
-      input
-    }
-  end
+  def read_integer_array([result | input]), do: {read_integer_array_once(result), input}
   defp read_integer_array_once(input) do
     input
     |> String.split(" ", trim: true)
@@ -108,9 +98,7 @@ defmodule Main do
   # out:
   # [155, 149, 150]
   @spec read_integer_lines([String.t]) :: [integer]
-  def read_integer_lines(input) do
-    Enum.map(input, &String.to_integer/1)
-  end
+  def read_integer_lines(input), do: Enum.map(input, &String.to_integer/1)
 
   # 2次元文字列配列読み込み
   # in:
@@ -119,9 +107,7 @@ defmodule Main do
   # out:
   # [["rikka", "akane", "namiko"], ["yume", "chise", "mujina"]]
   @spec read_multi_string_array([String.t]) :: [[String.t]]
-  def read_multi_string_array(input) do
-    Enum.map(input, &String.split(&1, " ", trim: true))
-  end
+  def read_multi_string_array(input), do: Enum.map(input, &String.split(&1, " ", trim: true))
 
   # 2次元整数配列読み込み
   # in:
@@ -141,13 +127,9 @@ defmodule Main do
 
   # 行数指定文字列複数行読み込み
   @spec read_string_lines(integer, [String.t]) :: {[String.t], [String.t]}
-  def read_string_lines(n, input) do
-    read_string_lines_sub(n, input, [])
-  end
+  def read_string_lines(n, input), do: read_string_lines_sub(n, input, [])
   defp read_string_lines_sub(0, input, acc), do: {Enum.reverse(acc), input}
-  defp read_string_lines_sub(n, [result | input], acc) do
-    read_string_lines_sub(n-1, input, [result | acc])
-  end
+  defp read_string_lines_sub(n, [result | input], acc), do: read_string_lines_sub(n-1, input, [result | acc])
 
   # 行数指定整数複数行読み込み
   @spec read_integer_lines(integer, [String.t]) :: {[integer], [String.t]}
