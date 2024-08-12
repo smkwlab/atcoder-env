@@ -84,7 +84,7 @@ defmodule Main do
       input
     }
   end
-  def read_integer_array_once(input) do
+  defp read_integer_array_once(input) do
     input
     |> read_string_array_once()
     |> Enum.map(&String.to_integer/1)
