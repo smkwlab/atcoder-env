@@ -15,8 +15,8 @@ defmodule Main do
 #    read_all()
 #    |> read_line_drop()
     input
-#    |> read_multi_integer_array()
-    |> read_multi_string_array()
+    |> read_multi_integer_array()
+#    |> read_multi_string_array()
     |> solve()
     |> IO.puts
   end
