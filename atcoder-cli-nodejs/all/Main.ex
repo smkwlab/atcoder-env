@@ -86,7 +86,7 @@ defmodule Main do
   end
   defp read_integer_array_once(input) do
     input
-    |> read_string_array_once()
+    |> String.split(" ", trim: true)
     |> Enum.map(&String.to_integer/1)
   end
 
