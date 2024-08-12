@@ -118,9 +118,9 @@ defmodule Main do
   @spec read_multi_integer_array([String.t]) :: [[integer]]
   def read_multi_integer_array(input) do
     input
-    |> read_multi_string_array()
     |> Enum.map(fn line ->
       line
+      |> String.split(" ", trim: true)
       |> Enum.map(&String.to_integer/1)
     end)
   end
