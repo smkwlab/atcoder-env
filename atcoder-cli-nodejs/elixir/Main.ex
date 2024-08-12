@@ -76,12 +76,7 @@ defmodule Main do
   # ["rikka", "akane", "namiko"]
   @spec read_string_array([String.t]) :: [String.t] | {[String.t], [String.t]}
   def read_string_array([result | []]), do: read_string_array_once(result)
-  def read_string_array([result | input]) do
-    {
-      read_string_array_once(result),
-      input
-    }
-  end
+  def read_string_array([result | input]), do: {read_string_array_once(result), input}
   defp read_string_array_once(result), do: String.split(result, " ", trim: true)
 
   # 整数配列1行読み込み
@@ -94,12 +89,7 @@ defmodule Main do
   # [155, 149, 150]
   @spec read_integer_array([String.t]) :: [integer] | {[integer], [String.t]}
   def read_integer_array([result | []]), do: read_integer_array_once(result)
-  def read_integer_array([result | input]) do
-    {
-      read_integer_array_once(result),
-      input
-    }
-  end
+  def read_integer_array([result | input]), do: {read_integer_array_once(result), input}
   defp read_integer_array_once(input) do
     input
     |> String.split(" ", trim: true)
@@ -152,9 +142,9 @@ defmodule Main do
   @spec read_multi_integer_array([String.t]) :: [[integer]]
   def read_multi_integer_array(input) do
     input
-    |> read_multi_string_array()
     |> Enum.map(fn line ->
       line
+      |> String.split(" ", trim: true)
       |> Enum.map(&String.to_integer/1)
     end)
   end
