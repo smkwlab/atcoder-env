@@ -125,7 +125,7 @@ test: test/sample-1.in $(TARGET)
 		echo %% input: %%; \
 		cat $$i; \
 		echo %% output: %%; \
-		cat $$i | $(RUN_TEST); \
+		($(RUN_TEST) < $$i); \
 		echo %% expected: %%; \
 		cat $$(echo $$i | sed -e s/in/out/) ; \
 		echo ''; \
@@ -137,7 +137,7 @@ test1: test/sample-1.in $(TARGET)
 		echo %% input: %%; \
 		cat $$i; \
 		echo %% output: %%; \
-		cat $$i | $(RUN_TEST); \
+		($(RUN_TEST) < $$i); \
 		echo %% expected: %%; \
 		cat $$(echo $$i | sed -e s/in/out/) ; \
 		echo ''; \
@@ -148,7 +148,7 @@ test2: test/sample-2.in $(TARGET)
 		echo %% input: %%; \
 		cat $$i; \
 		echo %% output: %%; \
-		cat $$i | $(RUN_TEST); \
+		($(RUN_TEST) < $$i); \
 		echo %% expected: %%; \
 		cat $$(echo $$i | sed -e s/in/out/) ; \
 		echo ''; \
@@ -159,7 +159,7 @@ test3: test/sample-3.in $(TARGET)
 		echo %% input: %%; \
 		cat $$i; \
 		echo %% output: %%; \
-		cat $$i | $(RUN_TEST); \
+		($(RUN_TEST) < $$i); \
 		echo %% expected: %%; \
 		cat $$(echo $$i | sed -e s/in/out/) ; \
 		echo ''; \
@@ -170,7 +170,7 @@ test4: test/sample-4.in $(TARGET)
 		echo %% input: %%; \
 		cat $$i; \
 		echo %% output: %%; \
-		cat $$i | $(RUN_TEST); \
+		($(RUN_TEST) < $$i); \
 		echo %% expected: %%; \
 		cat $$(echo $$i | sed -e s/in/out/) ; \
 		echo ''; \
