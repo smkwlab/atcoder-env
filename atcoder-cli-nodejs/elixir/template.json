@@ -1,6 +1,0 @@
-{
-  "task": {
-    "program": ["Main.ex", "makefile"],
-    "submit": "Main.ex"
-  }
-}
