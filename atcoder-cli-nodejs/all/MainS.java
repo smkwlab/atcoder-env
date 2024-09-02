@@ -8,12 +8,13 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int m = sc.nextInt();
+        long x = sc.nextLong();
 
         String s = sc.next();
 
-        int[] a = new int[n];
+        long[] a = new long[n];
         for (int i = 0; i < n; i++) {
-            a[i] = sc.nextInt();
+            a[i] = sc.nextLong();
         }
 
         System.out.println(solve(n));
@@ -21,7 +22,7 @@ public class Main {
 
     static String solve(int n) {
         StringBuilder result = new StringBuilder("");
-        //int result = 0;
+        //long result = 0;
 
         return String.valueOf(result).trim();
     }
