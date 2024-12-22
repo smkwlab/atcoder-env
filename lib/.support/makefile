@@ -49,6 +49,10 @@ CC = g++
 CFLAGS = -std=c++14
 CPPTARGET = main
 
+RUSTC = rustc # main.rs
+RUSTFLAGS = -O
+RUSTTARGET = main
+
 ifeq ($(PROG),java)
 # JAVA
 SRC = Main.java
@@ -94,9 +98,17 @@ $(TARGET): $(SRC)
 # 5001 (C++ 20 (gcc 12.2))
 OJ_SFLAGS = -l 5001
 else
+ifeq ($(PROG), rust)
+# Rust
+SRC = main.rs
+TARGET = $(RUSTTARGET)
+RUN_TEST = ./$(RUSTTARGET)
+$(TARGET): $(SRC)
+	$(RUSTC) $(RUSTFLAGS) $^ -o $@
 # NOT SUPPORTED
 error:
 	  $(error PROG:$(PROG) not supported)
+endif
 endif
 endif
 endif
@@ -166,6 +178,17 @@ test3: test/sample-3.in $(TARGET)
 	done
 test4: test/sample-4.in $(TARGET)
 	@for i in test/sample-4.in; do \
+		echo  %%% TEST DATA %%%  $$i; \
+		echo %% input: %%; \
+		cat $$i; \
+		echo %% output: %%; \
+		($(RUN_TEST) < $$i); \
+		echo %% expected: %%; \
+		cat $$(echo $$i | sed -e s/in/out/) ; \
+		echo ''; \
+	done
+test5: test/sample-5.in $(TARGET)
+	@for i in test/sample-5.in; do \
 		echo  %%% TEST DATA %%%  $$i; \
 		echo %% input: %%; \
 		cat $$i; \
