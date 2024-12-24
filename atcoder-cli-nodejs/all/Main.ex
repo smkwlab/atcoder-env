@@ -27,8 +27,13 @@ defmodule Main do
 
   end
 
+
+  # helper functions
+  @type input :: [String.t]
+  @type reminder :: [String.t]
+
   # 全行読み込み // この関数の返り値をこれ以降の関数に渡す
-  @spec read_all() :: [String.t]
+  @spec read_all() :: input
   #  引数　：なし
   #  返り値：全行の文字列配列
   def read_all do
@@ -37,14 +42,8 @@ defmodule Main do
     |> String.split("\n", trim: true)
   end
 
-  # 一行読み捨て
-  @spec read_line_drop([String.t]) :: [String.t]
-  #  引数　：入力文字列配列
-  #  返り値：一行読み捨てた後の入力文字列配列
-  def read_line_drop([_ | input]), do: input
-
   # 文字列1行読み込み
-  @spec read_string([String.t]) :: String.t | {String.t, [String.t]}
+  @spec read_string(input) :: String.t | {String.t, reminder}
   #   引数　：入力文字列配列
   #   入力に残りがある場合の返り値：{読み込んだ文字列, 残りの入力}
   #   入力に残りがない場合の返り値：読み込んだ文字列
@@ -56,7 +55,7 @@ defmodule Main do
   def read_string([result | input]), do: {result, input}
 
   # 整数1行読み込み
-  @spec read_integer([String.t]) :: integer | {integer, [String.t]}
+  @spec read_integer(input) :: integer | {integer, reminder}
   #   引数　：入力文字列配列
   #   入力に残りがある場合の返り値：{読み込んだ整数, 残りの入力}
   #   入力に残りがない場合の返り値：読み込んだ整数
@@ -69,7 +68,7 @@ defmodule Main do
   defp read_integer_once(str), do: String.to_integer(str)
 
   # 文字列配列1行読み込み
-  @spec read_string_array([String.t]) :: [String.t] | {[String.t], [String.t]}
+  @spec read_string_array(input) :: [String.t] | {[String.t], reminder}
   #   引数　：入力文字列配列
   #   入力に残りがある場合の返り値：{読み込んだ文字列配列, 残りの入力}
   #   入力に残りがない場合の返り値：読み込んだ文字列配列
@@ -82,7 +81,7 @@ defmodule Main do
   defp read_string_array_once(result), do: String.split(result, " ", trim: true)
 
   # 整数配列1行読み込み
-  @spec read_integer_array([String.t]) :: [integer] | {[integer], [String.t]}
+  @spec read_integer_array(input) :: [integer] | {[integer], reminder}
   #   引数　：入力文字列配列
   #   入力に残りがある場合の返り値：{読み込んだ整数配列, 残りの入力}
   #   入力に残りがない場合の返り値：読み込んだ整数配列
@@ -99,7 +98,7 @@ defmodule Main do
   end
 
   # 文字列全行読み込み
-  @spec read_string_lines([String.t]) :: [String.t]
+  @spec read_string_lines(input) :: [String.t]
   #   引数　：入力文字列配列
   #   返り値：文字列配列
   # in:
@@ -111,7 +110,7 @@ defmodule Main do
   def read_string_lines(input), do: input
 
   # 整数全行読み込み
-  @spec read_integer_lines([String.t]) :: [integer]
+  @spec read_integer_lines(input) :: [integer]
   #   引数　：入力文字列配列
   #   返り値：整数配列
   # in:
@@ -123,7 +122,7 @@ defmodule Main do
   def read_integer_lines(input), do: Enum.map(input, &String.to_integer/1)
 
   # 2次元文字列配列全行読み込み
-  @spec read_multi_string_array([String.t]) :: [[String.t]]
+  @spec read_multi_string_array(input) :: [[String.t]]
   #   引数　：入力文字列配列
   #   返り値：2次元文字列配列
   # in:
@@ -134,7 +133,7 @@ defmodule Main do
   def read_multi_string_array(input), do: Enum.map(input, &String.split(&1, " ", trim: true))
 
   # 2次元整数配列全行読み込み
-  @spec read_multi_integer_array([String.t]) :: [[integer]]
+  @spec read_multi_integer_array(input) :: [[integer]]
   #   引数　：入力文字列配列
   #   返り値：2次元整数配列
   # in:
@@ -152,8 +151,8 @@ defmodule Main do
   end
 
   # 行数指定文字列複数行読み込み
-  @spec read_string_lines(integer, [String.t]) :: {[String.t], [String.t]}
-  #   引数　：行数, 入力文字列配列
+  @spec read_string_lines(input, integer) :: {[String.t], reminder}
+  #   引数　：入力文字列配列, 行数
   #   返り値：{読み込んだ文字列配列, 残りの入力}
   # in:
   # rikka
@@ -161,13 +160,13 @@ defmodule Main do
   # namiko
   # out:
   # ["rikka", "akane", "namiko"]
-  def read_string_lines(n, input), do: read_string_lines_sub(n, input, [])
-  defp read_string_lines_sub(0, input, acc), do: {Enum.reverse(acc), input}
-  defp read_string_lines_sub(n, [result | input], acc), do: read_string_lines_sub(n-1, input, [result | acc])
+  def read_string_lines(input, n), do: read_string_lines_sub(input, n, [])
+  defp read_string_lines_sub(input, 0, acc), do: {Enum.reverse(acc), input}
+  defp read_string_lines_sub([result | input], n, acc), do: read_string_lines_sub(input, n-1, [result | acc])
 
   # 行数指定整数複数行読み込み
-  @spec read_integer_lines(integer, [String.t]) :: {[integer], [String.t]}
-  #   引数　：行数, 入力文字列配列
+  @spec read_integer_lines(input, integer) :: {[integer], reminder}
+  #   引数　：入力文字列配列, 行数
   #   返り値：{読み込んだ整数配列, 残りの入力}
   # in:
   # 155
@@ -175,15 +174,15 @@ defmodule Main do
   # 150
   # out:　（n=3）
   # [155, 149, 150]
-  def read_integer_lines(n, input) do
-    {lines, input} = read_string_lines(n, input)
+  def read_integer_lines(input, n) do
+    {lines, input} = read_string_lines(input, n)
 
     {read_integer_lines(lines), input}
   end
 
   # 行数指定2次元文字列配列読み込み
-  @spec read_multi_string_array(integer, [String.t]) :: {[[String.t]], [String.t]}
-  #   引数　：行数, 入力文字列配列
+  @spec read_multi_string_array(input, integer) :: {[[String.t]], reminder}
+  #   引数　：入力文字列配列, 行数
   #   返り値：{読み込んだ2次元文字列配列, 残りの入力}
   # in:
   # rikka akane namiko
@@ -191,15 +190,15 @@ defmodule Main do
   # out: (n=1)
   # [["rikka", "akane", "namiko"]]
   # from https://atcoder.jp/contests/abs/submissions/48189543
-  def read_multi_string_array(n, input) do
-    {lines, input} = read_string_lines(n, input)
+  def read_multi_string_array(input, n) do
+    {lines, input} = read_string_lines(input, n)
 
     {read_multi_string_array(lines), input}
   end
 
   # 行数指定2次元整数配列読み込み
-  @spec read_multi_integer_array(integer, [String.t]) :: {[[integer]], [String.t]}
-  #   引数　：行数, 入力文字列配列
+  @spec read_multi_integer_array(input, integer) :: {[[integer]], reminder}
+  #   引数　：入力文字列配列, 行数
   #   返り値：{読み込んだ2次元整数配列, 残りの入力}
   # in:
   # 155 149 150
@@ -207,8 +206,8 @@ defmodule Main do
   # out: (n=2)
   # [[155, 149, 150], [160, 144, 175]]
   # from https://atcoder.jp/contests/abs/submissions/48189543
-  def read_multi_integer_array(n, input) do
-    {lines, input} = read_string_lines(n, input)
+  def read_multi_integer_array(input, n) do
+    {lines, input} = read_string_lines(input, n)
 
     {read_multi_integer_array(lines), input}
   end
