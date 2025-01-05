@@ -1,10 +1,5 @@
 function abc() {
     open=false
-    if [ ${1} == "setup" -o ${1} == "new" ]; then
-        am setup "${FUNCNAME[0]}${2}"
-        shift
-        open=true
-    fi    
     case $# in
         0)
             echo "Change contest/question directory and open file"
@@ -27,11 +22,15 @@ function abc() {
             ;;
     esac
 
-    if [ -d ${target} ]; then
-        cd ${target}
-    else
-        echo ${target} not exists
+    if [ ! -d ${target} ]; then
+        open=true
+        am setup "${FUNCNAME[0]}${1}"
+        if [ ! -d ${target} ]; then
+            return 1
+        fi
+        echo setup "${FUNCNAME[0]}${1}"
     fi
+    cd ${target}
 
     if [ $# -eq 3 ]; then
         if [ -f $3 ]; then
@@ -50,11 +49,6 @@ function abc() {
 
 function arc() {
     open=false
-    if [ ${1} == "setup" -o ${1} == "new" ]; then
-        am setup "${FUNCNAME[0]}${2}"
-        shift
-        open=true
-    fi    
     case $# in
         0)
             echo "Change contest/question directory and open file"
@@ -77,11 +71,15 @@ function arc() {
             ;;
     esac
 
-    if [ -d ${target} ]; then
-        cd ${target}
-    else
-        echo ${target} not exists
+    if [ ! -d ${target} ]; then
+        open=true
+        am setup "${FUNCNAME[0]}${1}"
+        if [ ! -d ${target} ]; then
+            return 1
+        fi
+        echo setup "${FUNCNAME[0]}${1}"
     fi
+    cd ${target}
 
     if [ $# -eq 3 ]; then
         if [ -f $3 ]; then
@@ -100,11 +98,6 @@ function arc() {
 
 function ahc() {
     open=false
-    if [ ${1} == "setup" -o ${1} == "new" ]; then
-        am setup "${FUNCNAME[0]}${2}"
-        shift
-        open=true
-    fi    
     case $# in
         0)
             echo "Change contest/question directory and open file"
@@ -127,11 +120,15 @@ function ahc() {
             ;;
     esac
 
-    if [ -d ${target} ]; then
-        cd ${target}
-    else
-        echo ${target} not exists
+    if [ ! -d ${target} ]; then
+        open=true
+        am setup "${FUNCNAME[0]}${1}"
+        if [ ! -d ${target} ]; then
+            return 1
+        fi
+        echo setup "${FUNCNAME[0]}${1}"
     fi
+    cd ${target}
 
     if [ $# -eq 3 ]; then
         if [ -f $3 ]; then
