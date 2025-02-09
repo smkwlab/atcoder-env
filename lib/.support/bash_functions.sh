@@ -1,16 +1,35 @@
 function abc() {
-    open=false
+    local open=false
+    local lang=""
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -l)
+                if [ -n "$2" ]; then
+                    lang=$2
+                    shift 2
+                else
+                    echo "Error: -l requires a language argument" >&2
+                    return 1
+                fi
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+
     case $# in
         0)
             echo "Change contest/question directory and open file"
             echo ""
             echo "Usage:"
-            echo "       ${FUNCNAME[0]} <contestname> [question [file]]"
+            echo "       ${FUNCNAME[0]} [-l language] <contestname> [question]"
             echo ""
             echo "Example:"
             echo "       ${FUNCNAME[0]} 123 a"
             echo ""
-            echo "       ${FUNCNAME[0]} 123 a Main.java"
+            echo "       ${FUNCNAME[0]} -l java 123 a"
             echo ""
             return
             ;;
@@ -32,15 +51,13 @@ function abc() {
     fi
     cd ${target}
 
-    if [ $# -eq 3 ]; then
-        if [ -f $3 ]; then
-            code -r $3
-        elif [ -f Main.$3 ]; then
-            code -r Main.$3
-        elif [ -f Main$3 ]; then
-            code -r Main$3
+    if [ ! -z "$lang" ]; then
+        if [ -f Main.$lang ]; then
+            code -r Main.$lang
+        elif [ -f Main$lang ]; then
+            code -r Main$lang
         fi
-    fi 
+    fi
 
     if [ ${open} == true ]; then
         am open
@@ -48,18 +65,37 @@ function abc() {
 }
 
 function arc() {
-    open=false
+    local open=false
+    local lang=""
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -l)
+                if [ -n "$2" ]; then
+                    lang=$2
+                    shift 2
+                else
+                    echo "Error: -l requires a language argument" >&2
+                    return 1
+                fi
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+
     case $# in
         0)
             echo "Change contest/question directory and open file"
             echo ""
             echo "Usage:"
-            echo "       ${FUNCNAME[0]} <contestname> [question [file]]"
+            echo "       ${FUNCNAME[0]} [-l language] <contestname> [question]"
             echo ""
             echo "Example:"
             echo "       ${FUNCNAME[0]} 123 a"
             echo ""
-            echo "       ${FUNCNAME[0]} 123 a Main.java"
+            echo "       ${FUNCNAME[0]} -l java 123 a"
             echo ""
             return
             ;;
@@ -81,15 +117,13 @@ function arc() {
     fi
     cd ${target}
 
-    if [ $# -eq 3 ]; then
-        if [ -f $3 ]; then
-            code -r $3
-        elif [ -f Main.$3 ]; then
-            code -r Main.$3
-        elif [ -f Main$3 ]; then
-            code -r Main$3
+    if [ ! -z "$lang" ]; then
+        if [ -f Main.$lang ]; then
+            code -r Main.$lang
+        elif [ -f Main$lang ]; then
+            code -r Main$lang
         fi
-    fi 
+    fi
 
     if [ ${open} == true ]; then
         am open
@@ -97,18 +131,37 @@ function arc() {
 }
 
 function ahc() {
-    open=false
+    local open=false
+    local lang=""
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -l)
+                if [ -n "$2" ]; then
+                    lang=$2
+                    shift 2
+                else
+                    echo "Error: -l requires a language argument" >&2
+                    return 1
+                fi
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+
     case $# in
         0)
             echo "Change contest/question directory and open file"
             echo ""
             echo "Usage:"
-            echo "       ${FUNCNAME[0]} <contestname> [question [file]]"
+            echo "       ${FUNCNAME[0]} [-l language] <contestname> [question]"
             echo ""
             echo "Example:"
             echo "       ${FUNCNAME[0]} 123 a"
             echo ""
-            echo "       ${FUNCNAME[0]} 123 a Main.java"
+            echo "       ${FUNCNAME[0]} -l java 123 a"
             echo ""
             return
             ;;
@@ -130,15 +183,13 @@ function ahc() {
     fi
     cd ${target}
 
-    if [ $# -eq 3 ]; then
-        if [ -f $3 ]; then
-            code -r $3
-        elif [ -f Main.$3 ]; then
-            code -r Main.$3
-        elif [ -f Main$3 ]; then
-            code -r Main$3
+    if [ ! -z "$lang" ]; then
+        if [ -f Main.$lang ]; then
+            code -r Main.$lang
+        elif [ -f Main$lang ]; then
+            code -r Main$lang
         fi
-    fi 
+    fi
 
     if [ ${open} == true ]; then
         am open
