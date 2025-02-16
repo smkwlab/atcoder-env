@@ -24,20 +24,24 @@ function abc() {
             echo "Change contest/question directory and open file"
             echo ""
             echo "Usage:"
-            echo "       ${FUNCNAME[0]} [-l language] <contestname> [question]"
+            echo "       ${FUNCNAME[0]} [-l language] <contestname> [question] [language]"
             echo ""
             echo "Example:"
             echo "       ${FUNCNAME[0]} 123 a"
-            echo ""
             echo "       ${FUNCNAME[0]} -l java 123 a"
+            echo "       ${FUNCNAME[0]} 123 a java"
             echo ""
             return
             ;;
         1)
             target=${CONTEST_DIR}/${FUNCNAME[0]}$1
             ;;
-        *)
+        2)
             target=${CONTEST_DIR}/${FUNCNAME[0]}$1/$2
+            ;;
+        3)
+            target=${CONTEST_DIR}/${FUNCNAME[0]}$1/$2
+            lang=$3
             ;;
     esac
 
@@ -90,20 +94,24 @@ function arc() {
             echo "Change contest/question directory and open file"
             echo ""
             echo "Usage:"
-            echo "       ${FUNCNAME[0]} [-l language] <contestname> [question]"
+            echo "       ${FUNCNAME[0]} [-l language] <contestname> [question] [language]"
             echo ""
             echo "Example:"
             echo "       ${FUNCNAME[0]} 123 a"
-            echo ""
             echo "       ${FUNCNAME[0]} -l java 123 a"
+            echo "       ${FUNCNAME[0]} 123 a java"
             echo ""
             return
             ;;
         1)
             target=${CONTEST_DIR}/${FUNCNAME[0]}$1
             ;;
-        *)
+        2)
             target=${CONTEST_DIR}/${FUNCNAME[0]}$1/$2
+            ;;
+        3)
+            target=${CONTEST_DIR}/${FUNCNAME[0]}$1/$2
+            lang=$3
             ;;
     esac
 
@@ -156,20 +164,24 @@ function ahc() {
             echo "Change contest/question directory and open file"
             echo ""
             echo "Usage:"
-            echo "       ${FUNCNAME[0]} [-l language] <contestname> [question]"
+            echo "       ${FUNCNAME[0]} [-l language] <contestname> [question] [language]"
             echo ""
             echo "Example:"
             echo "       ${FUNCNAME[0]} 123 a"
-            echo ""
             echo "       ${FUNCNAME[0]} -l java 123 a"
+            echo "       ${FUNCNAME[0]} 123 a java"
             echo ""
             return
             ;;
         1)
             target=${CONTEST_DIR}/${FUNCNAME[0]}$1
             ;;
-        *)
+        2)
             target=${CONTEST_DIR}/${FUNCNAME[0]}$1/$2
+            ;;
+        3)
+            target=${CONTEST_DIR}/${FUNCNAME[0]}$1/$2
+            lang=$3
             ;;
     esac
 
