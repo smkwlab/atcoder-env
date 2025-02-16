@@ -31,8 +31,9 @@ endif
 endif
 
 JAVAC = javac
-JAVACFLAGS = -J-Dfile.encoding=UTF-8 -Xlint:unchecked
+JAVACFLAGS = -J-Dfile.encoding=UTF-8 -Xlint:unchecked -cp $(HOME)/lib/ac_library.jar
 JAVA = java
+JAVAFLAGS = -cp .:$(HOME)/lib/ac_library.jar
 JAVATARGET = Main.class
 
 ELIXIRC = elixirc
@@ -57,7 +58,7 @@ ifeq ($(PROG),java)
 # JAVA
 SRC = Main.java
 TARGET = $(JAVATARGET)
-RUN_TEST = $(JAVA) Main
+RUN_TEST = $(JAVA) $(JAVAFLAGS) Main
 # 5005 (Java (OpenJDK 17))
 OJ_SFLAGS = -l 5005
 else

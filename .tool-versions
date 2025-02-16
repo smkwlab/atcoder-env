@@ -1,4 +1,5 @@
-python 3.11.4
+python 3.11.11
 erlang 26.0.2
-elixir 1.15.7-otp-26
-ruby 3.2.2
+elixir 1.15.8-otp-26
+ruby   3.2.7
+java   adoptopenjdk-17.0.14+7

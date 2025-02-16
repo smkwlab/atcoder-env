@@ -19,10 +19,9 @@ public class Main {
     }
 
     static String solve(int n) {
-        String result = "";
-        // StringBuilder result = new StringBuilder("");
-        //int result = 0;
+        StringBuilder result = new StringBuilder("");
+        //long result = 0;
 
-        return result;
+        return String.valueOf(result).trim();
     }
 }
