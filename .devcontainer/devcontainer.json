@@ -18,15 +18,60 @@
 	// connected. This is typically a file mount in .devcontainer/docker-compose.yml
 	"workspaceFolder": "/root",
 
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"sanaajani.taskrunnercode", // Run tasks from Explorer pane
-		"visualstudioexptteam.vscodeintellicode", // AI-assisted development (Microsoft)
-		"yzhang.markdown-all-in-one", // Markdown
-		"zainchen.json", // Json
-		"oderwat.indent-rainbow", // Indent Rainbow
-		"shardulm94.trailing-spaces" // Trailing Spaces
-	],
+	// Customizations for VS Code
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"editor.fontFamily": "HackGen, 'BIZ UDPGothic', Meiryo, 'Hiragino Kaku Gothic ProN', 'SF Mono', Consolas, monospace",
+				"editor.fontSize": 14,
+				"files.autoSave": "afterDelay",
+				"files.autoSaveDelay": 1000,
+				"terminal.integrated.defaultProfile.linux": "bash",
+				"terminal.integrated.fontSize": 14,
+				"terminal.integrated.fontFamily": "HackGen, 'BIZ UDPGothic', Meiryo, 'Hiragino Kaku Gothic ProN', 'SF Mono', Consolas, monospace",
+				//"workbench.colorTheme": "Default Light+",
+				"window.zoomLevel": 0
+			},
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				// General utilities
+				"sanaajani.taskrunnercode", // Run tasks from Explorer pane
+				"visualstudioexptteam.vscodeintellicode", // AI-assisted development (Microsoft)
+				"yzhang.markdown-all-in-one", // Markdown
+				"zainchen.json", // Json
+				"oderwat.indent-rainbow", // Indent Rainbow
+				"shardulm94.trailing-spaces", // Trailing Spaces
+				
+				// Java
+				"redhat.java", // Language Support for Java(TM) by Red Hat
+				"vscjava.vscode-java-debug", // Debugger for Java
+				"vscjava.vscode-java-test", // Test Runner for Java
+				"vscjava.vscode-maven", // Maven for Java
+				"vscjava.vscode-java-dependency", // Project Manager for Java
+				
+				// Python
+				"ms-python.python", // Python
+				"ms-python.debugpy", // Python Debugger
+				"ms-python.pylint", // Pylint
+				"ms-python.flake8", // Flake8
+				"ms-python.black-formatter", // Black Formatter
+				
+				// Ruby
+				"shopify.ruby-lsp", // Ruby LSP (Official Ruby language server)
+				"castwide.solargraph", // Ruby Solargraph
+				"koichisasada.vscode-rdbg", // VSCode rdbg Ruby Debugger
+				
+				// Elixir
+				"elixir-lsp.elixir-ls", // ElixirLS: Elixir support and debugger
+				"mjmcloug.vscode-elixir", // vscode-elixir
+				
+				// General programming support
+				"ms-vscode.vscode-json", // JSON Language Features
+				"ms-vscode.hexeditor", // Hex Editor
+				"formulahendry.code-runner" // Code Runner
+			]
+		}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],

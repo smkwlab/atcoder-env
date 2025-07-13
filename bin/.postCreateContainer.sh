@@ -12,3 +12,7 @@ echo 'login for acc'
 acc login
 echo 'login for oj'
 oj login https://atcoder.jp
+
+echo
+echo 'AtCoder 用コンテナの準備が完了しました。'
+echo
