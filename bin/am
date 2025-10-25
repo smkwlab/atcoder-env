@@ -62,4 +62,34 @@ ts|tsf)
   export PROG
   make ${CMD}
   ;;
+*)
+  EXT="$2"
+
+  case ${EXT} in
+  \.java)
+    PROG=java
+    ;;
+  \.py)
+    PROG=python
+    ;;
+  \.cpp|\.c++)
+    PROG=c++
+    ;;
+  \.rb)
+    PROG=ruby
+    ;;
+  \.ex)
+    PROG=elixir
+    ;;
+  \.rs)
+    PROG=rust
+    ;;
+  *)
+    PROG=UNKNOWN
+    ;;
+  esac
+
+  export PROG
+  make ${CMD}
+  ;;
 esac
