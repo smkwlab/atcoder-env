@@ -86,7 +86,7 @@ SRC = Main.py
 TARGET =
 RUN_TEST = $(PYTHON) $(SRC)
 # Python (CPython 3.13.7)
-# 5055 (CPython)
+# 5055 (CPython (3.13.7))
 # 5078 (PyPy3 (3.10-v7.3.12))
 OJ_SFLAGS = -l 5055
 else
