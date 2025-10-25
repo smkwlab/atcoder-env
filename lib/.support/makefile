@@ -107,7 +107,7 @@ TARGET = $(RUSTTARGET)
 RUN_TEST = ./$(RUSTTARGET)
 $(TARGET): $(SRC)
 	$(RUSTC) $(RUSTFLAGS) $^ -o $@
-# NOT SUPPORTED
+# Rust (1.87.0) - NOT SUPPORTED
 error:
 	  $(error PROG:$(PROG) not supported)
 endif
