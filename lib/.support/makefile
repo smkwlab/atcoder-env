@@ -76,7 +76,7 @@ ifeq ($(PROG),ruby)
 # Ruby
 SRC = Main.rb
 TARGET =
-RUN_TEST = $(RUBY) $(SRC)
+RUN_TEST = RUBY_THREAD_VM_STACK_SIZE=1073741824 $(RUBY) --jit $(SRC)
 # Ruby (3.4.5)
 OJ_SFLAGS = -l 5018
 else
@@ -84,7 +84,7 @@ ifeq ($(PROG),python)
 # Python
 SRC = Main.py
 TARGET =
-RUN_TEST = $(PYTHON) $(SRC)
+RUN_TEST = $(PYTHON) -X int_max_str_digits=0 $(SRC)
 # Python (CPython 3.13.7)
 # 5055 (CPython (3.13.7))
 # 5078 (PyPy3 (3.10-v7.3.12))
