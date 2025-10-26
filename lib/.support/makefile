@@ -76,7 +76,7 @@ ifeq ($(PROG),ruby)
 # Ruby
 SRC = Main.rb
 TARGET =
-RUN_TEST = RUBY_THREAD_VM_STACK_SIZE=1073741824 $(RUBY) --jit $(SRC)
+RUN_TEST = sh -c "RUBY_THREAD_VM_STACK_SIZE=1073741824 $(RUBY) --jit $(SRC)"
 # Ruby (3.4.5)
 OJ_SFLAGS = -l 5018
 else
