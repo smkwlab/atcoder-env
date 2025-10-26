@@ -43,7 +43,7 @@
             "group": {
                 "kind": "test",
                 "isDefault": true
-            },
+            }
         },
         {
             "label": "AtCoder: TEST(float) code",
@@ -63,7 +63,7 @@
             },
             "group": {
                 "kind": "test"
-              },
+              }
         },
         {
             "label": "AtCoder: TEST(strict) code",
@@ -83,7 +83,7 @@
             },
             "group": {
                 "kind": "test"
-            },
+            }
         },
         {
             "label": "AtCoder: TEST(strict,float) code",
@@ -103,7 +103,7 @@
             },
             "group": {
                 "kind": "test"
-            },
+            }
         },
         {
             "label": "AtCoder: SUBMIT code",
@@ -138,7 +138,7 @@
                 "clear": true
             },
             "problemMatcher": []
-        },
+        }
     ],
     "inputs":[
         {
