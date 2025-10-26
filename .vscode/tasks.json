@@ -43,7 +43,7 @@
             "group": {
                 "kind": "test",
                 "isDefault": true
-            },
+            }
         },
         {
             "label": "AtCoder: TEST(float) code",
@@ -63,7 +63,47 @@
             },
             "group": {
                 "kind": "test"
-              },
+              }
+        },
+        {
+            "label": "AtCoder: TEST(strict) code",
+            "type": "shell",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "command": "am ts ${fileExtname}",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "group": {
+                "kind": "test"
+            }
+        },
+        {
+            "label": "AtCoder: TEST(strict,float) code",
+            "type": "shell",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "command": "am tsf ${fileExtname}",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "group": {
+                "kind": "test"
+            }
         },
         {
             "label": "AtCoder: SUBMIT code",
@@ -98,7 +138,7 @@
                 "clear": true
             },
             "problemMatcher": []
-        },
+        }
     ],
     "inputs":[
         {
