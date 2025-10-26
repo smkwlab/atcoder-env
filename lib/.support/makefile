@@ -124,7 +124,7 @@ endif
 
 RUN_TEST = ./$(CPPTARGET)
 $(TARGET): $(SRC)
-	$(CC) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
+	$(CC) $(CPPFLAGS) $(LDFLAGS) $^ -o $@
 # C++ (GNU++20 (GCC 12.3.0))
 OJ_SFLAGS = -l 5001
 else
