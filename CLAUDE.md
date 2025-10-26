@@ -89,3 +89,56 @@ makefileで管理（`/root/lib/.support/makefile`へのシンボリックリン�
 - Docker Imageは`ghcr.io/smkwlab/atcoder-container:latest`を使用
 - acc (atcoder-cli), oj (online-judge-tools)がプリインストール済み
 - VS Code拡張機能が自動インストール（Java, Python, Ruby, Elixir等の言語サポート）
+
+## Dev Containerでの動作確認方法
+
+Emacsやホスト環境からDev Container内でテストを実行する方法：
+
+### コンテナ名の確認
+```bash
+docker ps --filter "name=atcoder-env" --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
+```
+通常、`atcoder-env_devcontainer-dev-1`という名前で実行中。
+
+### テストコマンドの実行
+**重要**: makefileはasdfの環境が必要なため、`bash -i`（対話的シェル）で実行すること。
+
+```bash
+# Java簡易モード
+docker exec -i atcoder-env_devcontainer-dev-1 bash -i -c "cd /root/contest/abc123/a && make t PROG=java"
+
+# Java厳密モード（wrapper script使用）
+docker exec -i atcoder-env_devcontainer-dev-1 bash -i -c "cd /root/contest/abc123/a && STRICT_MODE=1 make t PROG=java"
+
+# JavaScript簡易モード
+docker exec -i atcoder-env_devcontainer-dev-1 bash -i -c "cd /root/contest/abc123/a && make t PROG=javascript"
+
+# JavaScript厳密モード（wrapper script使用）
+docker exec -i atcoder-env_devcontainer-dev-1 bash -i -c "cd /root/contest/abc123/a && STRICT_MODE=1 make t PROG=javascript"
+
+# Python
+docker exec -i atcoder-env_devcontainer-dev-1 bash -i -c "cd /root/contest/abc123/a && make t PROG=python"
+
+# Ruby
+docker exec -i atcoder-env_devcontainer-dev-1 bash -i -c "cd /root/contest/abc123/a && make t PROG=ruby"
+
+# C++
+docker exec -i atcoder-env_devcontainer-dev-1 bash -i -c "cd /root/contest/abc123/a && make t PROG=c++"
+```
+
+### 出力のフィルタリング
+bash警告メッセージを除外して結果のみ表示：
+```bash
+docker exec -i atcoder-env_devcontainer-dev-1 bash -i -c "cd /root/contest/abc123/a && make t PROG=java 2>&1" | grep -v "bash:" | tail -20
+```
+
+### 手動テスト（`make test`）
+`oj`がない環境や簡易テスト用：
+```bash
+docker exec -i atcoder-env_devcontainer-dev-1 bash -i -c "cd /root/contest/abc123/a && make test PROG=java"
+```
+
+### 注意事項
+- makefileは`/bin/sh`を使用するが、asdfのshimは`.bashrc`で設定されるため、対話的シェル（`-i`）が必須
+- 非対話的シェル（`bash -c`）ではasdfのPATHが設定されず、`java: not found`等のエラーになる
+- VS Codeのターミナルからは通常通り`make t PROG=java`で実行可能（自動的にログインシェル）

@@ -47,7 +47,7 @@ RUBY = ruby
 PYTHON = python
 
 CC = g++
-CFLAGS = -std=c++14
+CFLAGS = -std=gnu++20
 CPPTARGET = main
 
 RUSTC = rustc # main.rs
@@ -103,9 +103,28 @@ ifeq ($(PROG), c++)
 # C++
 SRC = Main.cpp
 TARGET = $(CPPTARGET)
+
+# Base flags already set: CFLAGS = -std=gnu++20
+CPPFLAGS = $(CFLAGS)
+LDFLAGS =
+
+# Strict mode: AtCoder judge environment settings
+ifeq ($(STRICT_MODE),1)
+# Optimization flags
+CPPFLAGS += -O2 -Wall -Wextra
+# constexpr limits
+CPPFLAGS += -fconstexpr-depth=1024 -fconstexpr-loop-limit=524288 -fconstexpr-ops-limit=2097152
+# Optimization techniques
+CPPFLAGS += -flto=auto -march=native
+# Parallel processing
+CPPFLAGS += -pthread -fopenmp
+# Note: Boost/GMP/GMPXX linking requires container image with these libraries
+# LDFLAGS = -lboost_system -lboost_filesystem -lgmp -lgmpxx
+endif
+
 RUN_TEST = ./$(CPPTARGET)
 $(TARGET): $(SRC)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
 # C++ (C++23 (GCC 15.2.0))
 OJ_SFLAGS = -l 5001
 else
