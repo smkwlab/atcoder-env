@@ -1,6 +1,7 @@
 contest/
 lib/*
 !lib/.support/
+!lib/*.sh
 atcoder-cli-nodejs/*/makefile
 atcoder-cli-nodejs/session.json
 .local/share/
