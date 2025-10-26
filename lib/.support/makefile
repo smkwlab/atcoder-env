@@ -104,7 +104,7 @@ ifeq ($(PROG), c++)
 SRC = Main.cpp
 TARGET = $(CPPTARGET)
 
-# Base flags already set: CFLAGS = -std=gnu++20
+# Using base flags from CFLAGS (line 50): -std=gnu++20
 CPPFLAGS = $(CFLAGS)
 LDFLAGS =
 
@@ -125,7 +125,7 @@ endif
 RUN_TEST = ./$(CPPTARGET)
 $(TARGET): $(SRC)
 	$(CC) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
-# C++ (C++23 (GCC 15.2.0))
+# C++ (GNU++20 (GCC 12.3.0))
 OJ_SFLAGS = -l 5001
 else
 ifeq ($(PROG),javascript)
