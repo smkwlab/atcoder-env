@@ -139,6 +139,7 @@ endif
 endif
 endif
 endif
+endif
 
 OJ = oj
 OJ_TFLAGS = -c '$(RUN_TEST)' --ignore-spaces-and-newline
