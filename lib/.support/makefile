@@ -54,11 +54,20 @@ RUSTC = rustc # main.rs
 RUSTFLAGS = -O
 RUSTTARGET = main
 
+NODE = node
+NODEFLAGS =
+
 ifeq ($(PROG),java)
 # JAVA
 SRC = Main.java
 TARGET = $(JAVATARGET)
+ifeq ($(STRICT_MODE),1)
+# Strict mode: use wrapper script with dynamic stack sizing
+RUN_TEST = sh $(HOME)/lib/java.sh 1024
+else
+# Simple mode: basic execution
 RUN_TEST = $(JAVA) $(JAVAFLAGS) Main
+endif
 # Java (OpenJDK 23.0.1)
 OJ_SFLAGS = -l 5005
 else
@@ -99,6 +108,20 @@ $(TARGET): $(SRC)
 	$(CC) $(CFLAGS) $^ -o $@
 # C++ (C++23 (GCC 15.2.0))
 OJ_SFLAGS = -l 5001
+else
+ifeq ($(PROG),javascript)
+# JavaScript
+SRC = Main.js
+TARGET =
+ifeq ($(STRICT_MODE),1)
+# Strict mode: use wrapper script with dynamic stack sizing (KB)
+RUN_TEST = sh $(HOME)/lib/node.sh 65536 $(SRC)
+else
+# Simple mode: basic execution
+RUN_TEST = $(NODE) $(SRC) ONLINE_JUDGE ATCODER
+endif
+# JavaScript (Node.js 23.5.0)
+OJ_SFLAGS = -l 5083
 else
 ifeq ($(PROG), rust)
 # Rust
