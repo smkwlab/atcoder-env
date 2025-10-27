@@ -80,8 +80,8 @@ JUDGEDIR = /judge/main
 TARGET = $(JUDGEDIR)/_build/prod/rel/main/bin/main
 RUN_TEST = $(JUDGEDIR)/_build/prod/rel/main/bin/main eval Main.main
 $(TARGET): $(SRC)
-	@cp $(SRC) $(JUDGEDIR)/lib/main.ex
-	cd $(JUDGEDIR) && MIX_ENV=prod mix release --quiet --overwrite 2>/tmp/err-out || cat /tmp/err-out 1>&2
+	@cp $(SRC) $(JUDGEDIR)/lib/Main.ex
+	cd $(JUDGEDIR) && MIX_ENV=prod mix release --quiet --overwrite 2>/tmp/err-out.$$ || cat /tmp/err-out.$$ 1>&2
 else
 # Simple mode: use elixirc + elixir
 TARGET = $(ELIXIRTARGET)
