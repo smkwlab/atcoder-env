@@ -62,7 +62,7 @@ ifeq ($(PROG),java)
 SRC = Main.java
 JUDGEDIR = /judge
 TARGET = $(JUDGEDIR)/Main.class
-RUN_TEST = sh $(HOME)/lib/java.sh 1024 $(JUDGEDIR)
+RUN_TEST = sh /judge/java.sh 1024 $(JUDGEDIR)
 $(TARGET): $(SRC)
 	@rm -f $(JUDGEDIR)/Main.java $(JUDGEDIR)/Main.class
 	@cp $(SRC) $(JUDGEDIR)/Main.java
