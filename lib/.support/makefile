@@ -72,10 +72,8 @@ endif
 OJ_SFLAGS = -l 5005
 else
 ifeq ($(PROG),elixir)
-# Elixir
+# Elixir - Always use Mix release (same as judge environment)
 SRC = Main.ex
-ifeq ($(STRICT_MODE),1)
-# Strict mode: use prebuilt mix project in /judge
 JUDGEDIR = /judge/main
 TARGET = $(JUDGEDIR)/_build/prod/rel/main/bin/main
 RUN_TEST = $(JUDGEDIR)/_build/prod/rel/main/bin/main eval Main.main
@@ -83,13 +81,6 @@ $(TARGET): $(SRC)
 	@rm -f $(JUDGEDIR)/lib/main.ex $(JUDGEDIR)/lib/Main.ex
 	@cp $(SRC) $(JUDGEDIR)/lib/Main.ex
 	cd $(JUDGEDIR) && MIX_ENV=prod mix release --quiet --overwrite 2>/tmp/err-out.$$ || cat /tmp/err-out.$$ 1>&2
-else
-# Simple mode: use elixirc + elixir
-TARGET = $(ELIXIRTARGET)
-RUN_TEST = $(ELIXIR) $(ELIXIRFLAGS) Main.main
-$(TARGET): $(SRC)
-	$(ELIXIRC) $(SRC) $(ELIXIRCFLAGS)
-endif
 # Elixir (1.18.4 (OTP 28.0.2))
 OJ_SFLAGS = -l 5085
 else
