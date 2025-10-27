@@ -80,6 +80,7 @@ JUDGEDIR = /judge/main
 TARGET = $(JUDGEDIR)/_build/prod/rel/main/bin/main
 RUN_TEST = $(JUDGEDIR)/_build/prod/rel/main/bin/main eval Main.main
 $(TARGET): $(SRC)
+	@rm -f $(JUDGEDIR)/lib/main.ex $(JUDGEDIR)/lib/Main.ex
 	@cp $(SRC) $(JUDGEDIR)/lib/Main.ex
 	cd $(JUDGEDIR) && MIX_ENV=prod mix release --quiet --overwrite 2>/tmp/err-out.$$ || cat /tmp/err-out.$$ 1>&2
 else
@@ -171,7 +172,7 @@ endif
 endif
 endif
 
-OJ = python3.13 -m onlinejudge_command.main
+OJ = oj
 OJ_TFLAGS = -c '$(RUN_TEST)' --ignore-spaces-and-newline
 OJ_TFLAGS_FLOAT = -e 1e-6
 
