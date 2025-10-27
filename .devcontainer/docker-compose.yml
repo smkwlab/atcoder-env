@@ -5,9 +5,6 @@ services:
       context: .
       dockerfile: Dockerfile
 
-    # イメージ名を指定
-    image: ghcr.io/smkwlab/atcoder-container:202510update
-
     # localとcontainer間のファイルを同期させる
     # ${local}:${container}
     volumes:
