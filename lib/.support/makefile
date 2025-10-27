@@ -72,7 +72,7 @@ endif
 OJ_SFLAGS = -l 5005
 else
 ifeq ($(PROG),elixir)
-# Elixir - Always use Mix release (same as judge environment)
+# Elixir - Always use Mix release (same as Judge environment)
 SRC = Main.ex
 JUDGEDIR = /judge/main
 TARGET = $(JUDGEDIR)/_build/prod/rel/main/bin/main

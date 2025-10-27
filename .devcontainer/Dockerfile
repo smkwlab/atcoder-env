@@ -8,5 +8,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 RUN echo ". ${HOME}/lib/.support/bash_functions.sh" >> ${HOME}/.bashrc
-ENV CONTEST_DIR $HOME/contest
-ENV PATH="${HOME}/bin:${PATH}"
+ENV CONTEST_DIR /root/contest
+ENV PATH="/root/bin:${PATH}"
