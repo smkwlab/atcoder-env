@@ -131,16 +131,10 @@ $(TARGET): $(SRC)
 OJ_SFLAGS = -l 5001
 else
 ifeq ($(PROG),javascript)
-# JavaScript
+# JavaScript - Always use judge environment settings
 SRC = Main.js
 TARGET =
-ifeq ($(STRICT_MODE),1)
-# Strict mode: use wrapper script with dynamic stack sizing (KB)
 RUN_TEST = sh $(HOME)/lib/node.sh 65536 $(SRC)
-else
-# Simple mode: basic execution
-RUN_TEST = $(NODE) $(SRC) ONLINE_JUDGE ATCODER
-endif
 # JavaScript (Node.js 23.5.0)
 OJ_SFLAGS = -l 5083
 else

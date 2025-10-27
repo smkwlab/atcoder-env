@@ -73,12 +73,13 @@ makefileで管理（`/root/lib/.support/makefile`へのシンボリックリン�
 - C++: GCC 15.2.0 C++23 (language ID: 5001)
 - Ruby: 3.4.5 (language ID: 5018) - judge環境と同じオプションで実行
 - **Elixir: 1.18.4 (OTP 28.0.2) (language ID: 5085) - 常にMix releaseでビルド（Judge環境と同じ）**
-- JavaScript: Node.js 22.19.0
+- **JavaScript: Node.js 22.19.0 (language ID: 5083) - 常にjudge環境設定（64MBスタック）で実行**
 - Rust: 1.87.0 (未対応)
 
 **注意**:
 - Java は `am t .java` でも `am ts .java` でも常に `/judge` ディレクトリ方式（Judge 環境と同じ）でビルド・実行されます。問題ディレクトリに `.class` ファイルが生成されないため、クリーンな開発環境を維持できます。
 - Elixir は `am t .ex` でも `am ts .ex` でも常に Mix release（judge 環境と同じ方式）でビルドされます。ビルド時間が短いため、開発効率とjudge環境との完全一致を両立できます。
+- JavaScript は `am t .js` で常に64MBスタックサイズ（judge 環境と同じ）で実行されます。デフォルトのNode.jsスタック（約1MB）と異なり、再帰処理でのスタックオーバーフローを防ぎます。
 
 ### テンプレート設定
 `atcoder-cli-nodejs/config.json`の`default-template`で指定:
