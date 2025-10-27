@@ -68,15 +68,17 @@ ahc 123      # ahc123へ
 makefileで管理（`/root/lib/.support/makefile`へのシンボリックリンク）
 
 #### 言語バージョンと実行方式
-- Java: OpenJDK 23.0.1 (language ID: 5005)
+- **Java: OpenJDK 23.0.1 (language ID: 5005) - 常に/judgeディレクトリでコンパイル・実行（Judge環境と同じ）**
 - Python: CPython 3.13.7 (language ID: 5055) - judge環境と同じオプションで実行
 - C++: GCC 15.2.0 C++23 (language ID: 5001)
 - Ruby: 3.4.5 (language ID: 5018) - judge環境と同じオプションで実行
-- **Elixir: 1.18.4 (OTP 28.0.2) (language ID: 5085) - 常にMix releaseでビルド（judge環境と同じ）**
+- **Elixir: 1.18.4 (OTP 28.0.2) (language ID: 5085) - 常にMix releaseでビルド（Judge環境と同じ）**
 - JavaScript: Node.js 22.19.0
 - Rust: 1.87.0 (未対応)
 
-**注意**: Elixir は `am t .ex` でも `am ts .ex` でも常に Mix release（judge 環境と同じ方式）でビルドされます。ビルド時間が短いため、開発効率とjudge環境との完全一致を両立できます。
+**注意**:
+- Java は `am t .java` でも `am ts .java` でも常に `/judge` ディレクトリ方式（Judge 環境と同じ）でビルド・実行されます。問題ディレクトリに `.class` ファイルが生成されないため、クリーンな開発環境を維持できます。
+- Elixir は `am t .ex` でも `am ts .ex` でも常に Mix release（judge 環境と同じ方式）でビルドされます。ビルド時間が短いため、開発効率とjudge環境との完全一致を両立できます。
 
 ### テンプレート設定
 `atcoder-cli-nodejs/config.json`の`default-template`で指定:

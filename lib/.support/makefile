@@ -58,16 +58,15 @@ NODE = node
 NODEFLAGS =
 
 ifeq ($(PROG),java)
-# JAVA
+# Java - Always use /judge directory (same as Judge environment)
 SRC = Main.java
-TARGET = $(JAVATARGET)
-ifeq ($(STRICT_MODE),1)
-# Strict mode: use wrapper script with dynamic stack sizing
-RUN_TEST = sh $(HOME)/lib/java.sh 1024
-else
-# Simple mode: basic execution
-RUN_TEST = $(JAVA) $(JAVAFLAGS) Main
-endif
+JUDGEDIR = /judge
+TARGET = $(JUDGEDIR)/Main.class
+RUN_TEST = sh $(HOME)/lib/java.sh 1024 $(JUDGEDIR)
+$(TARGET): $(SRC)
+	@rm -f $(JUDGEDIR)/Main.java $(JUDGEDIR)/Main.class
+	@cp $(SRC) $(JUDGEDIR)/Main.java
+	javac -J-Dfile.encoding=UTF-8 -Xlint:unchecked -cp $(JUDGEDIR)/ac_library.jar $(JUDGEDIR)/Main.java
 # Java (OpenJDK 23.0.1)
 OJ_SFLAGS = -l 5005
 else
