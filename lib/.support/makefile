@@ -172,7 +172,7 @@ endif
 endif
 endif
 
-OJ = python3.13 -m onlinejudge_command.main
+OJ = oj
 OJ_TFLAGS = -c '$(RUN_TEST)' --ignore-spaces-and-newline
 OJ_TFLAGS_FLOAT = -e 1e-6
 
