@@ -17,6 +17,9 @@ EDITOR ?= code
 RM = rm
 #RM = trash
 
+# Judge Directory
+JUDGEDIR ?= /judge
+
 # OS Specific Tools
 OS = $(shell uname -s)
 OS_REL = $(shell uname -r)
@@ -60,7 +63,6 @@ NODEFLAGS =
 ifeq ($(PROG),java)
 # Java - Always use /judge directory (same as Judge environment)
 SRC = Main.java
-JUDGEDIR = /judge
 TARGET = $(JUDGEDIR)/Main.class
 RUN_TEST = sh /judge/java.sh 1024 $(JUDGEDIR)
 $(TARGET): $(SRC)
@@ -73,13 +75,13 @@ else
 ifeq ($(PROG),elixir)
 # Elixir - Always use Mix release (same as Judge environment)
 SRC = Main.ex
-JUDGEDIR = /judge/main
-TARGET = $(JUDGEDIR)/_build/prod/rel/main/bin/main
-RUN_TEST = $(JUDGEDIR)/_build/prod/rel/main/bin/main eval Main.main
+ELIXIR_WORKDIR = $(JUDGEDIR)/main
+TARGET = $(ELIXIR_WORKDIR)/_build/prod/rel/main/bin/main
+RUN_TEST = $(ELIXIR_WORKDIR)/_build/prod/rel/main/bin/main eval Main.main
 $(TARGET): $(SRC)
-	@rm -f $(JUDGEDIR)/lib/main.ex $(JUDGEDIR)/lib/Main.ex
-	@cp $(SRC) $(JUDGEDIR)/lib/Main.ex
-	cd $(JUDGEDIR) && MIX_ENV=prod mix release --quiet --overwrite 2>/tmp/err-out.$$ || cat /tmp/err-out.$$ 1>&2
+	@rm -f $(ELIXIR_WORKDIR)/lib/main.ex $(ELIXIR_WORKDIR)/lib/Main.ex
+	@cp $(SRC) $(ELIXIR_WORKDIR)/lib/Main.ex
+	cd $(ELIXIR_WORKDIR) && MIX_ENV=prod mix release --quiet --overwrite 2>/tmp/err-out.$$ || cat /tmp/err-out.$$ 1>&2
 # Elixir (1.18.4 (OTP 28.0.2))
 OJ_SFLAGS = -l 5085
 else
@@ -104,7 +106,6 @@ else
 ifeq ($(PROG), c++)
 # C++ - Always use /judge directory (same as Judge environment)
 SRC = Main.cpp
-JUDGEDIR = /judge
 TARGET = $(JUDGEDIR)/a.out
 RUN_TEST = $(JUDGEDIR)/a.out
 $(TARGET): $(SRC)
