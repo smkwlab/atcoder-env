@@ -44,7 +44,7 @@ ELIXIRTARGET = Elixir.Main.beam
 
 RUBY = ruby
 
-PYTHON = python
+PYTHON = python3
 
 CC = g++
 CFLAGS = -std=gnu++20

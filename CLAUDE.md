@@ -110,17 +110,11 @@ docker ps --filter "name=atcoder-env" --format "table {{.ID}}\t{{.Names}}\t{{.St
 **重要**: makefileはasdfの環境が必要なため、`bash -i`（対話的シェル）で実行すること。
 
 ```bash
-# Java簡易モード
+# Java
 docker exec -i atcoder-env_devcontainer-dev-1 bash -i -c "cd /root/contest/abc123/a && make t PROG=java"
 
-# Java厳密モード（wrapper script使用）
-docker exec -i atcoder-env_devcontainer-dev-1 bash -i -c "cd /root/contest/abc123/a && STRICT_MODE=1 make t PROG=java"
-
-# JavaScript簡易モード
+# JavaScript
 docker exec -i atcoder-env_devcontainer-dev-1 bash -i -c "cd /root/contest/abc123/a && make t PROG=javascript"
-
-# JavaScript厳密モード（wrapper script使用）
-docker exec -i atcoder-env_devcontainer-dev-1 bash -i -c "cd /root/contest/abc123/a && STRICT_MODE=1 make t PROG=javascript"
 
 # Python
 docker exec -i atcoder-env_devcontainer-dev-1 bash -i -c "cd /root/contest/abc123/a && make t PROG=python"

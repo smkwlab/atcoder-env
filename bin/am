@@ -12,9 +12,7 @@ Usage: am <command> <params>
 command:
   new <contest_id>   create task directory
   t <extension>      test code by oj
-  ts <extension>     test code by oj (strict mode - same as judge environment)
   tf <extension>     test code by oj (with float tolerance)
-  tsf <extension>    test code by oj (strict mode with float tolerance)
   test <extension>   execute code and display results
   s <extension>      submit code by oj
   dl                 download test cases
@@ -24,42 +22,6 @@ EOF
 new|setup)
   CONTEST="$2"
   (cd ${CONTEST_DIR}; acc new ${CONTEST} --no-tests)
-  ;;
-ts|tsf)
-  export STRICT_MODE=1
-  if [ "${CMD}" = "ts" ]; then
-    CMD=t
-  else
-    CMD=tf
-  fi
-  EXT="$2"
-
-  case ${EXT} in
-  \.java)
-    PROG=java
-    ;;
-  \.py)
-    PROG=python
-    ;;
-  \.cpp|\.c++)
-    PROG=c++
-    ;;
-  \.rb)
-    PROG=ruby
-    ;;
-  \.ex)
-    PROG=elixir
-    ;;
-  \.rs)
-    PROG=rust
-    ;;
-  *)
-    PROG=UNKNOWN
-    ;;
-  esac
-
-  export PROG
-  make ${CMD}
   ;;
 *)
   EXT="$2"
