@@ -102,32 +102,16 @@ RUN_TEST = $(PYTHON) -X int_max_str_digits=0 $(SRC)
 OJ_SFLAGS = -l 5055
 else
 ifeq ($(PROG), c++)
-# C++
+# C++ - Always use /judge directory (same as Judge environment)
 SRC = Main.cpp
-TARGET = $(CPPTARGET)
-
-# Using base flags from CFLAGS (line 50): -std=gnu++20
-CPPFLAGS = $(CFLAGS)
-LDFLAGS =
-
-# Strict mode: AtCoder judge environment settings
-ifeq ($(STRICT_MODE),1)
-# Optimization flags
-CPPFLAGS += -O2 -Wall -Wextra
-# constexpr limits
-CPPFLAGS += -fconstexpr-depth=1024 -fconstexpr-loop-limit=524288 -fconstexpr-ops-limit=2097152
-# Optimization techniques
-CPPFLAGS += -flto=auto -march=native
-# Parallel processing
-CPPFLAGS += -pthread -fopenmp
-# Note: Boost/GMP/GMPXX linking requires container image with these libraries
-# LDFLAGS = -lboost_system -lboost_filesystem -lgmp -lgmpxx
-endif
-
-RUN_TEST = ./$(CPPTARGET)
+JUDGEDIR = /judge
+TARGET = $(JUDGEDIR)/a.out
+RUN_TEST = $(JUDGEDIR)/a.out
 $(TARGET): $(SRC)
-	$(CC) $(CPPFLAGS) $(LDFLAGS) $^ -o $@
-# C++ (GNU++20 (GCC 12.3.0))
+	@rm -f $(JUDGEDIR)/Main.cpp $(JUDGEDIR)/a.out
+	@cp $(SRC) $(JUDGEDIR)/Main.cpp
+	cd $(JUDGEDIR) && /judge/cpp.sh
+# C++ (GNU++23 (GCC 15.2.0))
 OJ_SFLAGS = -l 5001
 else
 ifeq ($(PROG),javascript)
