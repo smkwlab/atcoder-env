@@ -1,7 +1,6 @@
 #! /bin/bash
 # AtCoder frontend utility for (formaly) Make
 #set -x
-. ${HOME}/.asdf/asdf.sh 
 
 CMD="$1"
 

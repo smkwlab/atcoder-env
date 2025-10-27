@@ -67,14 +67,16 @@ ahc 123      # ahc123へ
 ### 各言語のビルド・実行設定
 makefileで管理（`/root/lib/.support/makefile`へのシンボリックリンク）
 
-#### 言語バージョン
+#### 言語バージョンと実行方式
 - Java: OpenJDK 23.0.1 (language ID: 5005)
-- Python: CPython 3.13.7 (language ID: 5055)
+- Python: CPython 3.13.7 (language ID: 5055) - judge環境と同じオプションで実行
 - C++: GCC 15.2.0 C++23 (language ID: 5001)
-- Ruby: 3.4.5 (language ID: 5018)
-- Elixir: 1.18.4 (OTP 28.0.2) (language ID: 5085)
+- Ruby: 3.4.5 (language ID: 5018) - judge環境と同じオプションで実行
+- **Elixir: 1.18.4 (OTP 28.0.2) (language ID: 5085) - 常にMix releaseでビルド（judge環境と同じ）**
 - JavaScript: Node.js 22.19.0
 - Rust: 1.87.0 (未対応)
+
+**注意**: Elixir は `am t .ex` でも `am ts .ex` でも常に Mix release（judge 環境と同じ方式）でビルドされます。ビルド時間が短いため、開発効率とjudge環境との完全一致を両立できます。
 
 ### テンプレート設定
 `atcoder-cli-nodejs/config.json`の`default-template`で指定:
