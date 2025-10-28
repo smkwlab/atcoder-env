@@ -36,7 +36,10 @@
 				"terminal.integrated.fontSize": 14,
 				"terminal.integrated.fontFamily": "HackGen, 'BIZ UDPGothic', Meiryo, 'Hiragino Kaku Gothic ProN', 'SF Mono', Consolas, monospace",
 				//"workbench.colorTheme": "Default Light+",
-				"window.zoomLevel": 0
+				"window.zoomLevel": 0,
+				// Java settings - override host settings for container
+				"java.jdt.ls.java.home": null,
+				"java.configuration.runtimes": []
 			},
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
