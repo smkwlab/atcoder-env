@@ -18,6 +18,12 @@
 	// connected. This is typically a file mount in .devcontainer/docker-compose.yml
 	"workspaceFolder": "/root",
 
+	// Environment variables for VS Code and tasks
+	"remoteEnv": {
+		"PATH": "/root/bin:${containerEnv:PATH}",
+		"CONTEST_DIR": "/root/contest"
+	},
+
 	// Customizations for VS Code
 	"customizations": {
 		"vscode": {
