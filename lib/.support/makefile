@@ -124,15 +124,16 @@ RUN_TEST = sh $(HOME)/lib/node.sh 65536 $(SRC)
 OJ_SFLAGS = -l 5083
 else
 ifeq ($(PROG), rust)
-# Rust
+# Rust - Always use /judge directory (same as Judge environment)
 SRC = main.rs
-TARGET = $(RUSTTARGET)
-RUN_TEST = ./$(RUSTTARGET)
+TARGET = $(JUDGEDIR)/target/release/main
+RUN_TEST = $(JUDGEDIR)/target/release/main
 $(TARGET): $(SRC)
-	$(RUSTC) $(RUSTFLAGS) $^ -o $@
-# Rust (1.87.0) - NOT SUPPORTED
-error:
-	  $(error PROG:$(PROG) not supported)
+	@rm -f $(JUDGEDIR)/src/main.rs $(JUDGEDIR)/target/release/main
+	@cp $(SRC) $(JUDGEDIR)/src/main.rs
+	cd $(JUDGEDIR) && RUST_BACKTRACE=0 cargo build --release --quiet
+# Rust (1.87.0)
+OJ_SFLAGS = -l 5087
 endif
 endif
 endif

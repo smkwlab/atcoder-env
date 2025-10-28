@@ -1,0 +1,6 @@
+{
+  "task": {
+    "program": ["main.rs", "makefile"],
+    "submit": "main.rs"
+  }
+}
