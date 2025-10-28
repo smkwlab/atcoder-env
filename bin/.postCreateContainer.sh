@@ -25,30 +25,46 @@ echo '=========================================='
 echo
 
 # Check if already logged in
-if acc session >/dev/null 2>&1; then
-    echo 'AtCoder に既にログイン済みです。'
+# Note: Authentication is persisted in ~/.config/atcoder-cli-nodejs/ and ~/.local/share/online-judge-tools/
+SESSION_CHECK=$(acc session 2>&1)
+if echo "$SESSION_CHECK" | grep -q "logged in\|ログイン済み"; then
+    echo '✓ AtCoder に既にログイン済みです。'
+    echo
+elif echo "$SESSION_CHECK" | grep -q "network\|timeout\|接続\|failed to connect"; then
+    echo '⚠ 警告: ネットワークエラーによりログイン状態を確認できません。'
+    echo '後で手動で確認してください: acc session'
     echo
 else
-    echo '【重要】AtCoder ログインについて'
+    echo '【注意】AtCoder ログインが必要です'
     echo
-    echo 'AtCoder の仕様変更により、acc と oj の自動ログインが'
-    echo 'できなくなっています。代わりに aclogin でログインしてください。'
-    echo
-    echo '■ Cookie の取得方法:'
-    echo '  1. ブラウザで https://atcoder.jp にログイン'
-    echo '  2. 開発者ツール（F12）を開く'
-    echo '  3. Application（Chrome）または Storage（Firefox）タブを選択'
-    echo '  4. Cookies から REVEL_SESSION の値をコピー'
-    echo
-    echo '詳細: https://qiita.com/namonaki/items/16cda635dd7c34496aaa'
-    echo
-    echo '以下でクッキーを入力してください（スキップする場合は Ctrl+C）:'
+    echo 'AtCoder の仕様変更により手動ログインが必要です。'
     echo
 
-    if command -v aclogin >/dev/null 2>&1; then
-        aclogin || echo 'aclogin をスキップしました。後で手動で実行できます: aclogin'
+    # Check if running in interactive terminal (TTY available)
+    if [ -t 0 ] && [ -t 1 ]; then
+        # Interactive environment - prompt for login
+        echo 'Cookie の取得方法:'
+        echo '  1. ブラウザで https://atcoder.jp にログイン'
+        echo '  2. 開発者ツール（F12）→ Application → Cookies'
+        echo '  3. REVEL_SESSION の値をコピー'
+        echo
+        echo '詳細: https://qiita.com/namonaki/items/16cda635dd7c34496aaa'
+        echo
+        echo 'クッキーを入力してください（Ctrl+C でスキップ）:'
+        echo
+
+        if command -v aclogin >/dev/null 2>&1; then
+            aclogin || true
+        else
+            echo 'エラー: aclogin コマンドが見つかりません。'
+            echo '最新のコンテナイメージを使用してください。'
+        fi
     else
-        echo 'エラー: aclogin コマンドが見つかりません。'
-        echo '最新のコンテナイメージを使用してください。'
+        # Non-interactive environment (Codespaces, CI, etc.)
+        echo 'コンテナ作成後、ターミナルで以下を実行してください:'
+        echo '  aclogin'
+        echo
+        echo 'Cookie 取得方法: https://qiita.com/namonaki/items/16cda635dd7c34496aaa'
     fi
+    echo
 fi
