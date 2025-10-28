@@ -26,7 +26,7 @@ echo
 echo '【重要】AtCoder ログインについて'
 echo
 echo 'AtCoder の仕様変更により、acc と oj の自動ログインが'
-echo 'できなくなっています。代わりに aclogin コマンドを使用してください。'
+echo 'できなくなっています。代わりに aclogin でログインしてください。'
 echo
 echo '■ Cookie の取得方法:'
 echo '  1. ブラウザで https://atcoder.jp にログイン'
@@ -34,9 +34,9 @@ echo '  2. 開発者ツール（F12）を開く'
 echo '  3. Application（Chrome）または Storage（Firefox）タブを選択'
 echo '  4. Cookies から REVEL_SESSION の値をコピー'
 echo
-echo '■ aclogin の実行:'
-echo '  aclogin -c "コピーしたCookie値"'
+echo '詳細: https://qiita.com/namonaki/items/16cda635dd7c34496aaa'
 echo
-echo '詳細は以下を参照:'
-echo 'https://qiita.com/namonaki/items/16cda635dd7c34496aaa'
+echo '以下でクッキーを入力してください:'
 echo
+
+aclogin
