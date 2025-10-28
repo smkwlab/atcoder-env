@@ -1,9 +1,7 @@
 version: '3'
 services:
   dev:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/smkwlab/atcoder-container:202510update-lite
 
     # localとcontainer間のファイルを同期させる
     # ${local}:${container}
