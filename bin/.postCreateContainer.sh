@@ -36,7 +36,12 @@ echo '  4. Cookies から REVEL_SESSION の値をコピー'
 echo
 echo '詳細: https://qiita.com/namonaki/items/16cda635dd7c34496aaa'
 echo
-echo '以下でクッキーを入力してください:'
+echo '以下でクッキーを入力してください（スキップする場合は Ctrl+C）:'
 echo
 
-aclogin
+if command -v aclogin >/dev/null 2>&1; then
+    aclogin || echo 'aclogin をスキップしました。後で手動で実行できます: aclogin'
+else
+    echo 'エラー: aclogin コマンドが見つかりません。'
+    echo '最新のコンテナイメージを使用してください。'
+fi
