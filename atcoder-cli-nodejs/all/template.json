@@ -1,6 +1,6 @@
 {
   "task": {
-    "program": ["Main.java", "Main.ex", "Main.rb", "Main.py", "Main.cpp", "main.rs", "makefile"],
+    "program": ["Main.java", "Main.ex", "Main.rb", "Main.py", "Main.js", "Main.php", "Main.erl", "Main.cpp", "main.rs", "makefile"],
     "submit": "Main.java"
   }
 }
