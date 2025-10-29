@@ -92,7 +92,7 @@
 	// "shutdownAction": "none",
 
 	// Run commands after the container is created.
-	"postCreateCommand": "bin/.postCreateContainer.sh"
+	"postCreateCommand": "bin/.postCreateContainer.sh 2>&1 | tee /tmp/postCreateContainer.log"
 
 	// Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "vscode"
