@@ -68,3 +68,23 @@ else
     fi
     echo
 fi
+
+# Add login reminder to .bashrc
+echo 'add login reminder to .bashrc'
+if ! grep -q 'ATCODER_LOGIN_CHECKED' ${HOME}/.bashrc; then
+    cat >> ${HOME}/.bashrc << 'EOF'
+
+# Check AtCoder login status (once per shell session)
+if [ -z "$ATCODER_LOGIN_CHECKED" ]; then
+    export ATCODER_LOGIN_CHECKED=1
+
+    if ! acc session 2>&1 | grep -q "logged in\|ログイン済み"; then
+        echo ""
+        echo "⚠️  AtCoder ログインが必要です"
+        echo "    ログイン方法: aclogin"
+        echo "    詳細: https://qiita.com/namonaki/items/16cda635dd7c34496aaa"
+        echo ""
+    fi
+fi
+EOF
+fi
