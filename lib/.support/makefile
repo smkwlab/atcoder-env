@@ -35,8 +35,6 @@ endif
 
 JAVAC = javac
 JAVACFLAGS = -J-Dfile.encoding=UTF-8 -Xlint:unchecked -cp $(HOME)/lib/ac_library.jar
-JAVA = java
-JAVAFLAGS = -cp .:$(HOME)/lib/ac_library.jar
 JAVATARGET = Main.class
 
 RUBY = ruby
@@ -46,9 +44,6 @@ PYTHON = python3
 CC = g++
 CFLAGS = -std=gnu++20
 CPPTARGET = main
-
-NODE = node
-NODEFLAGS =
 
 ifeq ($(PROG),java)
 SRC = Main.java
@@ -134,7 +129,7 @@ OJ_TFLAGS_FLOAT = -e 1e-6
 TASK:=$$(basename $(CURDIR))
 TASK_URL:=$$(cat ../contest.acc.json|jq -r ".tasks|map(select(.directory.path==\"$(TASK)\"))[]|.url")
 
-.PHONY: all test dl t s open web o edit e clean distclean
+.PHONY: all test dl t s open web o edit e clean
 .SUFFIXES: .java .class .cpp .o
 
 .java.class:
@@ -251,6 +246,3 @@ edit:
 
 clean:
 	-$(RM) $(OBJ) $(TARGET)
-
-distclean:
-	-$(RM) $(JAVATARGET) $(ELIXIRTARGET) (CPPTARGET) $(OBJ) $(TARGET) *~
