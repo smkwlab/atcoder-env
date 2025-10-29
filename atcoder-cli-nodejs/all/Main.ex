@@ -2,8 +2,6 @@ defmodule Main do
   import Bitwise
 
   def main do
-    __input_init__()
-
     n = read_integer()
     m = read_integer()
 
@@ -28,19 +26,6 @@ defmodule Main do
   #
   # helper 関数群
   #
-  # 入力の初期化(Agentの起動)
-  @spec __input_init__() :: {:ok, pid()}
-  def __input_init__() do
-    {:ok, _} = Agent.start_link(fn ->
-      "/dev/stdin"
-      |> File.read!()
-      |> String.split("\n", trim: true)
-    end, name: :input_agent)
-  end
-
-  # Agent から入力を取得/更新
-  defp get_input, do: Agent.get(:input_agent, & &1)
-  defp update_input(new_input), do: Agent.update(:input_agent, fn _ -> new_input end)
 
   # 文字列1行読み込み
   @spec read_string() :: String.t
@@ -49,9 +34,9 @@ defmodule Main do
   # out:
   # "rikka"
   def read_string do
-    [result | rest] = get_input()
-    update_input(rest)
-    result
+    :line
+    |> IO.read()
+    |> String.trim
   end
 
   # 整数1行読み込み
@@ -97,9 +82,9 @@ defmodule Main do
   # out:
   # ["rikka", "akane", "namiko"]
   def read_string_lines do
-    input = get_input()
-    update_input([])
-    input
+    :eof
+    |> IO.read()
+    |> String.split("\n", trim: true)
   end
 
   # 整数全行読み込み
@@ -152,9 +137,12 @@ defmodule Main do
   # out:
   # ["rikka", "akane", "namiko"]
   def read_string_lines(n) do
-    {result, rest} = Enum.split(get_input(), n)
-    update_input(rest)
-    result
+    read_string_lines(n, [])
+  end
+
+  def read_string_lines(0, acc), do: Enum.reverse(acc)
+  def read_string_lines(n, acc) do
+    read_string_lines(n - 1, [read_string() | acc])
   end
 
   # 行数指定整数複数行読み込み
