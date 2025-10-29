@@ -39,12 +39,6 @@ JAVA = java
 JAVAFLAGS = -cp .:$(HOME)/lib/ac_library.jar
 JAVATARGET = Main.class
 
-ELIXIRC = elixirc
-ELIXIRCFLAGS = -o .
-ELIXIR = elixir
-ELIXIRFLAGS = -pa . -e
-ELIXIRTARGET = Elixir.Main.beam
-
 RUBY = ruby
 
 PYTHON = python3
@@ -53,35 +47,29 @@ CC = g++
 CFLAGS = -std=gnu++20
 CPPTARGET = main
 
-RUSTC = rustc # main.rs
-RUSTFLAGS = -O
-RUSTTARGET = main
-
 NODE = node
 NODEFLAGS =
 
 ifeq ($(PROG),java)
-# Java - Always use /judge directory (same as Judge environment)
 SRC = Main.java
 TARGET = $(JUDGEDIR)/Main.class
 RUN_TEST = sh /judge/java.sh 1024 $(JUDGEDIR)
 $(TARGET): $(SRC)
-	@rm -f $(JUDGEDIR)/Main.java $(JUDGEDIR)/Main.class
-	@cp $(SRC) $(JUDGEDIR)/Main.java
-	javac -J-Dfile.encoding=UTF-8 -Xlint:unchecked -cp $(JUDGEDIR)/ac_library.jar $(JUDGEDIR)/Main.java
+	@rm -f $(JUDGEDIR)/$(SRC) $(TARGET)
+	cp $(SRC) $(JUDGEDIR)/$(SRC)
+	javac -J-Dfile.encoding=UTF-8 -Xlint:unchecked -cp $(JUDGEDIR)/ac_library.jar $(JUDGEDIR)/$(SRC)
 # Java (OpenJDK 23.0.1)
 OJ_SFLAGS = -l 5005
 else
 ifeq ($(PROG),elixir)
-# Elixir - Always use Mix release (same as Judge environment)
 SRC = Main.ex
 ELIXIR_WORKDIR = $(JUDGEDIR)/main
 TARGET = $(ELIXIR_WORKDIR)/_build/prod/rel/main/bin/main
-RUN_TEST = $(ELIXIR_WORKDIR)/_build/prod/rel/main/bin/main eval Main.main
+RUN_TEST = $(TARGET) eval Main.main
 $(TARGET): $(SRC)
-	@rm -f $(ELIXIR_WORKDIR)/lib/main.ex $(ELIXIR_WORKDIR)/lib/Main.ex
-	@cp $(SRC) $(ELIXIR_WORKDIR)/lib/Main.ex
-	cd $(ELIXIR_WORKDIR) && MIX_ENV=prod mix release --quiet --overwrite 2>/tmp/err-out.$$ || cat /tmp/err-out.$$ 1>&2
+	@rm -f $(ELIXIR_WORKDIR)/lib/$(SRC) $(TARGET)
+	cp $(SRC) $(ELIXIR_WORKDIR)/lib/$(SRC)
+	cd $(ELIXIR_WORKDIR) && MIX_ENV=prod mix release --quiet --overwrite
 # Elixir (1.18.4 (OTP 28.0.2))
 OJ_SFLAGS = -l 5085
 else
@@ -104,19 +92,17 @@ RUN_TEST = $(PYTHON) -X int_max_str_digits=0 $(SRC)
 OJ_SFLAGS = -l 5055
 else
 ifeq ($(PROG), c++)
-# C++ - Always use /judge directory (same as Judge environment)
 SRC = Main.cpp
 TARGET = $(JUDGEDIR)/a.out
 RUN_TEST = $(JUDGEDIR)/a.out
 $(TARGET): $(SRC)
-	@rm -f $(JUDGEDIR)/Main.cpp $(JUDGEDIR)/a.out
-	@cp $(SRC) $(JUDGEDIR)/Main.cpp
+	@rm -f $(JUDGEDIR)/$(SRC) $(TARGET)
+	cp $(SRC) $(JUDGEDIR)/$(SRC)
 	cd $(JUDGEDIR) && /judge/cpp.sh
 # C++ (GNU++23 (GCC 15.2.0))
 OJ_SFLAGS = -l 5001
 else
 ifeq ($(PROG),javascript)
-# JavaScript - Always use judge environment settings
 SRC = Main.js
 TARGET =
 RUN_TEST = sh $(HOME)/lib/node.sh 65536 $(SRC)
@@ -124,13 +110,12 @@ RUN_TEST = sh $(HOME)/lib/node.sh 65536 $(SRC)
 OJ_SFLAGS = -l 5083
 else
 ifeq ($(PROG), rust)
-# Rust - Always use /judge directory (same as Judge environment)
 SRC = main.rs
 TARGET = $(JUDGEDIR)/target/release/main
 RUN_TEST = $(JUDGEDIR)/target/release/main
 $(TARGET): $(SRC)
-	@rm -f $(JUDGEDIR)/src/main.rs $(JUDGEDIR)/target/release/main
-	@cp $(SRC) $(JUDGEDIR)/src/main.rs
+	@rm -f $(JUDGEDIR)/src/$(SRC) $(TARGET)
+	cp $(SRC) $(JUDGEDIR)/src/$(SRC)
 	cd $(JUDGEDIR) && RUST_BACKTRACE=0 cargo build --release --quiet
 # Rust (1.87.0)
 OJ_SFLAGS = -l 5087
