@@ -230,4 +230,4 @@ edit:
 	$(EDITOR) $(SRC)
 
 clean:
-	-$(RM) $(OBJ) $(TARGET)
+	-$(RM) $(TARGET)
