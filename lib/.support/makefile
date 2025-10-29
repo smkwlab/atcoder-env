@@ -33,17 +33,9 @@ OPEN = xdg-open
 endif
 endif
 
-JAVAC = javac
-JAVACFLAGS = -J-Dfile.encoding=UTF-8 -Xlint:unchecked -cp $(HOME)/lib/ac_library.jar
-JAVATARGET = Main.class
-
 RUBY = ruby
 
 PYTHON = python3
-
-CC = g++
-CFLAGS = -std=gnu++20
-CPPTARGET = main
 
 ifeq ($(PROG),java)
 SRC = Main.java
@@ -130,13 +122,6 @@ TASK:=$$(basename $(CURDIR))
 TASK_URL:=$$(cat ../contest.acc.json|jq -r ".tasks|map(select(.directory.path==\"$(TASK)\"))[]|.url")
 
 .PHONY: all test dl t s open web o edit e clean
-.SUFFIXES: .java .class .cpp .o
-
-.java.class:
-	$(JAVAC) $(JAVACFLAGS) $<
-
-.cpp.o:
-	$(CC) $(CFLAGS) -o $@ -c $<
 
 test: test/sample-1.in $(TARGET)
 	@for i in test/*.in; do \
