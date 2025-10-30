@@ -41,6 +41,7 @@ ifeq ($(PROG),java)
 SRC = Main.java
 TARGET = $(JUDGEDIR)/Main.class
 RUN_TEST = sh /judge/java.sh 1024 $(JUDGEDIR)
+.PHONY: $(TARGET)
 $(TARGET): $(SRC)
 	@rm -f $(JUDGEDIR)/$(SRC) $(TARGET)
 	cp $(SRC) $(JUDGEDIR)/$(SRC)
@@ -53,6 +54,7 @@ SRC = Main.ex
 ELIXIR_WORKDIR = $(JUDGEDIR)/main
 TARGET = $(ELIXIR_WORKDIR)/_build/prod/rel/main/bin/main
 RUN_TEST = $(TARGET) eval Main.main
+.PHONY: $(TARGET)
 $(TARGET): $(SRC)
 	@rm -f $(ELIXIR_WORKDIR)/lib/$(SRC) $(TARGET)
 	cp $(SRC) $(ELIXIR_WORKDIR)/lib/$(SRC)
@@ -82,6 +84,7 @@ ifeq ($(PROG), c++)
 SRC = Main.cpp
 TARGET = $(JUDGEDIR)/a.out
 RUN_TEST = $(JUDGEDIR)/a.out
+.PHONY: $(TARGET)
 $(TARGET): $(SRC)
 	@rm -f $(JUDGEDIR)/$(SRC) $(TARGET)
 	cp $(SRC) $(JUDGEDIR)/$(SRC)
@@ -100,6 +103,7 @@ ifeq ($(PROG),erlang)
 SRC = Main.erl
 TARGET = $(JUDGEDIR)/Main.beam
 RUN_TEST = sh -c "cd $(JUDGEDIR) && erl -noshell -run Main main run"
+.PHONY: $(TARGET)
 $(TARGET): $(SRC)
 	@rm -f $(JUDGEDIR)/$(SRC) $(TARGET)
 	cp $(SRC) $(JUDGEDIR)/$(SRC)
@@ -120,6 +124,7 @@ ifeq ($(PROG), rust)
 SRC = main.rs
 TARGET = $(JUDGEDIR)/target/release/main
 RUN_TEST = $(JUDGEDIR)/target/release/main
+.PHONY: $(TARGET)
 $(TARGET): $(SRC)
 	@rm -f $(JUDGEDIR)/src/$(SRC) $(TARGET)
 	cp $(SRC) $(JUDGEDIR)/src/$(SRC)
