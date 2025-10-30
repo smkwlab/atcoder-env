@@ -26,8 +26,9 @@ echo
 
 # Check if already logged in
 # Note: Authentication is persisted in ~/.config/atcoder-cli-nodejs/ and ~/.local/share/online-judge-tools/
+# acc session outputs "OK" when logged in (confirmed from source code)
 SESSION_CHECK=$(acc session 2>&1)
-if echo "$SESSION_CHECK" | grep -q "logged in\|ログイン済み"; then
+if echo "$SESSION_CHECK" | grep -q "OK"; then
     echo '✓ AtCoder に既にログイン済みです。'
     echo
 elif echo "$SESSION_CHECK" | grep -q "network\|timeout\|接続\|failed to connect"; then
