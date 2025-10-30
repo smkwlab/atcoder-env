@@ -37,108 +37,100 @@ RUBY = ruby
 
 PYTHON = python3
 
+# Common build rule template for compiled languages
+# Usage: Set BUILD_SRC_PATH and COMPILE_CMD, then $(eval $(COMPILE_RULE))
+define COMPILE_RULE
+.PHONY: $(TARGET)
+$(TARGET): $(SRC)
+	@rm -f $(BUILD_SRC_PATH) $(TARGET)
+	cp $(SRC) $(BUILD_SRC_PATH)
+	$(COMPILE_CMD)
+endef
+
+# Language configurations
 ifeq ($(PROG),java)
 SRC = Main.java
 TARGET = $(JUDGEDIR)/Main.class
+BUILD_SRC_PATH = $(JUDGEDIR)/$(SRC)
+COMPILE_CMD = javac -J-Dfile.encoding=UTF-8 -Xlint:unchecked -cp $(JUDGEDIR)/ac_library.jar $(JUDGEDIR)/$(SRC)
 RUN_TEST = sh /judge/java.sh 1024 $(JUDGEDIR)
-.PHONY: $(TARGET)
-$(TARGET): $(SRC)
-	@rm -f $(JUDGEDIR)/$(SRC) $(TARGET)
-	cp $(SRC) $(JUDGEDIR)/$(SRC)
-	javac -J-Dfile.encoding=UTF-8 -Xlint:unchecked -cp $(JUDGEDIR)/ac_library.jar $(JUDGEDIR)/$(SRC)
-# Java (OpenJDK 23.0.1)
 OJ_SFLAGS = -l 5005
-else
-ifeq ($(PROG),elixir)
+# Java (OpenJDK 23.0.1)
+$(eval $(COMPILE_RULE))
+
+else ifeq ($(PROG),c++)
+SRC = Main.cpp
+TARGET = $(JUDGEDIR)/a.out
+BUILD_SRC_PATH = $(JUDGEDIR)/$(SRC)
+COMPILE_CMD = cd $(JUDGEDIR) && /judge/cpp.sh
+RUN_TEST = $(JUDGEDIR)/a.out
+OJ_SFLAGS = -l 5001
+# C++ (GNU++23 (GCC 15.2.0))
+$(eval $(COMPILE_RULE))
+
+else ifeq ($(PROG),erlang)
+SRC = Main.erl
+TARGET = $(JUDGEDIR)/Main.beam
+BUILD_SRC_PATH = $(JUDGEDIR)/$(SRC)
+COMPILE_CMD = cd $(JUDGEDIR) && erlc $(SRC)
+RUN_TEST = sh -c "cd $(JUDGEDIR) && erl -noshell -run Main main run"
+OJ_SFLAGS = -l 5028
+# Erlang (28.0.2)
+# Language ID is not yet confirmed (TBD)
+$(eval $(COMPILE_RULE))
+
+else ifeq ($(PROG),rust)
+SRC = main.rs
+TARGET = $(JUDGEDIR)/target/release/main
+BUILD_SRC_PATH = $(JUDGEDIR)/src/$(SRC)
+COMPILE_CMD = cd $(JUDGEDIR) && RUST_BACKTRACE=0 cargo build --release --quiet
+RUN_TEST = $(JUDGEDIR)/target/release/main
+OJ_SFLAGS = -l 5087
+# Rust (1.87.0)
+$(eval $(COMPILE_RULE))
+
+else ifeq ($(PROG),elixir)
 SRC = Main.ex
 ELIXIR_WORKDIR = $(JUDGEDIR)/main
 TARGET = $(ELIXIR_WORKDIR)/_build/prod/rel/main/bin/main
+BUILD_SRC_PATH = $(ELIXIR_WORKDIR)/lib/$(SRC)
+COMPILE_CMD = cd $(ELIXIR_WORKDIR) && MIX_ENV=prod mix release --quiet --overwrite
 RUN_TEST = $(TARGET) eval Main.main
-.PHONY: $(TARGET)
-$(TARGET): $(SRC)
-	@rm -f $(ELIXIR_WORKDIR)/lib/$(SRC) $(TARGET)
-	cp $(SRC) $(ELIXIR_WORKDIR)/lib/$(SRC)
-	cd $(ELIXIR_WORKDIR) && MIX_ENV=prod mix release --quiet --overwrite
-# Elixir (1.18.4 (OTP 28.0.2))
 OJ_SFLAGS = -l 5085
-else
-ifeq ($(PROG),ruby)
-# Ruby
+# Elixir (1.18.4 (OTP 28.0.2))
+$(eval $(COMPILE_RULE))
+
+else ifeq ($(PROG),ruby)
 SRC = Main.rb
 TARGET =
 RUN_TEST = sh -c "RUBY_THREAD_VM_STACK_SIZE=1073741824 $(RUBY) --jit $(SRC)"
-# Ruby (3.4.5)
 OJ_SFLAGS = -l 5018
-else
-ifeq ($(PROG),python)
-# Python
+# Ruby (3.4.5)
+
+else ifeq ($(PROG),python)
 SRC = Main.py
 TARGET =
 RUN_TEST = $(PYTHON) -X int_max_str_digits=0 $(SRC)
+OJ_SFLAGS = -l 5055
 # Python (CPython 3.13.7)
 # 5055 (CPython (3.13.7))
 # 5078 (PyPy3 (3.10-v7.3.12))
-OJ_SFLAGS = -l 5055
-else
-ifeq ($(PROG), c++)
-SRC = Main.cpp
-TARGET = $(JUDGEDIR)/a.out
-RUN_TEST = $(JUDGEDIR)/a.out
-.PHONY: $(TARGET)
-$(TARGET): $(SRC)
-	@rm -f $(JUDGEDIR)/$(SRC) $(TARGET)
-	cp $(SRC) $(JUDGEDIR)/$(SRC)
-	cd $(JUDGEDIR) && /judge/cpp.sh
-# C++ (GNU++23 (GCC 15.2.0))
-OJ_SFLAGS = -l 5001
-else
-ifeq ($(PROG),javascript)
+
+else ifeq ($(PROG),javascript)
 SRC = Main.js
 TARGET =
 RUN_TEST = sh $(HOME)/lib/node.sh 65536 $(SRC)
-# JavaScript (Node.js 22.19.0)
 OJ_SFLAGS = -l 5083
-else
-ifeq ($(PROG),erlang)
-SRC = Main.erl
-TARGET = $(JUDGEDIR)/Main.beam
-RUN_TEST = sh -c "cd $(JUDGEDIR) && erl -noshell -run Main main run"
-.PHONY: $(TARGET)
-$(TARGET): $(SRC)
-	@rm -f $(JUDGEDIR)/$(SRC) $(TARGET)
-	cp $(SRC) $(JUDGEDIR)/$(SRC)
-	cd $(JUDGEDIR) && erlc $(SRC)
-# Erlang (28.0.2)
-# Language ID is not yet confirmed (TBD)
-OJ_SFLAGS = -l 5028
-else
-ifeq ($(PROG),php)
+# JavaScript (Node.js 22.19.0)
+
+else ifeq ($(PROG),php)
 SRC = Main.php
 TARGET =
 RUN_TEST = php $(SRC)
+OJ_SFLAGS = -l 5084
 # PHP (8.4.12)
 # Language ID is not yet confirmed (TBD)
-OJ_SFLAGS = -l 5084
-else
-ifeq ($(PROG), rust)
-SRC = main.rs
-TARGET = $(JUDGEDIR)/target/release/main
-RUN_TEST = $(JUDGEDIR)/target/release/main
-.PHONY: $(TARGET)
-$(TARGET): $(SRC)
-	@rm -f $(JUDGEDIR)/src/$(SRC) $(TARGET)
-	cp $(SRC) $(JUDGEDIR)/src/$(SRC)
-	cd $(JUDGEDIR) && RUST_BACKTRACE=0 cargo build --release --quiet
-# Rust (1.87.0)
-OJ_SFLAGS = -l 5087
-endif
-endif
-endif
-endif
-endif
-endif
-endif
-endif
+
 endif
 
 OJ = oj
