@@ -26,8 +26,9 @@ echo
 
 # Check if already logged in
 # Note: Authentication is persisted in ~/.config/atcoder-cli-nodejs/ and ~/.local/share/online-judge-tools/
+# acc session outputs "OK" when logged in (confirmed from source code)
 SESSION_CHECK=$(acc session 2>&1)
-if echo "$SESSION_CHECK" | grep -q "logged in\|ログイン済み"; then
+if echo "$SESSION_CHECK" | grep -q "OK"; then
     echo '✓ AtCoder に既にログイン済みです。'
     echo
 elif echo "$SESSION_CHECK" | grep -q "network\|timeout\|接続\|failed to connect"; then
@@ -40,9 +41,9 @@ else
     echo 'AtCoder の仕様変更により手動ログインが必要です。'
     echo
 
-    # Check if running in interactive terminal (TTY available)
-    if [ -t 0 ] && [ -t 1 ]; then
-        # Interactive environment - prompt for login
+    # Check if running in VS Code Dev Container, Codespaces, or interactive terminal
+    if [ -n "$REMOTE_CONTAINERS" ] || [ -n "$CODESPACES" ] || [ -n "$VSCODE_IPC_HOOK_CLI" ] || [ -t 0 ]; then
+        # VS Code Dev Container, Codespaces, or interactive environment - prompt for login
         echo 'Cookie の取得方法:'
         echo '  1. ブラウザで https://atcoder.jp にログイン'
         echo '  2. 開発者ツール（F12）→ Application → Cookies'
@@ -60,31 +61,61 @@ else
             echo '最新のコンテナイメージを使用してください。'
         fi
     else
-        # Non-interactive environment (Codespaces, CI, etc.)
+        # Pure non-interactive environment (CI, etc.)
         echo 'コンテナ作成後、ターミナルで以下を実行してください:'
         echo '  aclogin'
         echo
-        echo 'Cookie 取得方法: https://qiita.com/namonaki/items/16cda635dd7c34496aaa'
+        echo 'Cookie の取得方法:'
+        echo '  1. ブラウザで https://atcoder.jp にログイン'
+        echo '  2. 開発者ツール（F12）→ Application → Cookies'
+        echo '  3. REVEL_SESSION の値をコピー'
+        echo
+        echo '詳細: https://qiita.com/namonaki/items/16cda635dd7c34496aaa'
     fi
     echo
 fi
 
-# Add login reminder to .bashrc
-echo 'add login reminder to .bashrc'
-if ! grep -q 'ATCODER_LOGIN_CHECKED' ${HOME}/.bashrc; then
-    cat >> ${HOME}/.bashrc << 'EOF'
+# Setup login reminder
+echo 'setup login reminder'
 
-# Check AtCoder login status (once per shell session)
+# Remove old inline versions from .bashrc if they exist
+if grep -q 'ATCODER_LOGIN_CHECK' ${HOME}/.bashrc; then
+    # Create backup
+    cp ${HOME}/.bashrc ${HOME}/.bashrc.backup
+    # Remove all old inline versions
+    sed -i '/# BEGIN_ATCODER_LOGIN_CHECK/,/# END_ATCODER_LOGIN_CHECK/d' ${HOME}/.bashrc
+    sed -i '/# Check AtCoder login status (once per shell session)/,/^fi$/d' ${HOME}/.bashrc
+fi
+
+# Create separate login check script (overwrite every time for updates)
+cat > ${HOME}/.atcoder_login_check.sh << 'EOF'
+# AtCoder login status check (v2)
 if [ -z "$ATCODER_LOGIN_CHECKED" ]; then
     export ATCODER_LOGIN_CHECKED=1
 
-    if ! acc session 2>&1 | grep -q "logged in\|ログイン済み"; then
-        echo ""
-        echo "⚠️  AtCoder ログインが必要です"
-        echo "    ログイン方法: aclogin"
-        echo "    詳細: https://qiita.com/namonaki/items/16cda635dd7c34496aaa"
-        echo ""
+    # Check actual login status
+    # acc session outputs "OK" when logged in, "not login" when not logged in
+    SESSION_CHECK=$(acc session 2>&1)
+    if ! echo "$SESSION_CHECK" | grep -q "OK"; then
+        # Only show warning if not a network error
+        if ! echo "$SESSION_CHECK" | grep -q "network\|timeout\|接続\|failed to connect"; then
+            echo ""
+            echo "⚠️  AtCoder ログインが必要です"
+            echo "    ログイン方法: aclogin"
+            echo "    詳細: https://qiita.com/namonaki/items/16cda635dd7c34496aaa"
+            echo ""
+        fi
     fi
+fi
+EOF
+
+# Add source line to .bashrc (only once)
+if ! grep -q '.atcoder_login_check.sh' ${HOME}/.bashrc; then
+    cat >> ${HOME}/.bashrc << 'EOF'
+
+# Source AtCoder login check
+if [ -f ~/.atcoder_login_check.sh ]; then
+    . ~/.atcoder_login_check.sh
 fi
 EOF
 fi
