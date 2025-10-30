@@ -93,8 +93,9 @@ if [ -z "$ATCODER_LOGIN_CHECKED" ]; then
     export ATCODER_LOGIN_CHECKED=1
 
     # Check actual login status
+    # acc session outputs "OK" when logged in, "not login" when not logged in
     SESSION_CHECK=$(acc session 2>&1)
-    if ! echo "$SESSION_CHECK" | grep -q "logged in\|ログイン済み"; then
+    if ! echo "$SESSION_CHECK" | grep -q "OK"; then
         # Only show warning if not a network error
         if ! echo "$SESSION_CHECK" | grep -q "network\|timeout\|接続\|failed to connect"; then
             echo ""
