@@ -18,6 +18,9 @@ for i in ${progs}; do
   (cd ${i}; ln -sf ${HOME}/lib/.support/makefile)
 done
 
+# Remove Elixir template main.ex to avoid module conflict
+rm -f /judge/main/lib/main.ex
+
 echo
 echo '=========================================='
 echo 'AtCoder 用コンテナの準備が完了しました。'
