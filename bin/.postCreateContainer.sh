@@ -76,10 +76,19 @@ fi
 
 # Add login reminder to .bashrc
 echo 'add login reminder to .bashrc'
-if ! grep -q 'ATCODER_LOGIN_CHECKED' ${HOME}/.bashrc; then
-    cat >> ${HOME}/.bashrc << 'EOF'
 
-# Check AtCoder login status (once per shell session)
+# Remove old version if exists (PR #94 or earlier PR #106)
+if grep -q 'ATCODER_LOGIN_CHECKED' ${HOME}/.bashrc; then
+    # Create backup
+    cp ${HOME}/.bashrc ${HOME}/.bashrc.backup
+    # Remove old login check block
+    sed -i '/# Check AtCoder login status (once per shell session)/,/^fi$/d' ${HOME}/.bashrc
+fi
+
+# Add improved version
+cat >> ${HOME}/.bashrc << 'EOF'
+
+# Check AtCoder login status (once per shell session) - v2
 if [ -z "$ATCODER_LOGIN_CHECKED" ]; then
     export ATCODER_LOGIN_CHECKED=1
 
@@ -97,4 +106,3 @@ if [ -z "$ATCODER_LOGIN_CHECKED" ]; then
     fi
 fi
 EOF
-fi
