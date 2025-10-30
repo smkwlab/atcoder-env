@@ -39,21 +39,37 @@ else
     echo
     echo 'AtCoder の仕様変更により手動ログインが必要です。'
     echo
-    echo 'Cookie の取得方法:'
-    echo '  1. ブラウザで https://atcoder.jp にログイン'
-    echo '  2. 開発者ツール（F12）→ Application → Cookies'
-    echo '  3. REVEL_SESSION の値をコピー'
-    echo
-    echo '詳細: https://qiita.com/namonaki/items/16cda635dd7c34496aaa'
-    echo
-    echo 'クッキーを入力してください（Ctrl+C でスキップ）:'
-    echo
 
-    if command -v aclogin >/dev/null 2>&1; then
-        aclogin || true
+    # Check if running in VS Code Dev Container, Codespaces, or interactive terminal
+    if [ -n "$REMOTE_CONTAINERS" ] || [ -n "$CODESPACES" ] || [ -n "$VSCODE_IPC_HOOK_CLI" ] || [ -t 0 ]; then
+        # VS Code Dev Container, Codespaces, or interactive environment - prompt for login
+        echo 'Cookie の取得方法:'
+        echo '  1. ブラウザで https://atcoder.jp にログイン'
+        echo '  2. 開発者ツール（F12）→ Application → Cookies'
+        echo '  3. REVEL_SESSION の値をコピー'
+        echo
+        echo '詳細: https://qiita.com/namonaki/items/16cda635dd7c34496aaa'
+        echo
+        echo 'クッキーを入力してください（Ctrl+C でスキップ）:'
+        echo
+
+        if command -v aclogin >/dev/null 2>&1; then
+            aclogin || true
+        else
+            echo 'エラー: aclogin コマンドが見つかりません。'
+            echo '最新のコンテナイメージを使用してください。'
+        fi
     else
-        echo 'エラー: aclogin コマンドが見つかりません。'
-        echo '最新のコンテナイメージを使用してください。'
+        # Pure non-interactive environment (CI, etc.)
+        echo 'コンテナ作成後、ターミナルで以下を実行してください:'
+        echo '  aclogin'
+        echo
+        echo 'Cookie の取得方法:'
+        echo '  1. ブラウザで https://atcoder.jp にログイン'
+        echo '  2. 開発者ツール（F12）→ Application → Cookies'
+        echo '  3. REVEL_SESSION の値をコピー'
+        echo
+        echo '詳細: https://qiita.com/namonaki/items/16cda635dd7c34496aaa'
     fi
     echo
 fi
