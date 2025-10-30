@@ -173,6 +173,28 @@ https://github.com/smkwlab/atcoder-env
 元は https://github.com/hinamimi/docker-atcoder から fork して開発を開始。
 現在は差分が大きくなったため独立したリポジトリとしている。
 
+## 4. コンテナイメージの更新
+
+コンテナイメージに新機能や修正が追加された場合、以下の手順で最新版を利用できる。
+
+### 4.1 VS Code からの更新（推奨）
+
+1. VS Code で `Cmd/Ctrl + Shift + P` を押してコマンドパレットを開く
+2. **"Dev Containers: Rebuild Container Without Cache"** を選択
+
+この操作により、キャッシュをクリアして最新イメージから確実に再構築される。
+
+### 4.2 コマンドラインからの更新
+
+```bash
+cd /path/to/atcoder-env
+docker compose down
+docker compose pull
+docker compose up -d
+```
+
+その後、VS Code でフォルダを開き直す。
+
 ## 5. カスタマイズ
 
 ### 5.1 新規コンテストセットアップ時
