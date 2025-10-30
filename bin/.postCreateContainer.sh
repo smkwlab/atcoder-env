@@ -39,32 +39,21 @@ else
     echo
     echo 'AtCoder の仕様変更により手動ログインが必要です。'
     echo
+    echo 'Cookie の取得方法:'
+    echo '  1. ブラウザで https://atcoder.jp にログイン'
+    echo '  2. 開発者ツール（F12）→ Application → Cookies'
+    echo '  3. REVEL_SESSION の値をコピー'
+    echo
+    echo '詳細: https://qiita.com/namonaki/items/16cda635dd7c34496aaa'
+    echo
+    echo 'クッキーを入力してください（Ctrl+C でスキップ）:'
+    echo
 
-    # Check if running in interactive terminal (TTY available)
-    if [ -t 0 ] && [ -t 1 ]; then
-        # Interactive environment - prompt for login
-        echo 'Cookie の取得方法:'
-        echo '  1. ブラウザで https://atcoder.jp にログイン'
-        echo '  2. 開発者ツール（F12）→ Application → Cookies'
-        echo '  3. REVEL_SESSION の値をコピー'
-        echo
-        echo '詳細: https://qiita.com/namonaki/items/16cda635dd7c34496aaa'
-        echo
-        echo 'クッキーを入力してください（Ctrl+C でスキップ）:'
-        echo
-
-        if command -v aclogin >/dev/null 2>&1; then
-            aclogin || true
-        else
-            echo 'エラー: aclogin コマンドが見つかりません。'
-            echo '最新のコンテナイメージを使用してください。'
-        fi
+    if command -v aclogin >/dev/null 2>&1; then
+        aclogin || true
     else
-        # Non-interactive environment (Codespaces, CI, etc.)
-        echo 'コンテナ作成後、ターミナルで以下を実行してください:'
-        echo '  aclogin'
-        echo
-        echo 'Cookie 取得方法: https://qiita.com/namonaki/items/16cda635dd7c34496aaa'
+        echo 'エラー: aclogin コマンドが見つかりません。'
+        echo '最新のコンテナイメージを使用してください。'
     fi
     echo
 fi
@@ -78,12 +67,17 @@ if ! grep -q 'ATCODER_LOGIN_CHECKED' ${HOME}/.bashrc; then
 if [ -z "$ATCODER_LOGIN_CHECKED" ]; then
     export ATCODER_LOGIN_CHECKED=1
 
-    if ! acc session 2>&1 | grep -q "logged in\|ログイン済み"; then
-        echo ""
-        echo "⚠️  AtCoder ログインが必要です"
-        echo "    ログイン方法: aclogin"
-        echo "    詳細: https://qiita.com/namonaki/items/16cda635dd7c34496aaa"
-        echo ""
+    # Check actual login status
+    SESSION_CHECK=$(acc session 2>&1)
+    if ! echo "$SESSION_CHECK" | grep -q "logged in\|ログイン済み"; then
+        # Only show warning if not a network error
+        if ! echo "$SESSION_CHECK" | grep -q "network\|timeout\|接続\|failed to connect"; then
+            echo ""
+            echo "⚠️  AtCoder ログインが必要です"
+            echo "    ログイン方法: aclogin"
+            echo "    詳細: https://qiita.com/namonaki/items/16cda635dd7c34496aaa"
+            echo ""
+        fi
     fi
 fi
 EOF
