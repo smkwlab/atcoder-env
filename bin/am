@@ -42,6 +42,9 @@ new|setup)
   \.ex)
     PROG=elixir
     ;;
+  \.js)
+    PROG=javascript
+    ;;
   \.rs)
     PROG=rust
     ;;
