@@ -93,8 +93,28 @@ ifeq ($(PROG),javascript)
 SRC = Main.js
 TARGET =
 RUN_TEST = sh $(HOME)/lib/node.sh 65536 $(SRC)
-# JavaScript (Node.js 23.5.0)
+# JavaScript (Node.js 22.19.0)
 OJ_SFLAGS = -l 5083
+else
+ifeq ($(PROG),erlang)
+SRC = Main.erl
+TARGET = $(JUDGEDIR)/Main.beam
+RUN_TEST = sh -c "cd $(JUDGEDIR) && erl -noshell -run Main main run"
+$(TARGET): $(SRC)
+	@rm -f $(JUDGEDIR)/$(SRC) $(TARGET)
+	cp $(SRC) $(JUDGEDIR)/$(SRC)
+	cd $(JUDGEDIR) && erlc $(SRC)
+# Erlang (28.0.2)
+# Language ID is not yet confirmed (TBD)
+OJ_SFLAGS = -l 5028
+else
+ifeq ($(PROG),php)
+SRC = Main.php
+TARGET =
+RUN_TEST = php $(SRC)
+# PHP (8.4.12)
+# Language ID is not yet confirmed (TBD)
+OJ_SFLAGS = -l 5084
 else
 ifeq ($(PROG), rust)
 SRC = main.rs
@@ -106,6 +126,8 @@ $(TARGET): $(SRC)
 	cd $(JUDGEDIR) && RUST_BACKTRACE=0 cargo build --release --quiet
 # Rust (1.87.0)
 OJ_SFLAGS = -l 5087
+endif
+endif
 endif
 endif
 endif

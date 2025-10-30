@@ -39,11 +39,17 @@ new|setup)
   \.rb)
     PROG=ruby
     ;;
+  \.erl)
+    PROG=erlang
+    ;;
   \.ex)
     PROG=elixir
     ;;
   \.js)
     PROG=javascript
+    ;;
+  \.php)
+    PROG=php
     ;;
   \.rs)
     PROG=rust
