@@ -2,7 +2,6 @@ version: '3'
 services:
   dev:
     image: ghcr.io/smkwlab/atcoder-container:202510update-lite
-    pull_policy: always
 
     # localとcontainer間のファイルを同期させる
     # ${local}:${container}
