@@ -119,7 +119,7 @@ OJ_SFLAGS = -l 5055
 else ifeq ($(PROG),javascript)
 SRC = Main.js
 TARGET =
-RUN_TEST = sh $(HOME)/lib/node.sh 65536 $(SRC)
+RUN_TEST = sh /judge/node.sh 65536 $(SRC)
 OJ_SFLAGS = -l 5083
 # JavaScript (Node.js 22.19.0)
 
