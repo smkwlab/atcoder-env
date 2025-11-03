@@ -54,8 +54,8 @@ TARGET = $(JUDGEDIR)/Main.class
 BUILD_SRC_PATH = $(JUDGEDIR)/$(SRC)
 COMPILE_CMD = javac -J-Dfile.encoding=UTF-8 -Xlint:unchecked -cp $(JUDGEDIR)/ac_library.jar $(JUDGEDIR)/$(SRC)
 RUN_TEST = sh /judge/java.sh 1024 $(JUDGEDIR)
-OJ_SFLAGS = -l 5005
-# Java (OpenJDK 23.0.1)
+OJ_SFLAGS = -l 6056
+# Java (OpenJDK 24.0.2)
 $(eval $(COMPILE_RULE))
 
 else ifeq ($(PROG),c++)
@@ -64,8 +64,8 @@ TARGET = $(JUDGEDIR)/a.out
 BUILD_SRC_PATH = $(JUDGEDIR)/$(SRC)
 COMPILE_CMD = cd $(JUDGEDIR) && /judge/cpp.sh
 RUN_TEST = $(JUDGEDIR)/a.out
-OJ_SFLAGS = -l 5001
-# C++ (GNU++23 (GCC 15.2.0))
+OJ_SFLAGS = -l 6017
+# C++ (C++23 (GCC 15.2.0))
 $(eval $(COMPILE_RULE))
 
 else ifeq ($(PROG),erlang)
@@ -74,9 +74,8 @@ TARGET = $(JUDGEDIR)/Main.beam
 BUILD_SRC_PATH = $(JUDGEDIR)/$(SRC)
 COMPILE_CMD = cd $(JUDGEDIR) && erlc $(SRC)
 RUN_TEST = sh -c "cd $(JUDGEDIR) && erl -noshell -run Main main run"
-OJ_SFLAGS = -l 5028
+OJ_SFLAGS = -l 6041
 # Erlang (28.0.2)
-# Language ID is not yet confirmed (TBD)
 $(eval $(COMPILE_RULE))
 
 else ifeq ($(PROG),rust)
@@ -85,8 +84,8 @@ TARGET = $(JUDGEDIR)/target/release/main
 BUILD_SRC_PATH = $(JUDGEDIR)/src/$(SRC)
 COMPILE_CMD = cd $(JUDGEDIR) && RUST_BACKTRACE=0 cargo build --release --quiet
 RUN_TEST = $(JUDGEDIR)/target/release/main
-OJ_SFLAGS = -l 5087
-# Rust (1.87.0)
+OJ_SFLAGS = -l 6088
+# Rust (1.89.0)
 $(eval $(COMPILE_RULE))
 
 else ifeq ($(PROG),elixir)
@@ -96,7 +95,7 @@ TARGET = $(ELIXIR_WORKDIR)/_build/prod/rel/main/bin/main
 BUILD_SRC_PATH = $(ELIXIR_WORKDIR)/lib/$(SRC)
 COMPILE_CMD = cd $(ELIXIR_WORKDIR) && MIX_ENV=prod mix release --quiet --overwrite
 RUN_TEST = $(TARGET) eval Main.main
-OJ_SFLAGS = -l 5085
+OJ_SFLAGS = -l 6038
 # Elixir (1.18.4 (OTP 28.0.2))
 $(eval $(COMPILE_RULE))
 
@@ -104,32 +103,31 @@ else ifeq ($(PROG),ruby)
 SRC = Main.rb
 TARGET =
 RUN_TEST = sh -c "RUBY_THREAD_VM_STACK_SIZE=1073741824 $(RUBY) --jit $(SRC)"
-OJ_SFLAGS = -l 5018
+OJ_SFLAGS = -l 6087
 # Ruby (3.4.5)
 
 else ifeq ($(PROG),python)
 SRC = Main.py
 TARGET =
 RUN_TEST = $(PYTHON) -X int_max_str_digits=0 $(SRC)
-OJ_SFLAGS = -l 5055
+OJ_SFLAGS = -l 6082
 # Python (CPython 3.13.7)
-# 5055 (CPython (3.13.7))
-# 5078 (PyPy3 (3.10-v7.3.12))
+# 6082 (CPython 3.13.7)
+# 6083 (PyPy 3.11-v7.3.20)
 
 else ifeq ($(PROG),javascript)
 SRC = Main.js
 TARGET =
 RUN_TEST = sh /judge/node.sh 65536 $(SRC)
-OJ_SFLAGS = -l 5083
+OJ_SFLAGS = -l 6059
 # JavaScript (Node.js 22.19.0)
 
 else ifeq ($(PROG),php)
 SRC = Main.php
 TARGET =
 RUN_TEST = php $(SRC)
-OJ_SFLAGS = -l 5084
+OJ_SFLAGS = -l 6077
 # PHP (8.4.12)
-# Language ID is not yet confirmed (TBD)
 
 endif
 
