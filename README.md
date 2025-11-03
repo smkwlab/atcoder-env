@@ -195,9 +195,69 @@ docker compose up -d
 
 その後、VS Code でフォルダを開き直す。
 
-## 5. カスタマイズ
+## 5. テンプレートやスクリプトの更新
 
-### 5.1 新規コンテストセットアップ時
+このリポジトリをテンプレートとして使用している場合、元のリポジトリの更新を取り込む方法。
+
+### 5.1 初回のみ：upstreamリモートの設定
+
+テンプレートリポジトリから作成したリポジトリは、元のリポジトリとの接続がない。
+最初に一度だけupstreamリモートを設定する必要がある。
+
+```bash
+# atcoder-envディレクトリで実行
+git remote add upstream https://github.com/smkwlab/atcoder-env.git
+git fetch upstream
+```
+
+### 5.2 更新の取得とマージ
+
+```bash
+# 最新の更新を取得
+git fetch upstream
+
+# mainブランチに更新をマージ
+git merge upstream/main
+```
+
+コンフリクトが発生した場合は手動で解決する。
+特にテンプレートやスクリプトをカスタマイズしている場合は注意が必要。
+
+### 5.3 更新内容の反映
+
+マージ後、更新内容に応じて以下の対応が必要になる場合がある：
+
+#### 5.3.1 テンプレートファイルの更新
+
+テンプレートファイル（`atcoder-cli-nodejs/java/`, `atcoder-cli-nodejs/python/` 等）が更新された場合：
+
+- **既存のコンテストディレクトリ**: 自動では更新されない（既存のコードを保護するため）
+- **新規コンテストディレクトリ**: `am new` 実行時に自動的に新しいテンプレートを使用
+
+既存のコンテストで新しいテンプレートを使いたい場合は、手動でコピーする：
+
+```bash
+# 例：Java のテンプレートを特定の問題ディレクトリにコピー
+cp ~/.config/atcoder-cli-nodejs/java/Main.java ~/contest/abc123/a/
+```
+
+#### 5.3.2 スクリプトやmakefileの更新
+
+`bin/am`, `lib/.support/makefile` などのスクリプトが更新された場合：
+
+- **bin/am**: Dev Container を再起動すれば自動的に反映される
+- **makefile**: シンボリックリンクのため、マージ後すぐに全コンテストディレクトリに反映される
+
+#### 5.3.3 Dev Container設定の更新
+
+`.devcontainer/devcontainer.json` や `.vscode/tasks.json` が更新された場合：
+
+1. VS Code で `Cmd/Ctrl + Shift + P` を押してコマンドパレットを開く
+2. **"Dev Containers: Rebuild Container"** を選択
+
+## 6. カスタマイズ
+
+### 6.1 新規コンテストセットアップ時
 
 新規コンテストセットアップは acc の機能を利用。
 Dev Container 内なら .config/atcoder-cli-nodejs/、
@@ -210,7 +270,7 @@ Dev Container 外なら atcoder-cli-nodejs/ に設定ファイルが存在。
 各言語用テンプレートファイルはこのディレクトリ下の言語名ディレクトリ下にあるので、
 好みに編集するのが推奨。
 
-### 5.2 コード提出時言語選択
+### 6.2 コード提出時言語選択
 
 プログラミング言語はファイルの拡張子で決定。
 `bin/am` スクリプト内で判定。
