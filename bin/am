@@ -2,6 +2,9 @@
 # AtCoder frontend utility for (formaly) Make
 #set -x
 
+# Set default CONTEST_DIR if not set
+: ${CONTEST_DIR:=$HOME/contest}
+
 CMD="$1"
 
 case ${CMD} in
