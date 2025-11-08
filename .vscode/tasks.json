@@ -88,7 +88,7 @@
             "options": {
                 "cwd": "${env:CONTEST_DIR}"
             },
-            "command": "am new ${input:contest_id}; echo;echo VSCodeのエクスプローラーで contest/${input:contest_id} フォルダを開いてください。;echo",
+            "command": "am new ${input:contest_id} && am open-first ${input:contest_id}",
             "presentation": {
                 "echo": false,
                 "reveal": "always",

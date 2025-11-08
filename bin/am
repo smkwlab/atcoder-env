@@ -14,6 +14,8 @@ Usage: am <command> <params>
 
 command:
   new <contest_id>   create task directory
+  open-first <contest_id>
+                     open first problem file in VS Code
   t <extension>      test code by oj
   tf <extension>     test code by oj (with float tolerance)
   test <extension>   execute code and display results
@@ -25,6 +27,58 @@ EOF
 new|setup)
   CONTEST="$2"
   (cd ${CONTEST_DIR}; acc new ${CONTEST} --no-tests)
+  ;;
+open-first)
+  CONTEST="$2"
+
+  # Get default language
+  # Priority: 1. ~/.atcoder-default-lang, 2. Environment variable, 3. Default (java)
+  if [ -f ~/.atcoder-default-lang ]; then
+    LANG=$(cat ~/.atcoder-default-lang | tr -d '[:space:]')
+  elif [ -n "${ATCODER_DEFAULT_LANG}" ]; then
+    LANG="${ATCODER_DEFAULT_LANG}"
+  else
+    LANG="java"
+  fi
+
+  # Map language to filename
+  case ${LANG} in
+  java)
+    FILE="Main.java"
+    ;;
+  python|py)
+    FILE="Main.py"
+    ;;
+  cpp|c++)
+    FILE="Main.cpp"
+    ;;
+  ruby|rb)
+    FILE="Main.rb"
+    ;;
+  elixir|ex)
+    FILE="Main.ex"
+    ;;
+  erlang|erl)
+    FILE="Main.erl"
+    ;;
+  javascript|js)
+    FILE="Main.js"
+    ;;
+  php)
+    FILE="Main.php"
+    ;;
+  rust|rs)
+    FILE="main.rs"
+    ;;
+  *)
+    echo "Unknown language: ${LANG}"
+    echo "Supported: java, python, cpp, ruby, elixir, erlang, javascript, php, rust"
+    exit 1
+    ;;
+  esac
+
+  # Open the file in VS Code (reuse window)
+  code -r "${CONTEST_DIR}/${CONTEST}/a/${FILE}"
   ;;
 *)
   EXT="$2"
