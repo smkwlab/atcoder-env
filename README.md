@@ -270,7 +270,44 @@ Dev Container 外なら atcoder-cli-nodejs/ に設定ファイルが存在。
 各言語用テンプレートファイルはこのディレクトリ下の言語名ディレクトリ下にあるので、
 好みに編集するのが推奨。
 
-### 6.2 コード提出時言語選択
+### 6.2 デフォルト言語の設定
+
+「AtCoder: setup NEW contest」タスクでコンテストをセットアップした後、自動的に開くファイルの言語を設定できる。
+
+コンテナ初期化時に `~/.atcoder-default-lang` ファイルが作成され、デフォルトは `java` に設定される。
+
+#### 6.2.1 設定の変更
+
+```bash
+# Python をデフォルトに変更
+echo 'python' > ~/.atcoder-default-lang
+
+# C++ をデフォルトに変更
+echo 'cpp' > ~/.atcoder-default-lang
+
+# 現在の設定を確認
+cat ~/.atcoder-default-lang
+```
+
+#### 6.2.2 対応言語
+
+| 言語 | 設定値 | 開かれるファイル |
+|------|--------|------------------|
+| Java | `java` | `Main.java` |
+| Python | `python` または `py` | `Main.py` |
+| C++ | `cpp` または `c++` | `Main.cpp` |
+| Ruby | `ruby` または `rb` | `Main.rb` |
+| Elixir | `elixir` または `ex` | `Main.ex` |
+| Erlang | `erlang` または `erl` | `Main.erl` |
+| JavaScript | `javascript` または `js` | `Main.js` |
+| PHP | `php` | `Main.php` |
+| Rust | `rust` または `rs` | `main.rs` |
+
+#### 6.2.3 高度な設定
+
+環境変数 `ATCODER_DEFAULT_LANG` を設定することもできるが、`~/.atcoder-default-lang` ファイルが優先される。
+
+### 6.3 コード提出時言語選択
 
 プログラミング言語はファイルの拡張子で決定。
 `bin/am` スクリプト内で判定。

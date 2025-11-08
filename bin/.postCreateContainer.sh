@@ -122,3 +122,13 @@ if [ -f ~/.atcoder_login_check.sh ]; then
 fi
 EOF
 fi
+
+# Create default language configuration file
+echo 'setup default language configuration'
+if [ ! -f ~/.atcoder-default-lang ]; then
+    echo 'java' > ~/.atcoder-default-lang
+    echo '✓ デフォルト言語を java に設定しました'
+    echo '  変更方法: echo "python" > ~/.atcoder-default-lang'
+    echo '  対応言語: java, python, cpp, ruby, elixir, erlang, javascript, php, rust'
+    echo
+fi
