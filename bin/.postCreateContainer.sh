@@ -1,14 +1,14 @@
 #! /bin/bash
 
 echo 'setup environment variables in .bashrc'
-if ! grep -q 'bash_functions.sh' ${HOME}/.bashrc; then
-  echo '. ${HOME}/lib/.support/bash_functions.sh' >> ${HOME}/.bashrc
+if ! grep -q 'bashrc_additions.sh' ${HOME}/.bashrc; then
+  cat >> ${HOME}/.bashrc << 'EOF'
+
+# Source AtCoder environment additions
+if [ -f "${HOME}/lib/.support/bashrc_additions.sh" ]; then
+    . "${HOME}/lib/.support/bashrc_additions.sh"
 fi
-if ! grep -q 'CONTEST_DIR' ${HOME}/.bashrc; then
-  echo 'export CONTEST_DIR=/root/contest' >> ${HOME}/.bashrc
-fi
-if ! grep -q '/root/bin' ${HOME}/.bashrc; then
-  echo 'export PATH="/root/bin:${PATH}"' >> ${HOME}/.bashrc
+EOF
 fi
 
 echo 'create symlinks for makefile'
@@ -111,17 +111,6 @@ if [ -z "$ATCODER_LOGIN_CHECKED" ]; then
     fi
 fi
 EOF
-
-# Add source line to .bashrc (only once)
-if ! grep -q '.atcoder_login_check.sh' ${HOME}/.bashrc; then
-    cat >> ${HOME}/.bashrc << 'EOF'
-
-# Source AtCoder login check
-if [ -f ~/.atcoder_login_check.sh ]; then
-    . ~/.atcoder_login_check.sh
-fi
-EOF
-fi
 
 # Create default language configuration file
 echo 'setup default language configuration'
