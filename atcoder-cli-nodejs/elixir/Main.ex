@@ -26,21 +26,44 @@ defmodule Main do
   #
   # helper 関数群
   #
-  # Process辞書から入力を取得/更新 (初回アクセス時に自動初期化)
-  defp get_input do
-    case Process.get(:input) do
-      nil ->
-        lines =
-          "/dev/stdin"
-          |> File.read!()
-          |> String.split("\n", trim: true)
-        Process.put(:input, lines)
-        lines
-      lines ->
-        lines
+  defmacro get_input do
+    quote do
+      case Process.get(:input) do
+        nil ->
+          lines =
+            "/dev/stdin"
+            |> File.read!()
+            |> String.split("\n", trim: true)
+          Process.put(:input, lines)
+          lines
+        lines ->
+          lines
+      end
     end
   end
-  defp update_input(new_input), do: Process.put(:input, new_input)
+
+  defmacro update_input(new_input) do
+    quote do: Process.put(:input, unquote(new_input))
+  end
+
+  defmacro pop_line do
+    quote do
+      input = case Process.get(:input) do
+        nil ->
+          lines =
+            "/dev/stdin"
+            |> File.read!()
+            |> String.split("\n", trim: true)
+          Process.put(:input, lines)
+          lines
+        lines ->
+          lines
+      end
+      [result | rest] = input
+      Process.put(:input, rest)
+      result
+    end
+  end
 
   # 文字列1行読み込み
   @spec read_string() :: String.t
@@ -48,11 +71,7 @@ defmodule Main do
   # rikka
   # out:
   # "rikka"
-  def read_string do
-    [result | rest] = get_input()
-    update_input(rest)
-    result
-  end
+  def read_string, do: pop_line()
 
   # 整数1行読み込み
   @spec read_integer() :: integer
@@ -60,10 +79,7 @@ defmodule Main do
   # 155
   # out:
   # 155 (int)
-  def read_integer do
-    read_string()
-    |> String.to_integer()
-  end
+  def read_integer, do: String.to_integer(pop_line())
 
   # 文字列配列1行読み込み
   @spec read_string_array() :: [String.t]
@@ -71,10 +87,7 @@ defmodule Main do
   # rikka akane namiko
   # out:
   # ["rikka", "akane", "namiko"]
-  def read_string_array do
-    read_string()
-    |> String.split(" ", trim: true)
-  end
+  def read_string_array, do: String.split(pop_line(), " ", trim: true)
 
   # 整数配列1行読み込み
   @spec read_integer_array() :: [integer]
@@ -83,7 +96,7 @@ defmodule Main do
   # out:
   # [155, 149, 150]
   def read_integer_array do
-    read_string()
+    pop_line()
     |> String.split(" ", trim: true)
     |> Enum.map(&String.to_integer/1)
   end
@@ -96,10 +109,12 @@ defmodule Main do
   # namiko
   # out:
   # ["rikka", "akane", "namiko"]
-  def read_string_lines do
-    input = get_input()
-    update_input([])
-    input
+  defmacro read_string_lines do
+    quote do
+      input = get_input()
+      update_input([])
+      input
+    end
   end
 
   # 整数全行読み込み
@@ -111,8 +126,7 @@ defmodule Main do
   # out:
   # [155, 149, 150]
   def read_integer_lines do
-    read_string_lines()
-    |> Enum.map(&String.to_integer/1)
+    Enum.map(read_string_lines(), &String.to_integer/1)
   end
 
   # 2次元文字列配列全行読み込み
@@ -123,8 +137,7 @@ defmodule Main do
   # out:
   # [["rikka", "akane", "namiko"], ["yume", "chise", "mujina"]]
   def read_multi_string_array do
-    read_string_lines()
-    |> Enum.map(&String.split(&1, " ", trim: true))
+    Enum.map(read_string_lines(), &String.split(&1, " ", trim: true))
   end
 
   # 2次元整数配列全行読み込み
@@ -135,8 +148,7 @@ defmodule Main do
   # out:
   # [[155, 149, 150], [160, 144, 175]]
   def read_multi_integer_array do
-    read_string_lines()
-    |> Enum.map(fn line ->
+    Enum.map(read_string_lines(), fn line ->
       line
       |> String.split(" ", trim: true)
       |> Enum.map(&String.to_integer/1)
@@ -151,10 +163,12 @@ defmodule Main do
   # namiko
   # out:
   # ["rikka", "akane", "namiko"]
-  def read_string_lines(n) do
-    {result, rest} = Enum.split(get_input(), n)
-    update_input(rest)
-    result
+  defmacro read_string_lines(n) do
+    quote do
+      {result, rest} = Enum.split(get_input(), unquote(n))
+      update_input(rest)
+      result
+    end
   end
 
   # 行数指定整数複数行読み込み
@@ -166,8 +180,7 @@ defmodule Main do
   # out:　（n=3）
   # [155, 149, 150]
   def read_integer_lines(n) do
-    read_string_lines(n)
-    |> Enum.map(&String.to_integer/1)
+    Enum.map(read_string_lines(n), &String.to_integer/1)
   end
 
   # 行数指定2次元文字列配列読み込み
@@ -178,8 +191,7 @@ defmodule Main do
   # out: (n=1)
   # [["rikka", "akane", "namiko"]]
   def read_multi_string_array(n) do
-    read_string_lines(n)
-    |> Enum.map(&String.split(&1, " ", trim: true))
+    Enum.map(read_string_lines(n), &String.split(&1, " ", trim: true))
   end
 
   # 行数指定2次元整数配列読み込み
@@ -190,8 +202,7 @@ defmodule Main do
   # out: (n=2)
   # [[155, 149, 150], [160, 144, 175]]
   def read_multi_integer_array(n) do
-    read_string_lines(n)
-    |> Enum.map(fn line ->
+    Enum.map(read_string_lines(n), fn line ->
       line
       |> String.split(" ", trim: true)
       |> Enum.map(&String.to_integer/1)
