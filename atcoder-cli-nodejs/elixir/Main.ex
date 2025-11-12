@@ -46,7 +46,13 @@ defmodule Main do
     quote do: Process.put(:input, unquote(new_input))
   end
 
-  defmacro pop_line do
+  # 文字列1行読み込み
+  # Returns: String.t
+  # in:
+  # rikka
+  # out:
+  # "rikka"
+  defmacro read_string do
     quote do
       [__result__ | __rest__] = get_input()
       Process.put(:input, __rest__)
@@ -54,21 +60,13 @@ defmodule Main do
     end
   end
 
-  # 文字列1行読み込み
-  @spec read_string() :: String.t
-  # in:
-  # rikka
-  # out:
-  # "rikka"
-  def read_string, do: pop_line()
-
   # 整数1行読み込み
   @spec read_integer() :: integer
   # in:
   # 155
   # out:
   # 155 (int)
-  def read_integer, do: String.to_integer(pop_line())
+  def read_integer, do: String.to_integer(read_string())
 
   # 文字列配列1行読み込み
   @spec read_string_array() :: [String.t]
@@ -76,7 +74,7 @@ defmodule Main do
   # rikka akane namiko
   # out:
   # ["rikka", "akane", "namiko"]
-  def read_string_array, do: String.split(pop_line(), " ", trim: true)
+  def read_string_array, do: String.split(read_string(), " ", trim: true)
 
   # 整数配列1行読み込み
   @spec read_integer_array() :: [integer]
@@ -85,13 +83,13 @@ defmodule Main do
   # out:
   # [155, 149, 150]
   def read_integer_array do
-    pop_line()
+    read_string()
     |> String.split(" ", trim: true)
     |> Enum.map(&String.to_integer/1)
   end
 
   # 文字列全行読み込み
-  @spec read_string_lines() :: [String.t]
+  # Returns: [String.t]
   # in:
   # rikka
   # akane
@@ -145,7 +143,8 @@ defmodule Main do
   end
 
   # 行数指定文字列複数行読み込み
-  @spec read_string_lines(integer) :: [String.t]
+  # Args: n (integer) - 読み込む行数
+  # Returns: [String.t]
   # in:
   # rikka
   # akane
