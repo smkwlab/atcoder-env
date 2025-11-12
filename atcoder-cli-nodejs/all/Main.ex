@@ -88,7 +88,6 @@ defmodule Main do
   end
 
   # 文字列全行読み込み
-  @spec read_string_lines() :: [String.t]
   # in:
   # rikka
   # akane
@@ -142,7 +141,6 @@ defmodule Main do
   end
 
   # 行数指定文字列複数行読み込み
-  @spec read_string_lines(integer) :: [String.t]
   # in:
   # rikka
   # akane
