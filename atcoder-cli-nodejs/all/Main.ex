@@ -26,6 +26,21 @@ defmodule Main do
   #
   # helper 関数群
   #
+  # Process辞書から入力を取得/更新 (初回アクセス時に自動初期化)
+  defp get_input do
+    case Process.get(:input) do
+      nil ->
+        lines =
+          "/dev/stdin"
+          |> File.read!()
+          |> String.split("\n", trim: true)
+        Process.put(:input, lines)
+        lines
+      lines ->
+        lines
+    end
+  end
+  defp update_input(new_input), do: Process.put(:input, new_input)
 
   # 文字列1行読み込み
   @spec read_string() :: String.t
@@ -34,9 +49,9 @@ defmodule Main do
   # out:
   # "rikka"
   def read_string do
-    :line
-    |> IO.read()
-    |> String.trim
+    [result | rest] = get_input()
+    update_input(rest)
+    result
   end
 
   # 整数1行読み込み
@@ -82,9 +97,9 @@ defmodule Main do
   # out:
   # ["rikka", "akane", "namiko"]
   def read_string_lines do
-    :eof
-    |> IO.read()
-    |> String.split("\n", trim: true)
+    input = get_input()
+    update_input([])
+    input
   end
 
   # 整数全行読み込み
@@ -137,12 +152,9 @@ defmodule Main do
   # out:
   # ["rikka", "akane", "namiko"]
   def read_string_lines(n) do
-    read_string_lines(n, [])
-  end
-
-  def read_string_lines(0, acc), do: Enum.reverse(acc)
-  def read_string_lines(n, acc) do
-    read_string_lines(n - 1, [read_string() | acc])
+    {result, rest} = Enum.split(get_input(), n)
+    update_input(rest)
+    result
   end
 
   # 行数指定整数複数行読み込み
