@@ -47,7 +47,6 @@ defmodule Main do
   end
 
   # 文字列1行読み込み
-  @spec read_string() :: String.t
   # in:
   # rikka
   # out:
