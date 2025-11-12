@@ -47,6 +47,7 @@ defmodule Main do
   end
 
   # 文字列1行読み込み
+  # Returns: String.t
   # in:
   # rikka
   # out:
@@ -88,6 +89,7 @@ defmodule Main do
   end
 
   # 文字列全行読み込み
+  # Returns: [String.t]
   # in:
   # rikka
   # akane
@@ -141,6 +143,8 @@ defmodule Main do
   end
 
   # 行数指定文字列複数行読み込み
+  # Args: n (integer) - 読み込む行数
+  # Returns: [String.t]
   # in:
   # rikka
   # akane
