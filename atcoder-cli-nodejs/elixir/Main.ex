@@ -30,14 +30,14 @@ defmodule Main do
     quote do
       case Process.get(:input) do
         nil ->
-          lines =
+          __input_lines__ =
             "/dev/stdin"
             |> File.read!()
             |> String.split("\n", trim: true)
-          Process.put(:input, lines)
-          lines
-        lines ->
-          lines
+          Process.put(:input, __input_lines__)
+          __input_lines__
+        __existing_lines__ ->
+          __existing_lines__
       end
     end
   end
@@ -48,20 +48,9 @@ defmodule Main do
 
   defmacro pop_line do
     quote do
-      input = case Process.get(:input) do
-        nil ->
-          lines =
-            "/dev/stdin"
-            |> File.read!()
-            |> String.split("\n", trim: true)
-          Process.put(:input, lines)
-          lines
-        lines ->
-          lines
-      end
-      [result | rest] = input
-      Process.put(:input, rest)
-      result
+      [__result__ | __rest__] = get_input()
+      Process.put(:input, __rest__)
+      __result__
     end
   end
 
@@ -111,9 +100,9 @@ defmodule Main do
   # ["rikka", "akane", "namiko"]
   defmacro read_string_lines do
     quote do
-      input = get_input()
+      __all_input__ = get_input()
       update_input([])
-      input
+      __all_input__
     end
   end
 
@@ -165,9 +154,9 @@ defmodule Main do
   # ["rikka", "akane", "namiko"]
   defmacro read_string_lines(n) do
     quote do
-      {result, rest} = Enum.split(get_input(), unquote(n))
-      update_input(rest)
-      result
+      {__result__, __rest__} = Enum.split(get_input(), unquote(n))
+      update_input(__rest__)
+      __result__
     end
   end
 
