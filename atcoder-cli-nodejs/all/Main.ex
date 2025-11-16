@@ -46,19 +46,21 @@ defmodule Main do
     quote do: Process.put(:input, unquote(new_input))
   end
 
-  # 文字列1行読み込み
-  # Returns: String.t
-  # in:
-  # rikka
-  # out:
-  # "rikka"
-  defmacro read_string do
+  defmacro pop_line do
     quote do
       [__result__ | __rest__] = get_input()
       Process.put(:input, __rest__)
       __result__
     end
   end
+
+  # 文字列1行読み込み
+  @spec read_string() :: String.t
+  # in:
+  # rikka
+  # out:
+  # "rikka"
+  def read_string, do: pop_line()
 
   # 整数1行読み込み
   @spec read_integer() :: integer
@@ -89,19 +91,17 @@ defmodule Main do
   end
 
   # 文字列全行読み込み
-  # Returns: [String.t]
+  @spec read_string_lines() :: [String.t]
   # in:
   # rikka
   # akane
   # namiko
   # out:
   # ["rikka", "akane", "namiko"]
-  defmacro read_string_lines do
-    quote do
-      __all_input__ = get_input()
-      update_input([])
-      __all_input__
-    end
+  def read_string_lines do
+    all_input = get_input()
+    update_input([])
+    all_input
   end
 
   # 整数全行読み込み
@@ -143,20 +143,17 @@ defmodule Main do
   end
 
   # 行数指定文字列複数行読み込み
-  # Args: n (integer) - 読み込む行数
-  # Returns: [String.t]
+  @spec read_string_lines(integer) :: [String.t]
   # in:
   # rikka
   # akane
   # namiko
-  # out:
+  # out: (n=3)
   # ["rikka", "akane", "namiko"]
-  defmacro read_string_lines(n) do
-    quote do
-      {__result__, __rest__} = Enum.split(get_input(), unquote(n))
-      update_input(__rest__)
-      __result__
-    end
+  def read_string_lines(n) do
+    {result, rest} = Enum.split(get_input(), n)
+    update_input(rest)
+    result
   end
 
   # 行数指定整数複数行読み込み
