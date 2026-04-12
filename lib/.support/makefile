@@ -232,7 +232,10 @@ tf: $(TARGET) test/sample-1.in
 	$(OJ) t $(OJ_TFLAGS) $(OJ_TFLAGS_FLOAT)
 
 s: $(TARGET)
-	$(OJ) s $(TASK_URL) $(SRC) $(OJ_SFLAGS)
+	@printf "\033]52;c;$$(base64 < $(SRC) | tr -d '\n\r')\033\134"
+	@echo "$(SRC) をクリップボードにコピーしました"
+	@$(OPEN) "$$(printf '%s\n' "$(TASK_URL)" | sed 's|/tasks/\(.*\)|/submit?taskScreenName=\1|')"
+	@echo "提出ページを開きました。Ctrl+V (Cmd+V) でコードを貼り付けて提出してください"
 
 run: $(TARGET)
 	$(RUN_TEST)
