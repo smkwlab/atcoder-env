@@ -232,7 +232,7 @@ tf: $(TARGET) test/sample-1.in
 	$(OJ) t $(OJ_TFLAGS) $(OJ_TFLAGS_FLOAT)
 
 s: $(TARGET)
-	@printf "\033]52;c;$$(base64 -w 0 < $(SRC))\a"
+	@printf "\033]52;c;$$(base64 < $(SRC) | tr -d '\n\r')\033\134"
 	@echo "$(SRC) をクリップボードにコピーしました"
 	@SUBMIT_URL=$$(echo $(TASK_URL) | sed 's|/tasks/\(.*\)|/submit?taskScreenName=\1|'); \
 	$(OPEN) "$${SUBMIT_URL}"
