@@ -19,7 +19,7 @@ command:
   t <extension>      test code by oj
   tf <extension>     test code by oj (with float tolerance)
   test <extension>   execute code and display results
-  s <extension>      submit code by oj
+  s <filename>       copy code to clipboard and open submit page
   dl                 download test cases
   o                  open task web page by browser
 EOF
@@ -79,6 +79,46 @@ open-first)
 
   # Open the file in VS Code (reuse window)
   code -r "${CONTEST_DIR}/${CONTEST}/a/${FILE}"
+  ;;
+s)
+  SRC_FILE="$2"
+  EXT=".${SRC_FILE##*.}"
+
+  case ${EXT} in
+  \.java)
+    PROG=java
+    ;;
+  \.py)
+    PROG=python
+    ;;
+  \.cpp|\.c++)
+    PROG=c++
+    ;;
+  \.rb)
+    PROG=ruby
+    ;;
+  \.erl)
+    PROG=erlang
+    ;;
+  \.ex)
+    PROG=elixir
+    ;;
+  \.js)
+    PROG=javascript
+    ;;
+  \.php)
+    PROG=php
+    ;;
+  \.rs)
+    PROG=rust
+    ;;
+  *)
+    PROG=UNKNOWN
+    ;;
+  esac
+
+  export PROG
+  make s SRC_FILE="${SRC_FILE}"
   ;;
 *)
   EXT="$2"

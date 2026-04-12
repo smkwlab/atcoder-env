@@ -71,7 +71,7 @@
             "options": {
                 "cwd": "${fileDirname}"
             },
-            "command": "am s ${fileExtname}",
+            "command": "am s ${fileBasename}",
             "presentation": {
                 "echo": false,
                 "reveal": "always",
