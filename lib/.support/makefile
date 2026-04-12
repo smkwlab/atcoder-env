@@ -234,6 +234,7 @@ tf: $(TARGET) test/sample-1.in
 SRC_FILE ?= $(SRC)
 
 s: $(TARGET)
+	@test -f "$(SRC_FILE)" || { echo "$(SRC_FILE) が存在しません" >&2; exit 1; }
 	@payload=$$(base64 < "$(SRC_FILE)" | tr -d '\n\r'); printf '\033]52;c;%s\033\134' "$$payload"
 	@echo "$(SRC_FILE) をクリップボードにコピーしました"
 	@submit_url=$$(printf '%s\n' "$(TASK_URL)" | sed 's|/tasks/\(.*\)|/submit?taskScreenName=\1|'); \
