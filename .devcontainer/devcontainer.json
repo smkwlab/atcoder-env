@@ -35,7 +35,7 @@
 				"terminal.integrated.defaultProfile.linux": "bash",
 				"terminal.integrated.fontSize": 14,
 				"terminal.integrated.fontFamily": "HackGen, 'BIZ UDPGothic', Meiryo, 'Hiragino Kaku Gothic ProN', 'SF Mono', Consolas, monospace",
-				"terminal.integrated.osc52": "always",
+				"terminal.integrated.osc52": "copy",
 				//"workbench.colorTheme": "Default Light+",
 				"window.zoomLevel": 0,
 				// Java settings - override host settings for container

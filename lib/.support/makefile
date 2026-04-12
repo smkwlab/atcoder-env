@@ -234,8 +234,7 @@ tf: $(TARGET) test/sample-1.in
 s: $(TARGET)
 	@printf "\033]52;c;$$(base64 < $(SRC) | tr -d '\n\r')\033\134"
 	@echo "$(SRC) をクリップボードにコピーしました"
-	@SUBMIT_URL=$$(printf '%s\n' "$(TASK_URL)" | sed 's|/tasks/\(.*\)|/submit?taskScreenName=\1|'); \
-	$(OPEN) "$${SUBMIT_URL}"
+	@$(OPEN) "$$(printf '%s\n' "$(TASK_URL)" | sed 's|/tasks/\(.*\)|/submit?taskScreenName=\1|')"
 	@echo "提出ページを開きました。Ctrl+V (Cmd+V) でコードを貼り付けて提出してください"
 
 run: $(TARGET)
