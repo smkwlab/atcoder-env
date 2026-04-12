@@ -234,9 +234,10 @@ tf: $(TARGET) test/sample-1.in
 SRC_FILE ?= $(SRC)
 
 s: $(TARGET)
-	@printf "\033]52;c;$$(base64 < "$(SRC_FILE)" | tr -d '\n\r')\033\134"
+	@payload=$$(base64 < "$(SRC_FILE)" | tr -d '\n\r'); printf '\033]52;c;%s\033\134' "$$payload"
 	@echo "$(SRC_FILE) をクリップボードにコピーしました"
-	@$(OPEN) "$$(printf '%s\n' "$(TASK_URL)" | sed 's|/tasks/\(.*\)|/submit?taskScreenName=\1|')"
+	@submit_url=$$(printf '%s\n' "$(TASK_URL)" | sed 's|/tasks/\(.*\)|/submit?taskScreenName=\1|'); \
+	$(OPEN) "$$submit_url"
 	@echo "提出ページを開きました。Ctrl+V (Cmd+V) でコードを貼り付けて提出してください"
 
 run: $(TARGET)
