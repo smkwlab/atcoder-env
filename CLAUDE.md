@@ -68,13 +68,13 @@ ahc 123      # ahc123へ
 makefileで管理（`/root/lib/.support/makefile`へのシンボリックリンク）
 
 #### 言語バージョンと実行方式
-- **Java: OpenJDK 23.0.1 (language ID: 5005) - 常に/judgeディレクトリでコンパイル・実行（Judge環境と同じ）**
+- **Java: OpenJDK 24.0.2 (language ID: 5005) - 常に/judgeディレクトリでコンパイル・実行（Judge環境と同じ）**
 - Python: CPython 3.13.7 (language ID: 5055) - judge環境と同じオプションで実行
 - **C++: GCC 15.2.0 C++23 (language ID: 5001) - 常に/judgeディレクトリでコンパイル・実行（Judge環境と同じ）**
 - Ruby: 3.4.5 (language ID: 5018) - judge環境と同じオプションで実行
 - **Elixir: 1.18.4 (OTP 28.0.2) (language ID: 5085) - 常にMix releaseでビルド（Judge環境と同じ）**
 - **JavaScript: Node.js 22.19.0 (language ID: 5083) - 常にjudge環境設定（64MBスタック）で実行**
-- Rust: 1.87.0 (未対応)
+- Rust: 1.89.0
 
 **注意**:
 - Java は `am t .java` で常に `/judge` ディレクトリ方式（Judge 環境と同じ）でビルド・実行されます。問題ディレクトリに `.class` ファイルが生成されないため、クリーンな開発環境を維持できます。

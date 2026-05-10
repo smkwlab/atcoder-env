@@ -22,13 +22,13 @@ docker イメージは [atcoder-container](https://github.com/smkwlab/atcoder-co
 
 デフォルトで利用する docker イメージは以下の言語に対応。
 
-- Java (OpenJDK 23.0.1)
+- Java (OpenJDK 24.0.2)
 - Ruby (3.4.5)
 - Elixir (1.18.4 (OTP 28.0.2))
 - Python3 (CPython 3.13.7)
 - JavaScript (Node.js 22.19.0)
 - C++ (GCC 15.2.0)
-- Rust (1.87.0)
+- Rust (1.89.0)
 - Erlang (28.0.2)
 
 ## 2. 使い方
