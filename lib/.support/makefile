@@ -137,6 +137,11 @@ OJ = oj
 # so allow extra headroom to avoid false TLE. Override per task with e.g.
 # `OJ_TLE=2 am t .java`.
 OJ_TLE ?= 4
+# Fail fast on a non-positive-integer OJ_TLE instead of handing a bad value to
+# oj (e.g. OJ_TLE=0 would make every case TLE, OJ_TLE=abc errors deep in oj).
+ifeq ($(shell echo '$(OJ_TLE)' | grep -Eq '^[1-9][0-9]*$$' && echo ok),)
+$(error OJ_TLE must be a positive integer number of seconds, got: '$(OJ_TLE)')
+endif
 # Keep OJ_TFLAGS recursively expanded (`=`, not `:=`) so an env override of
 # OJ_TLE is honoured at use time.
 OJ_TFLAGS = -c '$(RUN_TEST)' --ignore-spaces-and-newline --tle $(OJ_TLE)
