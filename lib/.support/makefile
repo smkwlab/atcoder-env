@@ -142,8 +142,6 @@ OJ_TLE ?= 4
 ifeq ($(shell echo '$(OJ_TLE)' | grep -Eq '^[1-9][0-9]*$$' && echo ok),)
 $(error OJ_TLE must be a positive integer number of seconds, got: '$(OJ_TLE)')
 endif
-# Keep OJ_TFLAGS recursively expanded (`=`, not `:=`) so an env override of
-# OJ_TLE is honoured at use time.
 OJ_TFLAGS = -c '$(RUN_TEST)' --ignore-spaces-and-newline --tle $(OJ_TLE)
 OJ_TFLAGS_FLOAT = -e 1e-6
 
