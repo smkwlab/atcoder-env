@@ -132,10 +132,13 @@ OJ_SFLAGS = -l 6077
 endif
 
 OJ = oj
-# Per-case time limit (seconds). AtCoder's standard limit is 2s, but the
-# dev container can be slower than the judge, so allow extra headroom to
-# avoid false TLE. Override per task with e.g. `OJ_TLE=2 am t .java`.
+# Per-case time limit, a positive integer number of seconds. AtCoder's
+# standard limit is 2s, but the dev container can be slower than the judge,
+# so allow extra headroom to avoid false TLE. Override per task with e.g.
+# `OJ_TLE=2 am t .java`.
 OJ_TLE ?= 4
+# Keep OJ_TFLAGS recursively expanded (`=`, not `:=`) so an env override of
+# OJ_TLE is honoured at use time.
 OJ_TFLAGS = -c '$(RUN_TEST)' --ignore-spaces-and-newline --tle $(OJ_TLE)
 OJ_TFLAGS_FLOAT = -e 1e-6
 
