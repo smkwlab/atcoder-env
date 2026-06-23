@@ -139,7 +139,16 @@ OJ = oj
 OJ_TLE ?= 4
 # Fail fast on a non-positive-integer OJ_TLE instead of handing a bad value to
 # oj (e.g. OJ_TLE=0 would make every case TLE, OJ_TLE=abc errors deep in oj).
-ifeq ($(shell echo '$(OJ_TLE)' | grep -Eq '^[1-9][0-9]*$$' && echo ok),)
+# Validate with Make built-ins only (no shell), so a value containing quotes or
+# shell metacharacters cannot break or inject into a command.
+# Strip every digit: a non-empty remainder means a non-digit char is present.
+OJ_TLE_NONDIGIT := $(strip $(subst 0,,$(subst 1,,$(subst 2,,$(subst 3,,$(subst 4,,$(subst 5,,$(subst 6,,$(subst 7,,$(subst 8,,$(subst 9,,$(OJ_TLE))))))))))))
+# Strip zeros: an empty remainder means the value is empty or all-zero.
+OJ_TLE_NONZERO := $(strip $(subst 0,,$(OJ_TLE)))
+ifneq ($(OJ_TLE_NONDIGIT),)
+$(error OJ_TLE must be a positive integer number of seconds, got: '$(OJ_TLE)')
+endif
+ifeq ($(OJ_TLE_NONZERO),)
 $(error OJ_TLE must be a positive integer number of seconds, got: '$(OJ_TLE)')
 endif
 OJ_TFLAGS = -c '$(RUN_TEST)' --ignore-spaces-and-newline --tle $(OJ_TLE)
