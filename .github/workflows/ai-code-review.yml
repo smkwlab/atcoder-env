@@ -1,0 +1,27 @@
+# Caller template: AI Code Review (one-shot, inline) — calls the ai-review reusable.
+# Distributed by scripts/distribute-workflow.sh as
+# .github/workflows/ai-code-review.yml in each target repository.
+# The ref / model / language tokens below are substituted at distribution time.
+name: AI Code Review
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review, synchronize]   # synchronize: re-review on each push. concurrency below cancels superseded runs. Drop synchronize if cost is a concern.
+
+concurrency:
+  group: ai-code-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    uses: smkwlab/.github/.github/workflows/ai-review.yml@v1
+    permissions:
+      contents: read
+      pull-requests: write
+    secrets:
+      anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+      gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+    with:
+      model_code: claude-sonnet-4-6
+      review_mode: CODE
+      language: Japanese
