@@ -28,16 +28,24 @@
 	"customizations": {
 		"vscode": {
 			"settings": {
-				"editor.fontFamily": "HackGen, 'BIZ UDPGothic', Meiryo, 'Hiragino Kaku Gothic ProN', 'SF Mono', Consolas, monospace",
-				"editor.fontSize": 14,
+				// 動作に関わる設定（研究室標準として維持。見た目系のように各ユーザへは委ねない）:
+				// - files.autoSave / autoSaveDelay: 編集中ファイルの自動保存
+				// - terminal...defaultProfile: makefile / asdf が bash ログインシェルを前提とする
+				// - terminal...osc52: `am s` のクリップボードコピーに必要
 				"files.autoSave": "afterDelay",
 				"files.autoSaveDelay": 1000,
 				"terminal.integrated.defaultProfile.linux": "bash",
-				"terminal.integrated.fontSize": 14,
-				"terminal.integrated.fontFamily": "HackGen, 'BIZ UDPGothic', Meiryo, 'Hiragino Kaku Gothic ProN', 'SF Mono', Consolas, monospace",
 				"terminal.integrated.osc52": "copy",
-				//"workbench.colorTheme": "Default Light+",
-				"window.zoomLevel": 0,
+
+				// フォント・外観設定は各ユーザの VS Code 設定に委ねます。
+				// 研究室推奨のデフォルト値を使う場合は、以下のコメントを外してください。
+				// "editor.fontSize": 14,
+				// "editor.fontFamily": "HackGen, 'BIZ UDPGothic', Meiryo, 'Hiragino Kaku Gothic ProN', 'SF Mono', Consolas, monospace",
+				// "terminal.integrated.fontSize": 14,
+				// "terminal.integrated.fontFamily": "HackGen, 'BIZ UDPGothic', Meiryo, 'Hiragino Kaku Gothic ProN', 'SF Mono', Consolas, monospace",
+				// "workbench.colorTheme": "Default Light+",
+				// "window.zoomLevel": 0,
+
 				// Java settings - override host settings for container
 				"java.jdt.ls.java.home": null,
 				"java.configuration.runtimes": []
@@ -51,30 +59,30 @@
 				"zainchen.json", // Json
 				"oderwat.indent-rainbow", // Indent Rainbow
 				"shardulm94.trailing-spaces", // Trailing Spaces
-				
+
 				// Java
 				"redhat.java", // Language Support for Java(TM) by Red Hat
 				"vscjava.vscode-java-debug", // Debugger for Java
 				"vscjava.vscode-java-test", // Test Runner for Java
 				"vscjava.vscode-maven", // Maven for Java
 				"vscjava.vscode-java-dependency", // Project Manager for Java
-				
+
 				// Python
 				"ms-python.python", // Python
 				"ms-python.debugpy", // Python Debugger
 				"ms-python.pylint", // Pylint
 				"ms-python.flake8", // Flake8
 				"ms-python.black-formatter", // Black Formatter
-				
+
 				// Ruby
 				"shopify.ruby-lsp", // Ruby LSP (Official Ruby language server)
 				"castwide.solargraph", // Ruby Solargraph
 				"koichisasada.vscode-rdbg", // VSCode rdbg Ruby Debugger
-				
+
 				// Elixir
 				"elixir-lsp.elixir-ls", // ElixirLS: Elixir support and debugger
 				"mjmcloug.vscode-elixir", // vscode-elixir
-				
+
 				// General programming support
 				"ms-vscode.vscode-json", // JSON Language Features
 				"ms-vscode.hexeditor", // Hex Editor
