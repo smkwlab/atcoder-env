@@ -92,10 +92,13 @@
 	// Uncomment the next line if you want to keep your containers running after VS Code shuts down.
 	// "shutdownAction": "none",
 
-	// Run commands when the container is created for the first time.
-	// Use onCreateCommand instead of postCreateCommand for better performance
-	// since the initialization only needs to run once.
-	"onCreateCommand": "bin/.postCreateContainer.sh 2>&1 | tee /tmp/postCreateContainer.log"
+	// Run commands after the container is created.
+	// Use postCreateCommand (not onCreateCommand): the setup script and all its
+	// dependencies live on host bind mounts (see docker-compose.yml). onCreateCommand
+	// runs before the workspace/bind mounts are available, so the script would not be
+	// found. postCreateCommand runs after mounts are ready and provides a TTY for the
+	// interactive aclogin prompt.
+	"postCreateCommand": "bin/.postCreateContainer.sh 2>&1 | tee /tmp/postCreateContainer.log"
 
 	// Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "vscode"
