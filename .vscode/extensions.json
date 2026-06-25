@@ -1,5 +1,7 @@
 {
 	"recommendations": [
+		"actboy168.tasks", // ステータスバーからタスクを実行（メニュー的にクリックで実行）
+
 		"vscjava.vscode-java-pack", // Extension Pack for Java (Microsoft)
 
 		"ms-python.python", // Python IntelliSense (Microsoft)

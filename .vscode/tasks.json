@@ -1,34 +1,15 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
-        {
-            "label": "AtCoder: OPEN Task Page",
-            "type": "shell",
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "command": "am web",
-            "problemMatcher": [],
-            "presentation": {
-                "echo": false,
-                "reveal": "never",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            },
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
         {
             "label": "AtCoder: TEST code",
             "type": "shell",
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${fileDirname}",
+                "statusbar": {
+                    "label": "$(beaker) テスト",
+                    "detail": "開いているファイルをテスト (am t)"
+                }
             },
             "command": "am t ${fileExtname}",
             "problemMatcher": [],
@@ -46,30 +27,15 @@
             }
         },
         {
-            "label": "AtCoder: TEST(float) code",
-            "type": "shell",
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "command": "am tf ${fileExtname}",
-            "problemMatcher": [],
-            "presentation": {
-                "echo": false,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            },
-            "group": {
-                "kind": "test"
-              }
-        },
-        {
             "label": "AtCoder: SUBMIT code",
             "type": "shell",
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${fileDirname}",
+                "statusbar": {
+                    "label": "$(cloud-upload) 提出",
+                    "detail": "開いているファイルを提出 (am s)",
+                    "color": "#e2c08d"
+                }
             },
             "command": "am s ${fileBasename}",
             "presentation": {
@@ -83,10 +49,65 @@
             "problemMatcher": []
         },
         {
+            "label": "AtCoder: OPEN Task Page",
+            "type": "shell",
+            "options": {
+                "cwd": "${fileDirname}",
+                "statusbar": {
+                    "label": "$(globe) 問題ページ",
+                    "detail": "問題ページをブラウザで開く (am web)"
+                }
+            },
+            "command": "am web",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": false,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            // 既定ビルドタスク（Ctrl+Shift+B / Cmd+Shift+B）で問題ページを開く、という
+            // 意図的な割り当て（CLAUDE.md に記載の運用）。変更しないこと。
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "AtCoder: TEST(float) code",
+            "type": "shell",
+            "options": {
+                "cwd": "${fileDirname}",
+                "statusbar": {
+                    "label": "$(beaker) テスト(誤差)",
+                    "detail": "浮動小数点誤差を許容してテスト (am tf)"
+                }
+            },
+            "command": "am tf ${fileExtname}",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "group": {
+                "kind": "test"
+            }
+        },
+        {
             "label": "AtCoder: setup NEW contest",
             "type": "shell",
             "options": {
-                "cwd": "${env:CONTEST_DIR}"
+                "cwd": "${env:CONTEST_DIR}",
+                "statusbar": {
+                    "label": "$(new-folder) 新規コンテスト",
+                    "detail": "新しいコンテストをセットアップ (am new)"
+                }
             },
             "command": "am new ${input:contest_id} && am open-first ${input:contest_id}",
             "presentation": {
@@ -100,7 +121,7 @@
             "problemMatcher": []
         }
     ],
-    "inputs":[
+    "inputs": [
         {
             "id": "contest_id",
             "description": "参加するコンテスト名",
