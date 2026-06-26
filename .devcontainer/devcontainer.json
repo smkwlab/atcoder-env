@@ -53,7 +53,7 @@
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
 				// General utilities
-				"sanaajani.taskrunnercode", // Run tasks from Explorer pane
+				"actboy168.tasks", // ステータスバーからタスクを実行（旧 sanaajani.taskrunnercode の後継）
 				"visualstudioexptteam.vscodeintellicode", // AI-assisted development (Microsoft)
 				"yzhang.markdown-all-in-one", // Markdown
 				"zainchen.json", // Json
